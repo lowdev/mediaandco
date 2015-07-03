@@ -6,6 +6,7 @@ import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -15,9 +16,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.List;
@@ -36,8 +40,8 @@ public class MainActivity extends Activity
      */
     private CharSequence mTitle;
 
-    static final List<Integer> TELEVISION_FRANCE = Arrays.asList(
-            R.drawable.tv_france_tf1_2013, R.drawable.tv_france_france2_2013);
+    private static final List<Media> TELEVISION_FRANCE = Arrays.asList(
+            new Media(R.drawable.tv_france_tf1_2013), new Media(R.drawable.tv_france_france2_2013));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +57,22 @@ public class MainActivity extends Activity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
-        GridView mediaGridView = (GridView) findViewById(R.id.mediaGridView);
+        final GridView mediaGridView = (GridView) findViewById(R.id.mediaGridView);
         mediaGridView.setAdapter(new MediaLogoAdapter(this, TELEVISION_FRANCE));
+        mediaGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v,
+                                    int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), MediaActivity.class);
+                Media media = (Media) mediaGridView.getSelectedItem();
+                Bundle bundle = new Bundle();
+                intent.putExtras(bundle);
+                startActivity(intent);
+                        Toast.makeText(
+                                getApplicationContext(),
+                                ((ImageView) v.findViewById(R.id.grid_item_image))
+                                        .toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -86,7 +104,6 @@ public class MainActivity extends Activity
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -155,5 +172,4 @@ public class MainActivity extends Activity
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }
-
 }
