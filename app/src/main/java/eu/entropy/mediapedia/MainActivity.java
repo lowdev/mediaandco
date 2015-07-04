@@ -5,11 +5,8 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,10 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Arrays;
@@ -40,8 +35,8 @@ public class MainActivity extends Activity
      */
     private CharSequence mTitle;
 
-    private static final List<Media> TELEVISION_FRANCE = Arrays.asList(
-            new Media(R.drawable.tv_france_tf1_2013), new Media(R.drawable.tv_france_france2_2013));
+    private static final List<MediaItem> TELEVISION_FRANCE = Arrays.asList(
+            new MediaItem(1, R.drawable.tv_tf1), new MediaItem(2, R.drawable.tv_france2));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,14 +58,8 @@ public class MainActivity extends Activity
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
                 Intent intent = new Intent(getApplicationContext(), MediaActivity.class);
-                Media media = (Media) mediaGridView.getSelectedItem();
-                Bundle bundle = new Bundle();
-                intent.putExtras(bundle);
+                intent.putExtra("mediaId", id);
                 startActivity(intent);
-                        Toast.makeText(
-                                getApplicationContext(),
-                                ((ImageView) v.findViewById(R.id.grid_item_image))
-                                        .toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }

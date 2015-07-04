@@ -1,17 +1,29 @@
 package eu.entropy.mediapedia;
 
+import java.util.List;
+
 /**
- * Created by Lowrey on 7/2/2015.
+ * Created by Lowrey on 7/4/2015.
  */
 public class Media {
+    private int id;
+    private String name;
+    private String owner;
+    private List<String> assets;
 
-    private int drawableId;
-
-    public Media(int drawableId) {
-        drawableId = drawableId;
+    public int getId() {
+        return id;
     }
 
-    public int getDrawableId() {
-        return drawableId;
+    public String getName() {
+        return name;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public List<String> getAssets() {
+        return assets;
     }
 }

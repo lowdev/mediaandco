@@ -11,11 +11,11 @@ import java.util.List;
 
 public class MediaLogoAdapter extends BaseAdapter {
     private Context context;
-    private final List<Media> medias;
+    private final List<MediaItem> mediaItems;
 
-    public MediaLogoAdapter(Context context, List<Media> medias) {
+    public MediaLogoAdapter(Context context, List<MediaItem> mediaItems) {
         this.context = context;
-        this.medias = medias;
+        this.mediaItems = mediaItems;
     }
 
     @Override
@@ -29,23 +29,23 @@ public class MediaLogoAdapter extends BaseAdapter {
 
         View gridView = inflater.inflate(R.layout.logo, null);
         ImageView imageView = (ImageView) gridView.findViewById(R.id.grid_item_image);
-        imageView.setImageResource(medias.get(position).getDrawableId());
+        imageView.setImageResource(mediaItems.get(position).getDrawableId());
 
         return gridView;
     }
 
     @Override
     public int getCount() {
-        return medias.size();
+        return mediaItems.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return mediaItems.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return mediaItems.get(position).getId();
     }
 }

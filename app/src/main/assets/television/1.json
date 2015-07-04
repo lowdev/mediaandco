@@ -1,0 +1,8 @@
+{
+  "id" : "1",
+  "name" : "TF1",
+  "owner" : "Groupe TF1",
+  "assets" : [
+    "asset1", "asset2"
+  ]
+}
