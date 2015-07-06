@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,7 +20,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 
-public class MediaActivity extends Activity {
+public class MediaActivity extends AppCompatActivity {
 
     public static MediaActivity createMediaActivity() {
         return new MediaActivity();
