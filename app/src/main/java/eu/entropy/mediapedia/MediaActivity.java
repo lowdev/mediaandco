@@ -34,10 +34,7 @@ public class MediaActivity extends AppCompatActivity {
         String mediaFileName = getIntent().getLongExtra("mediaId", 0) + ".json";
         InputStream in = createInputStream(mediaFileName);
 
-        Media media = new Media();
-        if (null != in) {
-            media = new GsonBuilder().create().fromJson(createBufferedReader(in), Media.class);
-        }
+        Media media = new GsonBuilder().create().fromJson(createBufferedReader(in), Media.class);
 
         final TextView mediaTextView = (TextView) findViewById(R.id.mediaTextView);
         mediaTextView.setText(media.getName());
@@ -48,8 +45,14 @@ public class MediaActivity extends AppCompatActivity {
             return getAssets().open(mediaFileName);
         } catch (IOException e) {
             Log.e("file", mediaFileName + " file not found", e);
-            return null;
         }
+
+        return new InputStream() {
+            @Override
+            public int read() throws IOException {
+                return 0;
+            }
+        };
     }
 
     private static BufferedReader createBufferedReader(InputStream in) {
