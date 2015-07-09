@@ -21,4 +21,8 @@ public class MediaItem {
     public int getDrawableId() {
         return drawableId;
     }
+
+    public String getText() {
+        return "";
+    }
 }
