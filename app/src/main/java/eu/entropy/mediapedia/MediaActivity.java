@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,14 +32,15 @@ public class MediaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_media);
+        setupToolbar();
 
-        String mediaFileName = getIntent().getLongExtra("mediaId", 0) + ".json";
+        String mediaFileName = getIntent().getIntExtra("mediaId", 0) + ".json";
         InputStream in = createInputStream(mediaFileName);
 
         Media media = new GsonBuilder().create().fromJson(createBufferedReader(in), Media.class);
 
-        final TextView mediaTextView = (TextView) findViewById(R.id.mediaTextView);
-        mediaTextView.setText(media.getName());
+        //final TextView mediaTextView = (TextView) findViewById(R.id.mediaTextView);
+        //mediaTextView.setText(media.getName());
     }
 
     private InputStream createInputStream(String mediaFileName) {
@@ -47,15 +50,30 @@ public class MediaActivity extends AppCompatActivity {
             Log.e("file", mediaFileName + " file not found", e);
         }
 
-        return new InputStream() {
-            @Override
-            public int read() throws IOException {
-                return 0;
-            }
-        };
+        try {
+            return getAssets().open("0.json");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //onBackPressed();
+        return super.onOptionsItemSelected(item);
     }
 
     private static BufferedReader createBufferedReader(InputStream in) {
         return new BufferedReader(new InputStreamReader(in));
+    }
+
+    private void setupToolbar(){
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+        }
+        // Show menu icon
+        final ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
     }
 }

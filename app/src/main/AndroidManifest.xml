@@ -18,7 +18,8 @@
         </activity>
         <activity
             android:name=".MediaActivity"
-            android:label="@string/title_activity_media" >
+            android:label="@string/title_activity_media"
+            android:parentActivityName=".MainActivity">
         </activity>
     </application>
 
