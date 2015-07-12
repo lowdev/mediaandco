@@ -8,12 +8,17 @@ import android.widget.ImageView;
 
 import java.util.List;
 
+import eu.entropy.mediapedia.company.Company;
+import eu.entropy.mediapedia.utils.OnRecyclerViewItemClickListener;
+
 public class MediaLogoAdapter extends RecyclerView.Adapter<MediaLogoAdapter.ViewHolder> implements View.OnClickListener {
 
-    private List<MediaItem> items;
-    private OnRecyclerViewItemClickListener<MediaItem> itemClickListener;
-    public MediaLogoAdapter(List<MediaItem> items) {
-        this.items = items;
+    private List<Company> companies;
+
+    private OnRecyclerViewItemClickListener<Company> itemClickListener;
+    
+    public MediaLogoAdapter(List<Company> companies) {
+        this.companies = companies;
     }
 
     @Override
@@ -25,24 +30,24 @@ public class MediaLogoAdapter extends RecyclerView.Adapter<MediaLogoAdapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        MediaItem item = items.get(position);
-        holder.image.setImageResource(item.getDrawableId());
+        Company company = companies.get(position);
+        holder.image.setImageResource(company.getDrawableIdLogo());
     }
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return companies.size();
     }
 
     @Override
     public void onClick(View view) {
         if (itemClickListener != null) {
-            MediaItem model = (MediaItem) view.getTag();
-            itemClickListener.onItemClick(view, model);
+            Company company = (Company) view.getTag();
+            itemClickListener.onItemClick(view, company);
         }
     }
 
-    public void setOnItemClickListener(OnRecyclerViewItemClickListener<MediaItem> listener) {
+    public void setOnItemClickListener(OnRecyclerViewItemClickListener<Company> listener) {
         this.itemClickListener = listener;
     }
 
@@ -58,8 +63,8 @@ public class MediaLogoAdapter extends RecyclerView.Adapter<MediaLogoAdapter.View
         @Override
         public void onClick(View v) {
             if (itemClickListener != null) {
-                MediaItem mediaItem = items.get(getPosition());
-                itemClickListener.onItemClick(v, mediaItem);
+                Company company = companies.get(getPosition());
+                itemClickListener.onItemClick(v, company);
             }
         }
     }

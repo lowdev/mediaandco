@@ -1,0 +1,11 @@
+{
+  "id" : "france2",
+  "name" : "France 2",
+  "logo" : "tv_france2",
+  "owners" :  [
+    "France Télévision"
+  ],
+  "assets" : [
+    "asset1"
+  ]
+}

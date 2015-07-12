@@ -1,6 +1,7 @@
 {
-  "id" : "1",
+  "id" : "tf1",
   "name" : "TF1",
+  "logo" : "tv_tf1",
   "owners" :  [
     "Groupe TF1",
     "Vivendi"

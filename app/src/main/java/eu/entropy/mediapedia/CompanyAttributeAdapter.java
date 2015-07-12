@@ -8,10 +8,10 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class MediaAttributeAdapter extends RecyclerView.Adapter<MediaAttributeAdapter.ViewHolder> {
+public class CompanyAttributeAdapter extends RecyclerView.Adapter<CompanyAttributeAdapter.ViewHolder> implements View.OnClickListener {
     private List<String> mediaAttributes;
 
-    public MediaAttributeAdapter(List<String> mediaAttributes) {
+    public CompanyAttributeAdapter(List<String> mediaAttributes) {
         this.mediaAttributes = mediaAttributes;
     }
 
@@ -22,7 +22,7 @@ public class MediaAttributeAdapter extends RecyclerView.Adapter<MediaAttributeAd
     }
 
     @Override
-    public void onBindViewHolder(MediaAttributeAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(CompanyAttributeAdapter.ViewHolder holder, int position) {
         String mediaAttribute = mediaAttributes.get(position);
         holder.mediaAttribute.setText(mediaAttribute);
     }
@@ -30,6 +30,11 @@ public class MediaAttributeAdapter extends RecyclerView.Adapter<MediaAttributeAd
     @Override
     public int getItemCount() {
         return mediaAttributes.size();
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

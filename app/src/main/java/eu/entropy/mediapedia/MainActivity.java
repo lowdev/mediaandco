@@ -8,14 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import java.util.Arrays;
-import java.util.List;
-
+import eu.entropy.mediapedia.company.Company;
+import eu.entropy.mediapedia.company.CompanyRepository;
+import eu.entropy.mediapedia.utils.OnRecyclerViewItemClickListener;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final List<MediaItem> TELEVISION_FRANCE = Arrays.asList(
-            new MediaItem(1, R.drawable.tv_tf1), new MediaItem(2, R.drawable.tv_france2));
+    private CompanyRepository companyRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,15 +23,17 @@ public class MainActivity extends AppCompatActivity {
 
         setupToolbar();
 
+        companyRepository = new CompanyRepository(getAssets(), getResources(), getPackageName());
+
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
 
-        MediaLogoAdapter mediaLogoAdapter = new MediaLogoAdapter(TELEVISION_FRANCE);
-        mediaLogoAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener<MediaItem>() {
-            public void onItemClick(View view, MediaItem mediaItem) {
-                Intent intent = new Intent(getApplicationContext(), MediaActivity.class);
-                intent.putExtra("mediaId", mediaItem.getId());
+        MediaLogoAdapter mediaLogoAdapter = new MediaLogoAdapter(companyRepository.findAllMedia());
+        mediaLogoAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener<Company>() {
+            public void onItemClick(View view, Company company) {
+                Intent intent = new Intent(getApplicationContext(), CompanyActivity.class);
+                intent.putExtra("mediaId", company.getId());
                 startActivity(intent);
             }
         });

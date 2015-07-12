@@ -1,4 +1,4 @@
-package eu.entropy.mediapedia;
+package eu.entropy.mediapedia.utils;
 
 import android.view.View;
 
