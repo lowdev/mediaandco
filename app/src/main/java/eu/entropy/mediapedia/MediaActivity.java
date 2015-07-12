@@ -40,7 +40,7 @@ public class MediaActivity extends AppCompatActivity {
     private void setupRecyclerView(List<String> mediaAttributes, int recyclerViewId) {
         RecyclerView recyclerView = (RecyclerView) findViewById(recyclerViewId);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(recyclerView, LinearLayoutManager.VERTICAL, false);
-        layoutManager.setOverScrollMode(ViewCompat.OVER_SCROLL_IF_CONTENT_SCROLLS);
+        layoutManager.setOverScrollMode(ViewCompat.OVER_SCROLL_NEVER);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, null));
 

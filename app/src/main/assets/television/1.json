@@ -2,9 +2,10 @@
   "id" : "1",
   "name" : "TF1",
   "owners" :  [
-    "Groupe TF1"
+    "Groupe TF1",
+    "Vivendi"
   ],
   "assets" : [
-    "asset1", "asset2"
+    "asset1", "asset2", "assets3", "asset4", "asset5"
   ]
 }
