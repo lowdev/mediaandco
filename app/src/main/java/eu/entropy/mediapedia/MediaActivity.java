@@ -1,46 +1,51 @@
 package eu.entropy.mediapedia;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.GridView;
-import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import org.solovyev.android.views.llm.DividerItemDecoration;
+import org.solovyev.android.views.llm.LinearLayoutManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 
 
 public class MediaActivity extends AppCompatActivity {
-
-    public static MediaActivity createMediaActivity() {
-        return new MediaActivity();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_media);
-        setupToolbar();
 
         String mediaFileName = getIntent().getIntExtra("mediaId", 0) + ".json";
         InputStream in = createInputStream(mediaFileName);
-
         Media media = new GsonBuilder().create().fromJson(createBufferedReader(in), Media.class);
 
-        //final TextView mediaTextView = (TextView) findViewById(R.id.mediaTextView);
-        //mediaTextView.setText(media.getName());
+        setupToolbar(media.getName());
+        setupRecyclerView(media.getOwners(), R.id.owners);
+        setupRecyclerView(media.getAssets(), R.id.assets);
+    }
+
+    private void setupRecyclerView(List<String> mediaAttributes, int recyclerViewId) {
+        RecyclerView recyclerView = (RecyclerView) findViewById(recyclerViewId);
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(recyclerView, LinearLayoutManager.VERTICAL, false);
+        layoutManager.setOverScrollMode(ViewCompat.OVER_SCROLL_IF_CONTENT_SCROLLS);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, null));
+
+        MediaAttributeAdapter mediaAttributeAdapter = new MediaAttributeAdapter(mediaAttributes);
+        recyclerView.setAdapter(mediaAttributeAdapter);
     }
 
     private InputStream createInputStream(String mediaFileName) {
@@ -67,7 +72,7 @@ public class MediaActivity extends AppCompatActivity {
         return new BufferedReader(new InputStreamReader(in));
     }
 
-    private void setupToolbar(){
+    private void setupToolbar(String title){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
@@ -75,5 +80,6 @@ public class MediaActivity extends AppCompatActivity {
         // Show menu icon
         final ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
+        ab.setTitle(title);
     }
 }

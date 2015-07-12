@@ -6,10 +6,11 @@ import java.util.List;
 public class Media {
     private int id;
     private String name;
-    private String owner;
+    private List<String> owners;
     private List<String> assets;
 
     public Media() {
+        owners = new ArrayList<>();
         assets = new ArrayList<>();
     }
 
@@ -21,8 +22,8 @@ public class Media {
         return name;
     }
 
-    public String getOwner() {
-        return owner;
+    public List<String> getOwners() {
+        return owners;
     }
 
     public List<String> getAssets() {
