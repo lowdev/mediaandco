@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -88,6 +89,15 @@ public class CompanyRepository {
     }
 
     private static BufferedReader createBufferedReader(InputStream in) {
-        return new BufferedReader(new InputStreamReader(in));
+        return new BufferedReader(createInputStreamReader(in), 8000);
+    }
+
+    private static InputStreamReader createInputStreamReader(InputStream in) {
+        try {
+            return new InputStreamReader(in, "ISO-8859-1");
+        } catch (UnsupportedEncodingException e) {
+            Log.e("mediapedia","Wronrg encoding", e);
+            return new InputStreamReader(in);
+        }
     }
 }

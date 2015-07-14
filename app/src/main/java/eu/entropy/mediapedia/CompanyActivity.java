@@ -68,30 +68,31 @@ public class CompanyActivity extends AppCompatActivity {
 
         for (Company company : companies) {
             final View itemView = getLayoutInflater().inflate(R.layout.media_attribute, null);
-            itemView.setTag(company);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Company company = (Company) v.getTag();
-                    if (!company.hasInformation()) {
-                        return;
-                    }
-
-                    Intent intent = new Intent(getApplicationContext(), CompanyActivity.class);
-                    intent.putExtra("company", company);
-                    startActivity(intent);
-                }
-            });
+            ImageView imageView = (ImageView) itemView.findViewById(R.id.company_logo);
+            Picasso.with(getApplicationContext())
+                    .load(company.getLogoDrawableId())
+                    .fit()
+                    .centerInside()
+                    .placeholder(R.drawable.progress_animation)
+                    .into(imageView);
 
             TextView textView = (TextView) itemView.findViewById(R.id.company_name);
             textView.setText(company.getName());
 
-            ImageView imageView = (ImageView) itemView.findViewById(R.id.company_logo);
-            Picasso.with(getApplicationContext())
-                    .load(company.getLogoDrawableId())
-                    .error(R.drawable.android_logo)
-                    .fit().centerInside()
-                    .into(imageView);
+            itemView.setTag(company);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                Company company = (Company) v.getTag();
+                if (!company.hasInformation()) {
+                    return;
+                }
+
+                Intent intent = new Intent(getApplicationContext(), CompanyActivity.class);
+                intent.putExtra("company", company);
+                startActivity(intent);
+                }
+            });
 
             linearLayout.addView(itemView);
         }
