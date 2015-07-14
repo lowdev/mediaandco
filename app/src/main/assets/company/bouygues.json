@@ -1,0 +1,15 @@
+{
+  "id" : "bouygues.json",
+  "name" : "Bouygues",
+  "owners" :  [
+    "groupe_scdm.json"
+  ],
+  "assets" : [
+    "groupe_tf1.json",
+    "bouygues_construction.json",
+    "bouygues_immobilier.json",
+    "colas.json",
+    "bouygues_telecom.json",
+    "alstom.json"
+  ]
+}

@@ -1,11 +1,5 @@
 {
-  "id" : "france2",
+  "id" : "france2.json",
   "name" : "France 2",
-  "logo" : "tv_france2",
-  "owners" :  [
-    "France Télévision"
-  ],
-  "assets" : [
-    "asset1"
-  ]
+  "logo" : "tv_france2"
 }

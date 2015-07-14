@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         mediaLogoAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener<Company>() {
             public void onItemClick(View view, Company company) {
                 Intent intent = new Intent(getApplicationContext(), CompanyActivity.class);
-                intent.putExtra("mediaId", company.getId());
+                intent.putExtra("company", company);
                 startActivity(intent);
             }
         });

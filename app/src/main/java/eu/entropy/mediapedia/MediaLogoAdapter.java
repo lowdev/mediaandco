@@ -14,9 +14,8 @@ import eu.entropy.mediapedia.utils.OnRecyclerViewItemClickListener;
 public class MediaLogoAdapter extends RecyclerView.Adapter<MediaLogoAdapter.ViewHolder> implements View.OnClickListener {
 
     private List<Company> companies;
-
     private OnRecyclerViewItemClickListener<Company> itemClickListener;
-    
+
     public MediaLogoAdapter(List<Company> companies) {
         this.companies = companies;
     }
@@ -24,7 +23,6 @@ public class MediaLogoAdapter extends RecyclerView.Adapter<MediaLogoAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.media_logo_thumbnail, parent, false);
-        v.setOnClickListener(this);
         return new ViewHolder(v);
     }
 

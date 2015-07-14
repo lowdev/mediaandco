@@ -8,11 +8,19 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class CompanyAttributeAdapter extends RecyclerView.Adapter<CompanyAttributeAdapter.ViewHolder> implements View.OnClickListener {
-    private List<String> mediaAttributes;
+import eu.entropy.mediapedia.company.Company;
+import eu.entropy.mediapedia.utils.OnRecyclerViewItemClickListener;
 
-    public CompanyAttributeAdapter(List<String> mediaAttributes) {
-        this.mediaAttributes = mediaAttributes;
+public class CompanyAttributeAdapter extends RecyclerView.Adapter<CompanyAttributeAdapter.ViewHolder> implements View.OnClickListener {
+
+    private List<Company> companies;
+    private OnRecyclerViewItemClickListener<Company> itemClickListener;
+
+    public CompanyAttributeAdapter(List<Company> companies) {
+        this.companies = companies;
+        this.itemClickListener = new OnRecyclerViewItemClickListener<Company>() {
+            @Override public void onItemClick(View view, Company company) {}
+        };
     }
 
     @Override
@@ -23,26 +31,40 @@ public class CompanyAttributeAdapter extends RecyclerView.Adapter<CompanyAttribu
 
     @Override
     public void onBindViewHolder(CompanyAttributeAdapter.ViewHolder holder, int position) {
-        String mediaAttribute = mediaAttributes.get(position);
-        holder.mediaAttribute.setText(mediaAttribute);
+        Company company = companies.get(position);
+        holder.mediaAttribute.setText(company.getName());
     }
 
     @Override
     public int getItemCount() {
-        return mediaAttributes.size();
+        return companies.size();
     }
 
     @Override
     public void onClick(View v) {
-
+        Company company = (Company) v.getTag();
+        itemClickListener.onItemClick(v, company);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public void setOnItemClickListener(OnRecyclerViewItemClickListener<Company> listener) {
+        this.itemClickListener = listener;
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView mediaAttribute;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mediaAttribute = (TextView) itemView.findViewById(R.id.attribute);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (itemClickListener != null) {
+                Company company = companies.get(getPosition());
+                itemClickListener.onItemClick(v, company);
+            }
         }
     }
 }

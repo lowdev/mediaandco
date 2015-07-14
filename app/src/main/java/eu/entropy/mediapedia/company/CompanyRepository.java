@@ -11,11 +11,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CompanyRepository {
 
     public static final String TELEVISION = "television";
+    public static final String COMPANY = "company";
 
     private AssetManager assetManager;
     private Resources resources;
@@ -28,20 +30,28 @@ public class CompanyRepository {
     }
 
     public List<Company> findAllMedia() {
-        List<Company> companies = new ArrayList<>();
-        for (String assetName : getAssetsName(TELEVISION)) {
-            companies.add(findById(assetName));
-        }
-
-        return companies;
+        return findByIds(Arrays.asList(getAssetsName(TELEVISION)), TELEVISION);
     }
 
-    public Company findById(String assetName) {
-        InputStream in = createInputStream(TELEVISION + "/" + assetName);
+    public List<Company> findCompanyByIds(List<String> ids) {
+        return findByIds(ids, COMPANY);
+    }
+
+    private Company findById(String assetName, String type) {
+        InputStream in = createInputStream(type + "/" + assetName);
         Company company = new GsonBuilder().create().fromJson(createBufferedReader(in), Company.class);
         company.setDrawableIdLogo(resources.getIdentifier(company.getLogo(), "drawable", packageName));
 
         return company;
+    }
+
+    private List<Company> findByIds(List<String> ids, String type) {
+        List<Company> companies = new ArrayList<>();
+        for (String id : ids) {
+            companies.add(findById(id, type));
+        }
+
+        return companies;
     }
 
     private String[] getAssetsName(String television) {

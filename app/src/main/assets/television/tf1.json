@@ -1,12 +1,8 @@
 {
-  "id" : "tf1",
+  "id" : "tf1.json",
   "name" : "TF1",
   "logo" : "tv_tf1",
   "owners" :  [
-    "Groupe TF1",
-    "Vivendi"
-  ],
-  "assets" : [
-    "asset1", "asset2", "assets3", "asset4", "asset5"
+    "groupe_tf1.json"
   ]
 }
