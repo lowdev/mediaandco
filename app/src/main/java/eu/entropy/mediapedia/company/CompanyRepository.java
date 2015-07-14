@@ -14,10 +14,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import eu.entropy.mediapedia.R;
+
 public class CompanyRepository {
 
-    public static final String TELEVISION = "television";
-    public static final String COMPANY = "company";
+    public static final String MEDIA = "media";
+    public static final String FOLDER = "company";
 
     private AssetManager assetManager;
     private Resources resources;
@@ -30,25 +32,33 @@ public class CompanyRepository {
     }
 
     public List<Company> findAllMedia() {
-        return findByIds(Arrays.asList(getAssetsName(TELEVISION)), TELEVISION);
+        List<String> mediaJsonFiles = new ArrayList<>();
+        for (String mediaJsonFile : Arrays.asList(getAssetsName(FOLDER))) {
+            if (mediaJsonFile.startsWith(MEDIA)) {
+                mediaJsonFiles.add(mediaJsonFile);
+            }
+        }
+
+        return findByIds(mediaJsonFiles);
     }
 
-    public List<Company> findCompanyByIds(List<String> ids) {
-        return findByIds(ids, COMPANY);
-    }
-
-    private Company findById(String assetName, String type) {
-        InputStream in = createInputStream(type + "/" + assetName);
+    private Company findById(String assetName) {
+        InputStream in = createInputStream(FOLDER + "/" + assetName);
         Company company = new GsonBuilder().create().fromJson(createBufferedReader(in), Company.class);
-        company.setDrawableIdLogo(resources.getIdentifier(company.getLogo(), "drawable", packageName));
+
+        int logoDrawableId = resources.getIdentifier(company.getLogo(), "drawable", packageName);
+        if (logoDrawableId == 0) {
+            logoDrawableId = R.drawable.android_logo;
+        }
+        company.setLogoDrawableId(logoDrawableId);
 
         return company;
     }
 
-    private List<Company> findByIds(List<String> ids, String type) {
+    public List<Company> findByIds(List<String> ids) {
         List<Company> companies = new ArrayList<>();
         for (String id : ids) {
-            companies.add(findById(id, type));
+            companies.add(findById(id));
         }
 
         return companies;

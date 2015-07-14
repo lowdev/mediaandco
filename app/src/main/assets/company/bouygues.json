@@ -1,6 +1,7 @@
 {
   "id" : "bouygues.json",
   "name" : "Bouygues",
+  "logo" : "company_bouygues",
   "owners" :  [
     "groupe_scdm.json"
   ],

@@ -1,4 +1,5 @@
 {
   "id" : "alstom.json",
-  "name" : "Alstom"
+  "name" : "Alstom",
+  "logo" : "company_alstom"
 }

@@ -7,20 +7,17 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.GridView;
-import android.widget.ListAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import org.solovyev.android.views.llm.DividerItemDecoration;
 import org.solovyev.android.views.llm.LinearLayoutManager;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.List;
 
 import eu.entropy.mediapedia.company.Company;
@@ -41,8 +38,8 @@ public class CompanyActivity extends AppCompatActivity {
         setupToolbar(company.getName());
 
         companyRepository = new CompanyRepository(getAssets(), getResources(), getPackageName());
-        setupRecyclerView(companyRepository.findCompanyByIds(company.getOwners()), R.id.owners);
-        setupRecyclerView(companyRepository.findCompanyByIds(company.getAssets()), R.id.assets);
+        setupListView(R.id.owners, companyRepository.findByIds(company.getOwners()));
+        setupListView(R.id.assets, companyRepository.findByIds(company.getAssets()));
     }
 
     @Override
@@ -60,6 +57,44 @@ public class CompanyActivity extends AppCompatActivity {
         final ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setTitle(title);
+    }
+
+    private void setupListView(int viewId, List<Company> companies) {
+        LinearLayout linearLayout = (LinearLayout) findViewById(viewId);
+
+        if (companies.isEmpty()) {
+            linearLayout.setVisibility(LinearLayout.GONE);
+        }
+
+        for (Company company : companies) {
+            final View itemView = getLayoutInflater().inflate(R.layout.media_attribute, null);
+            itemView.setTag(company);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Company company = (Company) v.getTag();
+                    if (!company.hasInformation()) {
+                        return;
+                    }
+
+                    Intent intent = new Intent(getApplicationContext(), CompanyActivity.class);
+                    intent.putExtra("company", company);
+                    startActivity(intent);
+                }
+            });
+
+            TextView textView = (TextView) itemView.findViewById(R.id.company_name);
+            textView.setText(company.getName());
+
+            ImageView imageView = (ImageView) itemView.findViewById(R.id.company_logo);
+            Picasso.with(getApplicationContext())
+                    .load(company.getLogoDrawableId())
+                    .error(R.drawable.android_logo)
+                    .fit().centerInside()
+                    .into(imageView);
+
+            linearLayout.addView(itemView);
+        }
     }
 
     private void setupRecyclerView(List<Company> companies, int recyclerViewId) {

@@ -10,7 +10,7 @@ public class Company implements Parcelable {
     private String id;
     private String name;
     private String logo;
-    private int drawableIdLogo;
+    private int logoDrawableId;
     private List<String> owners;
     private List<String> assets;
 
@@ -30,8 +30,8 @@ public class Company implements Parcelable {
         return logo;
     }
 
-    public int getDrawableIdLogo() {
-        return drawableIdLogo;
+    public int getLogoDrawableId() {
+        return logoDrawableId;
     }
 
     public List<String> getOwners() {
@@ -42,8 +42,8 @@ public class Company implements Parcelable {
         return assets;
     }
 
-    public void setDrawableIdLogo(int drawableIdLogo) {
-        this.drawableIdLogo = drawableIdLogo;
+    public void setLogoDrawableId(int logoDrawableId) {
+        this.logoDrawableId = logoDrawableId;
     }
 
     public boolean hasInformation() {
@@ -60,7 +60,7 @@ public class Company implements Parcelable {
         dest.writeString(id);
         dest.writeString(name);
         dest.writeString(logo);
-        dest.writeInt(drawableIdLogo);
+        dest.writeInt(logoDrawableId);
         dest.writeStringList(owners);
         dest.writeStringList(assets);
 
@@ -82,7 +82,7 @@ public class Company implements Parcelable {
         id = in.readString();
         name = in.readString();;
         logo = in.readString();
-        drawableIdLogo = in.readInt();
+        logoDrawableId = in.readInt();
 
         owners = new ArrayList<>();
         in.readStringList(owners);

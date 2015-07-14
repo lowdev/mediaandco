@@ -1,4 +1,5 @@
 {
   "id" : "salaries.json",
-  "name" : "Salariés"
+  "name" : "Salariés",
+  "logo" : "company_salaries"
 }

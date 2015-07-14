@@ -29,7 +29,7 @@ public class MediaLogoAdapter extends RecyclerView.Adapter<MediaLogoAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Company company = companies.get(position);
-        holder.image.setImageResource(company.getDrawableIdLogo());
+        holder.image.setImageResource(company.getLogoDrawableId());
     }
 
     @Override

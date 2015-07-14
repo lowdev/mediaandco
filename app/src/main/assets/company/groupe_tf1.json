@@ -1,6 +1,7 @@
 {
   "id" : "groupe_tf1.json",
   "name" : "Groupe TF1",
+  "logo" : "company_groupe_tf1",
   "owners" :  [
     "bouygues.json",
     "salaries.json",
@@ -8,7 +9,7 @@
     "first_eagle_investment_management.json"
   ],
   "assets" : [
-    "tf1.json",
+    "media_tf1.json",
     "hd1.json",
     "lci.json",
     "nt1.json",

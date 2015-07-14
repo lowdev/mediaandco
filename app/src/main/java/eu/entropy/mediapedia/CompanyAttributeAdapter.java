@@ -55,7 +55,7 @@ public class CompanyAttributeAdapter extends RecyclerView.Adapter<CompanyAttribu
 
         public ViewHolder(View itemView) {
             super(itemView);
-            mediaAttribute = (TextView) itemView.findViewById(R.id.attribute);
+            mediaAttribute = (TextView) itemView.findViewById(R.id.company_name);
             itemView.setOnClickListener(this);
         }
 
