@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -11,12 +12,12 @@ import java.util.List;
 import eu.entropy.mediapedia.company.Company;
 import eu.entropy.mediapedia.utils.OnRecyclerViewItemClickListener;
 
-public class CompanyAttributeAdapter extends RecyclerView.Adapter<CompanyAttributeAdapter.ViewHolder> implements View.OnClickListener {
+public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHolder> implements View.OnClickListener {
 
     private List<Company> companies;
     private OnRecyclerViewItemClickListener<Company> itemClickListener;
 
-    public CompanyAttributeAdapter(List<Company> companies) {
+    public CompanyAdapter(List<Company> companies) {
         this.companies = companies;
         this.itemClickListener = new OnRecyclerViewItemClickListener<Company>() {
             @Override public void onItemClick(View view, Company company) {}
@@ -30,9 +31,10 @@ public class CompanyAttributeAdapter extends RecyclerView.Adapter<CompanyAttribu
     }
 
     @Override
-    public void onBindViewHolder(CompanyAttributeAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(CompanyAdapter.ViewHolder holder, int position) {
         Company company = companies.get(position);
-        holder.mediaAttribute.setText(company.getName());
+        holder.companyName.setText(company.getName());
+        holder.companyLogo.setImageResource(company.getLogoDrawableId());
     }
 
     @Override
@@ -51,11 +53,13 @@ public class CompanyAttributeAdapter extends RecyclerView.Adapter<CompanyAttribu
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView mediaAttribute;
+        public ImageView companyLogo;
+        public TextView companyName;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            mediaAttribute = (TextView) itemView.findViewById(R.id.company_name);
+            companyName = (TextView) itemView.findViewById(R.id.company_name);
+            companyLogo = (ImageView) itemView.findViewById(R.id.company_logo);
             itemView.setOnClickListener(this);
         }
 
