@@ -27,6 +27,7 @@
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/tabLayout"
+                style="@style/AppBaseTheme"
                 android:scrollbars="horizontal"
                 android:layout_below="@+id/toolbar"
                 android:layout_width="match_parent"

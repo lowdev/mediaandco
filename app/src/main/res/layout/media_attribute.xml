@@ -20,7 +20,7 @@
         android:id="@+id/company_name"
         android:layout_toRightOf="@+id/company_logo"
         android:layout_alignParentTop="true"
-        android:textSize="30sp"
+        android:textSize="23sp"
         android:textColor="@color/material_blue_grey_800"
         />
 
