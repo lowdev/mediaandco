@@ -14,8 +14,6 @@ import eu.entropy.mediapedia.utils.OnRecyclerViewItemClickListener;
 
 public class MainActivity extends AppCompatActivity {
 
-    private CompanyRepository companyRepository;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
         setupToolbar();
 
-        companyRepository = new CompanyRepository(getAssets(), getResources(), getPackageName());
+        CompanyRepository companyRepository = new CompanyRepository(getAssets(), getResources(), getPackageName());
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);

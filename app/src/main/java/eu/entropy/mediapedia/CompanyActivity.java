@@ -10,18 +10,15 @@ import android.view.MenuItem;
 import eu.entropy.mediapedia.company.Company;
 import eu.entropy.mediapedia.company.CompanyRepository;
 
-
 public class CompanyActivity extends AppCompatActivity {
-
-    private CompanyRepository companyRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_company);
-        companyRepository = new CompanyRepository(getAssets(), getResources(), getPackageName());
+        CompanyRepository companyRepository = new CompanyRepository(getAssets(), getResources(), getPackageName());
 
-        Company company = (Company) getIntent().getParcelableExtra("company");
+        Company company = getIntent().getParcelableExtra("company");
         setupToolbar(company.getName());
         setupTablayout();
 
@@ -29,8 +26,8 @@ public class CompanyActivity extends AppCompatActivity {
         viewPager.setAdapter(new CompanyFragmentPagerAdapter(
                 getSupportFragmentManager(),
                 CompanyActivity.this,
-                companyRepository.findByIds(company.getOwners()),
-                companyRepository.findByIds(company.getAssets())));
+                companyRepository.findByIds(company.getOwnerIds()),
+                companyRepository.findByIds(company.getAssetIds())));
 
         // Give the TabLayout the ViewPager
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
@@ -50,8 +47,10 @@ public class CompanyActivity extends AppCompatActivity {
         }
         // Show menu icon
         final ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
-        ab.setTitle(title);
+        if (ab != null) {
+            ab.setDisplayHomeAsUpEnabled(true);
+            ab.setTitle(title);
+        }
     }
 
     private void setupTablayout() {

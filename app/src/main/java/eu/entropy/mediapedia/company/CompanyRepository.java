@@ -34,7 +34,7 @@ public class CompanyRepository {
 
     public List<Company> findAllMedia() {
         List<String> mediaJsonFiles = new ArrayList<>();
-        for (String mediaJsonFile : Arrays.asList(getAssetsName(FOLDER))) {
+        for (String mediaJsonFile : Arrays.asList(getAssetsByFolder(FOLDER))) {
             if (mediaJsonFile.startsWith(MEDIA)) {
                 mediaJsonFiles.add(mediaJsonFile);
             }
@@ -43,8 +43,8 @@ public class CompanyRepository {
         return findByIds(mediaJsonFiles);
     }
 
-    private Company findById(String assetName) {
-        InputStream in = createInputStream(FOLDER + "/" + assetName);
+    private Company findById(String companyId) {
+        InputStream in = createInputStream(FOLDER + "/" + companyId);
         Company company = new GsonBuilder().create().fromJson(createBufferedReader(in), Company.class);
 
         int logoDrawableId = resources.getIdentifier(company.getLogo(), "drawable", packageName);
@@ -65,11 +65,11 @@ public class CompanyRepository {
         return companies;
     }
 
-    private String[] getAssetsName(String television) {
+    private String[] getAssetsByFolder(String folder) {
         try {
-            return assetManager.list(television);
+            return assetManager.list(folder);
         } catch (IOException e) {
-            Log.e("mediapedia", television + " folder not found", e);
+            Log.e("mediapedia", folder + " folder not found", e);
             return new String[]{};
         }
     }

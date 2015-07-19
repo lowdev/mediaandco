@@ -69,7 +69,6 @@ public class CompanyFragmentPagerAdapter extends FragmentPagerAdapter {
         }
 
         public void build() {
-
         }
     };
 }
