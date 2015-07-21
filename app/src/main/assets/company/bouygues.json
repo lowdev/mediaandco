@@ -2,15 +2,15 @@
   "id" : "bouygues.json",
   "name" : "Bouygues",
   "logo" : "company_bouygues",
-  "owners" :  [
-    "groupe_scdm.json"
-  ],
-  "assets" : [
-    "groupe_tf1.json",
-    "bouygues_construction.json",
-    "bouygues_immobilier.json",
-    "colas.json",
-    "bouygues_telecom.json",
-    "alstom.json"
-  ]
+  "owners" :  {
+    "groupe_scdm.json" : 100
+  },
+  "assets" : {
+    "groupe_tf1.json" : 100,
+    "bouygues_construction.json" : 100,
+    "bouygues_immobilier.json" : 100,
+    "colas.json" : 100,
+    "bouygues_telecom.json" : 100,
+    "alstom.json" : 50
+  }
 }

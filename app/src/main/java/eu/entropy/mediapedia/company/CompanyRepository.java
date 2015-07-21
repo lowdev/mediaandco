@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.util.Log;
 
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -43,9 +44,16 @@ public class CompanyRepository {
         return findByIds(mediaJsonFiles);
     }
 
-    private Company findById(String companyId) {
+    public Company findById(String companyId) {
         InputStream in = createInputStream(FOLDER + "/" + companyId);
-        Company company = new GsonBuilder().create().fromJson(createBufferedReader(in), Company.class);
+
+        Company company = null;
+        try {
+            company = new GsonBuilder().create().fromJson(createBufferedReader(in), Company.class);
+        } catch (JsonSyntaxException e) {
+            Log.e("mediapedia", "Can't read " + companyId, e);
+            throw e;
+        }
 
         int logoDrawableId = resources.getIdentifier(company.getLogo(), "drawable", packageName);
         if (logoDrawableId == 0) {

@@ -12,17 +12,17 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import eu.entropy.mediapedia.company.Company;
+import eu.entropy.mediapedia.company.Stakeholder;
 import eu.entropy.mediapedia.utils.OnRecyclerViewItemClickListener;
 
 public class CompaniesFragment extends Fragment {
     public static final String ARG_PAGE = "companies";
 
-    private List<Company> companies;
+    private List<Stakeholder> companies;
 
-    public static CompaniesFragment newInstance(List<Company> companies) {
+    public static CompaniesFragment newInstance(List<Stakeholder> companies) {
         Bundle args = new Bundle();
-        args.putParcelableArrayList(ARG_PAGE, (ArrayList<Company>) companies);
+        args.putParcelableArrayList(ARG_PAGE, (ArrayList<Stakeholder>) companies);
         CompaniesFragment fragment = new CompaniesFragment();
         fragment.setArguments(args);
 
@@ -43,14 +43,14 @@ public class CompaniesFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         CompanyAdapter companyAdapter = new CompanyAdapter(companies);
-        companyAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener<Company>() {
-            public void onItemClick(View view, Company company) {
-                if (!company.hasInformation()) {
+        companyAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener<Stakeholder>() {
+            public void onItemClick(View view, Stakeholder stakeholder) {
+                if (!stakeholder.hasInformation()) {
                     return;
                 }
 
                 Intent intent = new Intent(getActivity().getApplicationContext(), CompanyActivity.class);
-                intent.putExtra("company", company);
+                intent.putExtra("company", stakeholder.getCompany());
                 startActivity(intent);
             }
         });

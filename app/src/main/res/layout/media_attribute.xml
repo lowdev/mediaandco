@@ -27,9 +27,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/person_age"
+        android:id="@+id/stake"
         android:layout_toRightOf="@+id/company_logo"
         android:layout_below="@+id/company_name"
+        android:textSize="5sp"
         android:textColor="@color/material_blue_grey_800"
         />
 

@@ -3,21 +3,21 @@ package eu.entropy.mediapedia.company;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Company implements Parcelable {
     private String id;
     private String name;
     private String logo;
     private int logoDrawableId;
-    private List<String> owners;
-    private List<String> assets;
+    private Map<String, Double> owners;
+    private Map<String, Double>  assets;
 
     public Company() {
         logo = "";
-        owners = new ArrayList<>();
-        assets = new ArrayList<>();
+        owners = new HashMap<>();
+        assets = new HashMap<>();
     }
 
     public String getId() {  return id; }
@@ -34,11 +34,11 @@ public class Company implements Parcelable {
         return logoDrawableId;
     }
 
-    public List<String> getOwners() {
+    public Map<String, Double> getOwners() {
         return owners;
     }
 
-    public List<String> getAssets() {
+    public Map<String, Double> getAssets() {
         return assets;
     }
 
@@ -61,9 +61,8 @@ public class Company implements Parcelable {
         dest.writeString(name);
         dest.writeString(logo);
         dest.writeInt(logoDrawableId);
-        dest.writeStringList(owners);
-        dest.writeStringList(assets);
-
+        dest.writeMap(owners);
+        dest.writeMap(assets);
     }
 
     // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
@@ -78,16 +77,12 @@ public class Company implements Parcelable {
     };
 
     // example constructor that takes a Parcel and gives you an object populated with it's values
-    private Company(Parcel in) {
+    protected Company(Parcel in) {
         id = in.readString();
         name = in.readString();;
         logo = in.readString();
         logoDrawableId = in.readInt();
-
-        owners = new ArrayList<>();
-        in.readStringList(owners);
-
-        assets = new ArrayList<>();
-        in.readStringList(assets);
+        owners = in.readHashMap(Double.class.getClassLoader());
+        assets = in.readHashMap(Double.class.getClassLoader());
     }
 }

@@ -2,19 +2,19 @@
   "id" : "groupe_tf1.json",
   "name" : "Groupe TF1",
   "logo" : "company_groupe_tf1",
-  "owners" :  [
-    "bouygues.json",
-    "salaries.json",
-    "artisan_partners_limited_partnership.json",
-    "first_eagle_investment_management.json"
-  ],
-  "assets" : [
-    "media_tf1.json",
-    "hd1.json",
-    "lci.json",
-    "nt1.json",
-    "tmc.json",
-    "eurosport_france.json",
-    "eurosport_2_france.json"
-  ]
+  "owners" :  {
+    "bouygues.json" : 40,
+    "salaries.json" : 20,
+    "artisan_partners_limited_partnership.json" : 10,
+    "first_eagle_investment_management.json" : 10
+  },
+  "assets" : {
+    "media_tf1.json" : 100,
+    "hd1.json" : 100,
+    "lci.json" : 100,
+    "nt1.json" : 100,
+    "tmc.json" : 100,
+    "eurosport_france.json" : 100,
+    "eurosport_2_france.json" : 100
+  }
 }

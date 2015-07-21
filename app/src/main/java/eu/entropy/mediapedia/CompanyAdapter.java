@@ -9,18 +9,18 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import eu.entropy.mediapedia.company.Company;
+import eu.entropy.mediapedia.company.Stakeholder;
 import eu.entropy.mediapedia.utils.OnRecyclerViewItemClickListener;
 
 public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHolder> implements View.OnClickListener {
 
-    private List<Company> companies;
-    private OnRecyclerViewItemClickListener<Company> itemClickListener;
+    private List<Stakeholder> companies;
+    private OnRecyclerViewItemClickListener<Stakeholder> itemClickListener;
 
-    public CompanyAdapter(List<Company> companies) {
+    public CompanyAdapter(List<Stakeholder> companies) {
         this.companies = companies;
-        this.itemClickListener = new OnRecyclerViewItemClickListener<Company>() {
-            @Override public void onItemClick(View view, Company company) {}
+        this.itemClickListener = new OnRecyclerViewItemClickListener<Stakeholder>() {
+            @Override public void onItemClick(View view, Stakeholder company) {}
         };
     }
 
@@ -32,9 +32,10 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(CompanyAdapter.ViewHolder holder, int position) {
-        Company company = companies.get(position);
+        Stakeholder company = companies.get(position);
         holder.companyName.setText(company.getName());
         holder.companyLogo.setImageResource(company.getLogoDrawableId());
+        holder.stake.setText(company.getStake() + " stake");
     }
 
     @Override
@@ -44,29 +45,31 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
 
     @Override
     public void onClick(View v) {
-        Company company = (Company) v.getTag();
+        Stakeholder company = (Stakeholder) v.getTag();
         itemClickListener.onItemClick(v, company);
     }
 
-    public void setOnItemClickListener(OnRecyclerViewItemClickListener<Company> listener) {
+    public void setOnItemClickListener(OnRecyclerViewItemClickListener<Stakeholder> listener) {
         this.itemClickListener = listener;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView companyLogo;
         public TextView companyName;
+        public TextView stake;
 
         public ViewHolder(View itemView) {
             super(itemView);
             companyName = (TextView) itemView.findViewById(R.id.company_name);
             companyLogo = (ImageView) itemView.findViewById(R.id.company_logo);
+            stake = (TextView) itemView.findViewById(R.id.stake);
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
             if (itemClickListener != null) {
-                Company company = companies.get(getPosition());
+                Stakeholder company = companies.get(getPosition());
                 itemClickListener.onItemClick(v, company);
             }
         }

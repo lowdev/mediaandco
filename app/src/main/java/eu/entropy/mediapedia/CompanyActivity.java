@@ -7,8 +7,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+
 import eu.entropy.mediapedia.company.Company;
-import eu.entropy.mediapedia.company.CompanyRepository;
+import eu.entropy.mediapedia.company.StakeholderRepository;
 
 public class CompanyActivity extends AppCompatActivity {
 
@@ -16,18 +17,20 @@ public class CompanyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_company);
-        CompanyRepository companyRepository = new CompanyRepository(getAssets(), getResources(), getPackageName());
 
         Company company = getIntent().getParcelableExtra("company");
         setupToolbar(company.getName());
         setupTablayout();
 
+        StakeholderRepository stakeholderRepository = new StakeholderRepository(getAssets(),
+                getResources(), getPackageName());
+
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPager.setAdapter(new CompanyFragmentPagerAdapter(
                 getSupportFragmentManager(),
                 CompanyActivity.this,
-                companyRepository.findByIds(company.getOwnerIds()),
-                companyRepository.findByIds(company.getAssetIds())));
+                stakeholderRepository.findByIds(company.getOwners()),
+                stakeholderRepository.findByIds(company.getAssets())));
 
         // Give the TabLayout the ViewPager
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);

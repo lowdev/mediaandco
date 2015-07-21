@@ -7,16 +7,17 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.List;
 
-import eu.entropy.mediapedia.company.Company;
+import eu.entropy.mediapedia.company.Stakeholder;
 
 public class CompanyFragmentPagerAdapter extends FragmentPagerAdapter {
     final int PAGE_COUNT = 2;
     private String tabTitles[] = new String[] { "Owners", "Assets" };
     private Context context;
-    private List<Company> owners;
-    private List<Company> assets;
+    private List<Stakeholder> owners;
+    private List<Stakeholder> assets;
 
-    public CompanyFragmentPagerAdapter(FragmentManager fm, Context context, List<Company> owners, List<Company> assets) {
+    public CompanyFragmentPagerAdapter(FragmentManager fm, Context context,
+                                       List<Stakeholder> owners, List<Stakeholder> assets) {
         super(fm);
         this.context = context;
         this.owners = owners;
@@ -41,34 +42,4 @@ public class CompanyFragmentPagerAdapter extends FragmentPagerAdapter {
         // Generate title based on item position
         return tabTitles[position];
     }
-
-    public static class Builder {
-        private FragmentManager fm;
-        private Context context;
-        private List<Company> owners;
-        private List<Company> assets;
-
-        public Builder withFragmentManager(FragmentManager fm) {
-            this.fm = fm;
-            return this;
-        }
-
-        public Builder withContext(Context context) {
-            this.context = context;
-            return this;
-        }
-
-        public Builder withOwners(List<Company> companies) {
-            this.owners = companies;
-            return this;
-        }
-
-        public Builder withAssets(List<Company> assets) {
-            this.assets = assets;
-            return this;
-        }
-
-        public void build() {
-        }
-    };
 }
