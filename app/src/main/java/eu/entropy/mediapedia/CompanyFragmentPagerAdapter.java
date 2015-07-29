@@ -8,10 +8,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.List;
 
 import eu.entropy.mediapedia.company.Stakeholder;
+import eu.entropy.mediapedia.utils.SigmaFragment;
 
 public class CompanyFragmentPagerAdapter extends FragmentPagerAdapter {
-    final int PAGE_COUNT = 2;
-    private String tabTitles[] = new String[] { "Owners", "Assets" };
+    private String tabTitles[] = new String[] { "Owners", "Assets", "Sigma graph" };
     private Context context;
     private List<Stakeholder> owners;
     private List<Stakeholder> assets;
@@ -26,7 +26,7 @@ public class CompanyFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return PAGE_COUNT;
+        return tabTitles.length;
     }
 
     @Override
@@ -34,7 +34,12 @@ public class CompanyFragmentPagerAdapter extends FragmentPagerAdapter {
         if (0 == position) {
             return CompaniesFragment.newInstance(owners);
         }
-        return CompaniesFragment.newInstance(assets);
+
+        if (1 == position) {
+            return CompaniesFragment.newInstance(assets);
+        }
+
+        return SigmaFragment.newInstance();
     }
 
     @Override

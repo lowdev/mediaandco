@@ -1,5 +1,6 @@
 package eu.entropy.mediapedia;
 
+import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,10 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
         holder.companyName.setText(company.getName());
         holder.companyLogo.setImageResource(company.getLogoDrawableId());
         holder.stake.setText(company.getStake() + " stake");
+
+        if (!company.hasInformation()) {
+            holder.arrowImage.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
@@ -54,15 +59,17 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public ImageView companyLogo;
-        public TextView companyName;
-        public TextView stake;
+        private ImageView companyLogo;
+        private TextView companyName;
+        private TextView stake;
+        private ImageView arrowImage;
 
         public ViewHolder(View itemView) {
             super(itemView);
             companyName = (TextView) itemView.findViewById(R.id.company_name);
             companyLogo = (ImageView) itemView.findViewById(R.id.company_logo);
             stake = (TextView) itemView.findViewById(R.id.stake);
+            arrowImage = (ImageView) itemView.findViewById(R.id.arrow_icon);
             itemView.setOnClickListener(this);
         }
 

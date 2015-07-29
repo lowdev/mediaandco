@@ -30,7 +30,9 @@ public class CompanyActivity extends AppCompatActivity {
                 getSupportFragmentManager(),
                 CompanyActivity.this,
                 stakeholderRepository.findByIds(company.getOwners()),
-                stakeholderRepository.findByIds(company.getAssets())));
+                stakeholderRepository.findByIds(company.getAssets())
+                )
+        );
 
         // Give the TabLayout the ViewPager
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);

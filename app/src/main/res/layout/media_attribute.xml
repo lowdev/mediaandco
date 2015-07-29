@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:clickable="true"
+    android:background="?android:attr/selectableItemBackground"
+    android:padding="16dp">
 
     <ImageView
         android:layout_width="50dp"
@@ -17,6 +19,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="TF1"
         android:id="@+id/company_name"
         android:layout_toRightOf="@+id/company_logo"
         android:layout_alignParentTop="true"
@@ -27,11 +30,20 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="100"
         android:id="@+id/stake"
         android:layout_toRightOf="@+id/company_logo"
         android:layout_below="@+id/company_name"
-        android:textSize="5sp"
+        android:textSize="10sp"
         android:textColor="@color/material_blue_grey_800"
         />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/arrow_icon"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_keyboard_arrow_right_black_24dp"/>
 
 </RelativeLayout>

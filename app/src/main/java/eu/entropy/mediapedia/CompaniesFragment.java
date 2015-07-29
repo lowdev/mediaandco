@@ -1,5 +1,6 @@
 package eu.entropy.mediapedia;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,11 +9,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import eu.entropy.mediapedia.company.Stakeholder;
+import eu.entropy.mediapedia.utils.DividerItemDecoration;
 import eu.entropy.mediapedia.utils.OnRecyclerViewItemClickListener;
 
 public class CompaniesFragment extends Fragment {
@@ -36,8 +39,7 @@ public class CompaniesFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_companies, container, false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.companies);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -51,10 +53,14 @@ public class CompaniesFragment extends Fragment {
 
                 Intent intent = new Intent(getActivity().getApplicationContext(), CompanyActivity.class);
                 intent.putExtra("company", stakeholder.getCompany());
-                startActivity(intent);
+                getActivity().startActivity(intent);
             }
         });
         recyclerView.setAdapter(companyAdapter);
+
+        RecyclerView.ItemDecoration itemDecoration = new
+                DividerItemDecoration(getActivity().getApplicationContext(), DividerItemDecoration.VERTICAL_LIST);
+        recyclerView.addItemDecoration(itemDecoration);
 
         return view;
     }
