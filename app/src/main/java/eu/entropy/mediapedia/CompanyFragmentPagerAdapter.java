@@ -7,18 +7,20 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.List;
 
+import eu.entropy.mediapedia.company.Company;
 import eu.entropy.mediapedia.company.Stakeholder;
-import eu.entropy.mediapedia.utils.SigmaFragment;
 
 public class CompanyFragmentPagerAdapter extends FragmentPagerAdapter {
     private String tabTitles[] = new String[] { "Owners", "Assets", "Sigma graph" };
     private Context context;
     private List<Stakeholder> owners;
     private List<Stakeholder> assets;
+    private Company company;
 
-    public CompanyFragmentPagerAdapter(FragmentManager fm, Context context,
+    public CompanyFragmentPagerAdapter(FragmentManager fm, Context context, Company company,
                                        List<Stakeholder> owners, List<Stakeholder> assets) {
         super(fm);
+        this.company = company;
         this.context = context;
         this.owners = owners;
         this.assets = assets;
@@ -39,7 +41,7 @@ public class CompanyFragmentPagerAdapter extends FragmentPagerAdapter {
             return CompaniesFragment.newInstance(assets);
         }
 
-        return SigmaFragment.newInstance();
+        return NetworkGraphFragment.newInstance();
     }
 
     @Override

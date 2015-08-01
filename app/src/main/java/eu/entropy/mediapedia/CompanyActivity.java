@@ -13,12 +13,14 @@ import eu.entropy.mediapedia.company.StakeholderRepository;
 
 public class CompanyActivity extends AppCompatActivity {
 
+    private Company company;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_company);
 
-        Company company = getIntent().getParcelableExtra("company");
+        company = getIntent().getParcelableExtra("company");
         setupToolbar(company.getName());
         setupTablayout();
 
@@ -29,6 +31,7 @@ public class CompanyActivity extends AppCompatActivity {
         viewPager.setAdapter(new CompanyFragmentPagerAdapter(
                 getSupportFragmentManager(),
                 CompanyActivity.this,
+                company,
                 stakeholderRepository.findByIds(company.getOwners()),
                 stakeholderRepository.findByIds(company.getAssets())
                 )
