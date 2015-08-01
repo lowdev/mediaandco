@@ -3,45 +3,89 @@ package eu.entropy.mediapedia;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
+import android.webkit.JavascriptInterface;
+import android.webkit.JsResult;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import eu.entropy.mediapedia.company.StakeholderRepository;
+import com.google.gson.GsonBuilder;
+
+import java.util.ArrayList;
+
+import eu.entropy.mediapedia.company.Company;
+import eu.entropy.mediapedia.company.Stakeholder;
+import eu.entropy.mediapedia.networkgraph.visjs.Edge;
+import eu.entropy.mediapedia.networkgraph.visjs.VisjsModel;
 import eu.entropy.mediapedia.networkgraph.visjs.VisjsModelConverter;
 
 public class NetworkGraphFragment extends Fragment {
+    public static final String ARG_PAGE = "company";
 
+    private Company company;
     private VisjsModelConverter visjsModelConverter;
 
-    public static NetworkGraphFragment newInstance() {
+    public static NetworkGraphFragment newInstance(Company company) {
+        Bundle args = new Bundle();
+        args.putParcelable(ARG_PAGE, company);
         NetworkGraphFragment fragment = new NetworkGraphFragment();
+        fragment.setArguments(args);
+
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        visjsModelConverter = new VisjsModelConverter(getActivity().getAssets(),
-                getResources(), getActivity().getPackageName());
+        visjsModelConverter = new VisjsModelConverter();
+        company = getArguments().getParcelable(ARG_PAGE);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.sigma, container, false);
-        WebView webView = (WebView) view.findViewById(R.id.sigma_webview);
+        View view = inflater.inflate(R.layout.network_graph, container, false);
 
+        final WebView webView = (WebView) view.findViewById(R.id.network_graph_webview);
         webView.loadUrl("file:///android_asset/www/index.html");
         webView.getSettings().setJavaScriptEnabled(true);
-        /*webView.setWebViewClient(new WebViewClient() {
-            public void onPageFinished(WebView view, String url) {
-                webView.loadUrl("javascript:init('" + "" + "')");
-            }
-        });*/
 
+        VisjsModel visjsModel = visjsModelConverter.toVisjsModel(company);
+        final String nodes = new GsonBuilder().create()
+                .toJson(visjsModel.getNodes());
+        final String edges = new GsonBuilder().create()
+                .toJson(visjsModel.getEdges());
+
+        webView.addJavascriptInterface(new VisjsDto(edges, nodes), "visjsDto");
+        webView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+                return super.onJsAlert(view, url, message, result);
+            }
+        });
         return view;
+    }
+
+    class VisjsDto {
+        private String edges;
+        private String nodes;
+
+        public VisjsDto(String edges, String nodes) {
+            this.edges = edges;
+            this.nodes = nodes;
+        }
+
+        @JavascriptInterface
+        public String getEdges() {
+            return edges;
+        }
+
+        @JavascriptInterface
+        public String getNodes() {
+            return nodes;
+        }
     }
 }

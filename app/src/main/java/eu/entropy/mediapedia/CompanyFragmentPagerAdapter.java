@@ -41,7 +41,7 @@ public class CompanyFragmentPagerAdapter extends FragmentPagerAdapter {
             return CompaniesFragment.newInstance(assets);
         }
 
-        return NetworkGraphFragment.newInstance();
+        return NetworkGraphFragment.newInstance(company);
     }
 
     @Override

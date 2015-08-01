@@ -10,19 +10,29 @@ import android.view.View;
 
 import eu.entropy.mediapedia.company.Company;
 import eu.entropy.mediapedia.company.CompanyRepository;
+import eu.entropy.mediapedia.utils.AppContext;
 import eu.entropy.mediapedia.utils.OnRecyclerViewItemClickListener;
 
 public class MainActivity extends AppCompatActivity {
+
+    private CompanyRepository companyRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         setupToolbar();
+        setupAppContext();
 
-        CompanyRepository companyRepository = new CompanyRepository(getAssets(), getResources(), getPackageName());
+        companyRepository = new CompanyRepository();
+        setupRecyclerView();
+    }
 
+    private void setupAppContext() {
+        AppContext.build(getAssets(), getResources(), getPackageName());
+    }
+
+    private void setupRecyclerView() {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));

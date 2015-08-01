@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import eu.entropy.mediapedia.R;
+import eu.entropy.mediapedia.utils.AppContext;
 
 public class CompanyRepository {
 
@@ -27,10 +28,10 @@ public class CompanyRepository {
     private Resources resources;
     private String packageName;
 
-    public CompanyRepository(AssetManager assetManager, Resources resources, String packageName) {
-        this.assetManager = assetManager;
-        this.resources = resources;
-        this.packageName = packageName;
+    public CompanyRepository() {
+        this.assetManager = AppContext.getAssetManager();
+        this.resources = AppContext.getResources();
+        this.packageName = AppContext.getPackageName();
     }
 
     public List<Company> findAllMedia() {
@@ -64,7 +65,7 @@ public class CompanyRepository {
         return company;
     }
 
-    public List<Company> findByIds(List<String> ids) {
+    public List<Company> findByIds(Iterable<String> ids) {
         List<Company> companies = new ArrayList<>();
         for (String id : ids) {
             companies.add(findById(id));

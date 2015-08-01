@@ -1,7 +1,7 @@
 package eu.entropy.mediapedia.networkgraph.visjs;
 
 public class Node {
-    private int id;
+    private String id;
     private String label;
 
     private Node(Builder builder) {
@@ -9,15 +9,17 @@ public class Node {
         label = builder.label;
     }
 
-    public Builder builder() {
+    public static Builder builder() {
         return new Builder();
     }
 
     public static class Builder {
-        private int id;
+        private String id;
         private String label;
 
-        public Builder withId(int id) {
+        private Builder() {}
+
+        public Builder withId(String id) {
             this.id = id;
             return this;
         }

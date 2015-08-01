@@ -4,7 +4,7 @@
   <title>Network | Basic usage</title>
 
   <script type="text/javascript" src="vis.js"></script>
-  <link href="vist/vis.css" rel="stylesheet" type="text/css" />
+  <link href="vis.css" rel="stylesheet" type="text/css" />
 
   <style type="text/css">
     #mynetwork {
@@ -17,15 +17,15 @@
 <body>
 
 <p>
-  There are a lot of options with arrows! They can also be combined with dashed lines.
+  HelloI
 </p>
 
 <div id="mynetwork"></div>
 
 <script type="text/javascript">
 	// create an array with nodes
-	var nodes = new vis.DataSet([
-	{"id": 1, "label": 'Node 1'},
+	/*var nodes = new vis.DataSet([
+	{"id": "tf1", "label": 'Node 1'},
 		{id: 2, label: 'Node 2'},
 		{id: 3, label: 'Node 3'},
 		{id: 4, label: 'Node 4'},
@@ -37,29 +37,26 @@
 
 	 // create an array with edges
 	var edges = new vis.DataSet([
-		{from: 1, to: 8, arrows:'to', dashes:true},
-		{from: 1, to: 3, arrows:'to'},
-		{from: 1, to: 2, arrows:'to, from'},
+		{from: "tf1", to: 8, arrows:'to', dashes:true},
+		{from: "tf1", to: 3, arrows:'to'},
+		{from: "tf1", to: 2, arrows:'to, from'},
 		{from: 2, to: 4, arrows:'to, middle'},
 		{from: 2, to: 5, arrows:'to, middle, from'},
 		{from: 5, to: 6, arrows:{to:{scaleFactor:2}}},
 		{from: 6, to: 7, arrows:{middle:{scaleFactor:0.5},from:true}}
-	]);
-	  
-	function init(nodes, edges) {
-	  // create a network
-	  var container = document.getElementById('mynetwork');
-	  var data = {
+	]);*/
+
+	var nodes = new vis.DataSet(JSON.parse(visjsDto.getNodes()));
+	var edges = new vis.DataSet(JSON.parse(visjsDto.getEdges()));
+	
+	var container = document.getElementById('mynetwork');
+	var data = {
 		nodes: nodes,
 		edges: edges
-	  };
-	  var options = {};
-	  var network = new vis.Network(container, data, options);
-	 }
-	 
-	 init(nodes, edges);
+	};
+	var options = {};
+	var network = new vis.Network(container, data, options);
 </script>
 
-<script src="../../googleAnalytics.js"></script>
 </body>
 </html>

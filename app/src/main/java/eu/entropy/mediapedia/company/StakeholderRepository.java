@@ -12,8 +12,8 @@ public class StakeholderRepository {
 
     private CompanyRepository companyRepository;
 
-    public StakeholderRepository(AssetManager assetManager, Resources resources, String packageName) {
-        companyRepository = new CompanyRepository(assetManager, resources, packageName);
+    public StakeholderRepository() {
+        companyRepository = new CompanyRepository();
     }
 
     public Stakeholder findById(String id, double stake) {

@@ -24,8 +24,7 @@ public class CompanyActivity extends AppCompatActivity {
         setupToolbar(company.getName());
         setupTablayout();
 
-        StakeholderRepository stakeholderRepository = new StakeholderRepository(getAssets(),
-                getResources(), getPackageName());
+        StakeholderRepository stakeholderRepository = new StakeholderRepository();
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPager.setAdapter(new CompanyFragmentPagerAdapter(
