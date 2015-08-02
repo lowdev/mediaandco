@@ -25,9 +25,19 @@ public class VisjsModelConverter {
         List<Company> assets = companyRepository.findByIds(company.getAssets().keySet());
         List<Company> owners = companyRepository.findByIds(company.getOwners().keySet());
 
-        List<Node> nodes = FluentIterable
-                .from(Iterables.concat(assets, owners, Arrays.asList(company)))
-                .transform(new ToNode())
+        List<Node> companyNode = FluentIterable
+                .from(Arrays.asList(company))
+                .transform(new ToNode("companyGroup"))
+                .toList();
+
+        List<Node> assetsNodes = FluentIterable
+                .from(assets)
+                .transform(new ToNode("assetsGroup"))
+                .toList();
+
+        List<Node> ownersNodes = FluentIterable
+                .from(owners)
+                .transform(new ToNode("ownersGroup"))
                 .toList();
 
         List<Edge> assetsEdges = FluentIterable
@@ -39,21 +49,26 @@ public class VisjsModelConverter {
                 .transform(new ToEdge(company.getId(), ArrowDirection.to))
                 .toList();
 
-        List<Edge> edges = Lists.newArrayList(Iterables.concat(assetsEdges, ownersEdges));
-        return new VisjsModel(edges, nodes);
-    }
-
-    private Node toNode(Company company) {
-        return Node.builder()
-                .withId(company.getId())
-                .withLabel(company.getName())
-                .build();
+        return new VisjsModel(
+                Lists.newArrayList(Iterables.concat(assetsEdges, ownersEdges)),
+                Lists.newArrayList(Iterables.concat(companyNode, assetsNodes, ownersNodes)));
     }
 
     private class ToNode implements Function<Company, Node> {
+
+        private String group;
+
+        public ToNode(String group) {
+            this.group = group;
+        }
+
         @Override
         public Node apply(Company company) {
-            return toNode(company);
+            return Node.builder()
+                    .withId(company.getId())
+                    .withLabel(company.getName())
+                    .withGroup(group)
+                    .build();
         }
     }
 

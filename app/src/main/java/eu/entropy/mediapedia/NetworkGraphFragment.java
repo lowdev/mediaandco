@@ -1,6 +1,9 @@
 package eu.entropy.mediapedia;
 
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -61,6 +64,10 @@ public class NetworkGraphFragment extends Fragment {
 
         webView.addJavascriptInterface(new VisjsDto(edges, nodes), "visjsDto");
         webView.setWebChromeClient(new WebChromeClient() {
+            private int       webViewPreviousState;
+            private final int PAGE_STARTED    = 0x1;
+            private final int PAGE_REDIRECTED = 0x2;
+
             @Override
             public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
                 return super.onJsAlert(view, url, message, result);

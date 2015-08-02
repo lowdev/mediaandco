@@ -19,7 +19,7 @@
 
         <item name="android:windowBackground">@color/window_background</item>
 
-        <item name="tabIndicatorColor">@color/my_primary_dark</item>
+        <item name="tabIndicatorColor">@color/my_primary_text</item>
     </style>
 
     <!--
