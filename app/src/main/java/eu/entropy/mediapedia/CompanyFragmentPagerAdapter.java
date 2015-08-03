@@ -11,24 +11,22 @@ import eu.entropy.mediapedia.company.Company;
 import eu.entropy.mediapedia.company.Stakeholder;
 
 public class CompanyFragmentPagerAdapter extends FragmentPagerAdapter {
-    private String tabTitles[] = new String[] { "Owners", "Assets", "Sigma graph" };
-    private Context context;
+    private static String TAB_TITLES[] = new String[] { "Owners", "Assets", "Sigma graph" };
     private List<Stakeholder> owners;
     private List<Stakeholder> assets;
     private Company company;
 
-    public CompanyFragmentPagerAdapter(FragmentManager fm, Context context, Company company,
+    public CompanyFragmentPagerAdapter(FragmentManager fm, Company company,
                                        List<Stakeholder> owners, List<Stakeholder> assets) {
         super(fm);
         this.company = company;
-        this.context = context;
         this.owners = owners;
         this.assets = assets;
     }
 
     @Override
     public int getCount() {
-        return tabTitles.length;
+        return TAB_TITLES.length;
     }
 
     @Override
@@ -47,6 +45,6 @@ public class CompanyFragmentPagerAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         // Generate title based on item position
-        return tabTitles[position];
+        return TAB_TITLES[position];
     }
 }

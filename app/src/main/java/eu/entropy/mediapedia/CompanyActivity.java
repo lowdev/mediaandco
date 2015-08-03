@@ -31,14 +31,12 @@ public class CompanyActivity extends AppCompatActivity {
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPager.setAdapter(new CompanyFragmentPagerAdapter(
                 getSupportFragmentManager(),
-                CompanyActivity.this,
                 company,
                 stakeholderRepository.findByIds(company.getOwners()),
                 stakeholderRepository.findByIds(company.getAssets())
                 )
         );
 
-        // Give the TabLayout the ViewPager
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
     }
