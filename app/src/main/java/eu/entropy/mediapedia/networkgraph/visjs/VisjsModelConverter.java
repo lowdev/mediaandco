@@ -27,17 +27,17 @@ public class VisjsModelConverter {
 
         List<Node> companyNode = FluentIterable
                 .from(Arrays.asList(company))
-                .transform(new ToNode("companyGroup"))
+                .transform(new ToNode("companyGroup", 2))
                 .toList();
 
         List<Node> assetsNodes = FluentIterable
                 .from(assets)
-                .transform(new ToNode("assetsGroup"))
+                .transform(new ToNode("assetsGroup", 1))
                 .toList();
 
         List<Node> ownersNodes = FluentIterable
                 .from(owners)
-                .transform(new ToNode("ownersGroup"))
+                .transform(new ToNode("ownersGroup", 3))
                 .toList();
 
         List<Edge> assetsEdges = FluentIterable
@@ -57,9 +57,11 @@ public class VisjsModelConverter {
     private class ToNode implements Function<Company, Node> {
 
         private String group;
+        private int level;
 
-        public ToNode(String group) {
+        public ToNode(String group, int level) {
             this.group = group;
+            this.level = level;
         }
 
         @Override
@@ -68,6 +70,7 @@ public class VisjsModelConverter {
                     .withId(company.getId())
                     .withLabel(company.getName())
                     .withGroup(group)
+                    .withLevel(level)
                     .build();
         }
     }

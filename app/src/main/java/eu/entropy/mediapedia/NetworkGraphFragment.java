@@ -1,12 +1,9 @@
 package eu.entropy.mediapedia;
 
-
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +11,8 @@ import android.webkit.JavascriptInterface;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
-
 import com.google.gson.GsonBuilder;
-
-import java.util.ArrayList;
-
 import eu.entropy.mediapedia.company.Company;
-import eu.entropy.mediapedia.company.Stakeholder;
-import eu.entropy.mediapedia.networkgraph.visjs.Edge;
 import eu.entropy.mediapedia.networkgraph.visjs.VisjsModel;
 import eu.entropy.mediapedia.networkgraph.visjs.VisjsModelConverter;
 
