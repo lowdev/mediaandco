@@ -31,7 +31,6 @@ public class CompaniesListFragment extends Fragment {
         ViewPager viewPager = (ViewPager) companiesListView.findViewById(R.id.viewpager);
         viewPager.setAdapter(new CompanyFragmentPagerAdapter(
                         getFragmentManager(),
-                        company,
                         stakeholderRepository.findByIds(company.getOwners()),
                         stakeholderRepository.findByIds(company.getAssets())
                 )

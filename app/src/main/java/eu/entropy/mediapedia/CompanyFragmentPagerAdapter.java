@@ -1,25 +1,20 @@
 package eu.entropy.mediapedia;
 
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.List;
 
-import eu.entropy.mediapedia.company.Company;
 import eu.entropy.mediapedia.company.Stakeholder;
 
-public class CompanyFragmentPagerAdapter extends FragmentPagerAdapter {
-    private static String TAB_TITLES[] = new String[] { "Owners", "Assets", "Sigma graph" };
+public class CompanyFragmentPagerAdapter extends FragmentStatePagerAdapter {
+    private static String TAB_TITLES[] = new String[] { "Owners", "Assets" };
     private List<Stakeholder> owners;
     private List<Stakeholder> assets;
-    private Company company;
 
-    public CompanyFragmentPagerAdapter(FragmentManager fm, Company company,
-                                       List<Stakeholder> owners, List<Stakeholder> assets) {
+    public CompanyFragmentPagerAdapter(FragmentManager fm, List<Stakeholder> owners, List<Stakeholder> assets) {
         super(fm);
-        this.company = company;
         this.owners = owners;
         this.assets = assets;
     }
@@ -39,12 +34,16 @@ public class CompanyFragmentPagerAdapter extends FragmentPagerAdapter {
             return CompaniesFragment.newInstance(assets);
         }
 
-        return NetworkGraphFragment.newInstance(company);
+        throw new RuntimeException("Wrong position");
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        // Generate title based on item position
         return TAB_TITLES[position];
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
     }
 }

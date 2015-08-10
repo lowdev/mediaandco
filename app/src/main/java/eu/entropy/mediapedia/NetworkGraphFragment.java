@@ -1,5 +1,6 @@
 package eu.entropy.mediapedia;
 
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
@@ -11,6 +12,8 @@ import android.webkit.JavascriptInterface;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.widget.ProgressBar;
+
 import com.google.gson.GsonBuilder;
 import eu.entropy.mediapedia.company.Company;
 import eu.entropy.mediapedia.networkgraph.visjs.VisjsModel;
@@ -43,6 +46,7 @@ public class NetworkGraphFragment extends Fragment {
         View view = inflater.inflate(R.layout.network_graph, container, false);
 
         final WebView webView = (WebView) view.findViewById(R.id.network_graph_webview);
+        webView.setVisibility(View.INVISIBLE);
         webView.loadUrl("file:///android_asset/www/index.html");
         webView.getSettings().setJavaScriptEnabled(true);
 
@@ -53,16 +57,29 @@ public class NetworkGraphFragment extends Fragment {
                 .toJson(visjsModel.getEdges());
 
         webView.addJavascriptInterface(new VisjsDto(edges, nodes), "visjsDto");
+
         webView.setWebChromeClient(new WebChromeClient() {
-            private int       webViewPreviousState;
-            private final int PAGE_STARTED    = 0x1;
+            private int webViewPreviousState;
+            private final int PAGE_STARTED = 0x1;
             private final int PAGE_REDIRECTED = 0x2;
 
             @Override
             public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
                 return super.onJsAlert(view, url, message, result);
             }
+
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                final ProgressBar progress = (ProgressBar) getView().findViewById(R.id.progressBar);
+                progress.setProgress(newProgress);
+                progress.setVisibility(View.VISIBLE);
+                if (newProgress == 100) {
+                    progress.setVisibility(View.GONE);
+                    webView.setVisibility(View.VISIBLE);
+                }
+            }
         });
+
         return view;
     }
 
