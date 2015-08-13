@@ -4,42 +4,51 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import eu.entropy.mediapedia.company.Stakeholder;
 
 public class CompanyFragmentPagerAdapter extends FragmentStatePagerAdapter {
-    private static String TAB_TITLES[] = new String[] { "Owners", "Assets" };
-    private List<Stakeholder> owners;
-    private List<Stakeholder> assets;
+    public static final String TITLE_INFO = "Info";
+    public static final String TITLE_OWNERS = "Owners";
+    public static final String TITLE_ASSETS = "Assets";
+
+    private List<String> tabTitles = new ArrayList<>(3);
+    private Map<String, Fragment> titleToFragment = new HashMap<>();
 
     public CompanyFragmentPagerAdapter(FragmentManager fm, List<Stakeholder> owners, List<Stakeholder> assets) {
         super(fm);
-        this.owners = owners;
-        this.assets = assets;
+
+        titleToFragment.put(TITLE_INFO, InformationFragment.newInstance());
+        tabTitles.add(TITLE_INFO);
+
+        if(!owners.isEmpty()) {
+            titleToFragment.put(TITLE_OWNERS, CompaniesFragment.newInstance(owners));
+            tabTitles.add(TITLE_OWNERS);
+        }
+
+        if(!assets.isEmpty()) {
+            titleToFragment.put(TITLE_ASSETS, CompaniesFragment.newInstance(assets));
+            tabTitles.add(TITLE_ASSETS);
+        }
     }
 
     @Override
     public int getCount() {
-        return TAB_TITLES.length;
+        return tabTitles.size();
     }
 
     @Override
     public Fragment getItem(int position) {
-        if (0 == position) {
-            return CompaniesFragment.newInstance(owners);
-        }
-
-        if (1 == position) {
-            return CompaniesFragment.newInstance(assets);
-        }
-
-        throw new RuntimeException("Wrong position");
+        return titleToFragment.get(getPageTitle(position));
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return TAB_TITLES[position];
+        return tabTitles.get(position);
     }
 
     @Override

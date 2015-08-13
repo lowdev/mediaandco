@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.webkit.JavascriptInterface;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 
@@ -59,10 +60,6 @@ public class NetworkGraphFragment extends Fragment {
         webView.addJavascriptInterface(new VisjsDto(edges, nodes), "visjsDto");
 
         webView.setWebChromeClient(new WebChromeClient() {
-            private int webViewPreviousState;
-            private final int PAGE_STARTED = 0x1;
-            private final int PAGE_REDIRECTED = 0x2;
-
             @Override
             public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
                 return super.onJsAlert(view, url, message, result);
@@ -70,6 +67,10 @@ public class NetworkGraphFragment extends Fragment {
 
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
+                if (null == getView()) {
+                    return;
+                }
+
                 final ProgressBar progress = (ProgressBar) getView().findViewById(R.id.progressBar);
                 progress.setProgress(newProgress);
                 progress.setVisibility(View.VISIBLE);
@@ -79,6 +80,10 @@ public class NetworkGraphFragment extends Fragment {
                 }
             }
         });
+
+        webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
+        webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+        webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
 
         return view;
     }

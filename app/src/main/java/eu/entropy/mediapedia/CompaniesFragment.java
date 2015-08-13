@@ -15,6 +15,7 @@ import java.util.List;
 import eu.entropy.mediapedia.company.Stakeholder;
 import eu.entropy.mediapedia.utils.DividerItemDecoration;
 import eu.entropy.mediapedia.utils.OnRecyclerViewItemClickListener;
+import eu.entropy.mediapedia.utils.SimpleDividerItemDecoration;
 
 public class CompaniesFragment extends Fragment {
     public static final String ARG_PAGE = "companies";
@@ -56,9 +57,8 @@ public class CompaniesFragment extends Fragment {
         });
         recyclerView.setAdapter(companyAdapter);
 
-        RecyclerView.ItemDecoration itemDecoration = new
-                DividerItemDecoration(getActivity().getApplicationContext(), DividerItemDecoration.VERTICAL_LIST);
-        recyclerView.addItemDecoration(itemDecoration);
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(
+                getActivity().getResources().getDrawable(R.drawable.line_divider)));
 
         return view;
     }

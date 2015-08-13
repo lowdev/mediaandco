@@ -3,9 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:clickable="true"
+    android:padding="16dp"
     android:background="?android:attr/selectableItemBackground"
-    android:padding="16dp">
+    android:focusable="true"
+    android:clickable="true"
+    >
 
     <ImageView
         android:layout_width="50dp"
@@ -24,7 +26,6 @@
         android:layout_toRightOf="@+id/company_logo"
         android:layout_alignParentTop="true"
         android:textSize="23sp"
-        android:textColor="@color/material_blue_grey_800"
         />
 
     <TextView
@@ -35,7 +36,6 @@
         android:layout_toRightOf="@+id/company_logo"
         android:layout_below="@+id/company_name"
         android:textSize="10sp"
-        android:textColor="@color/material_blue_grey_800"
         />
 
     <ImageView

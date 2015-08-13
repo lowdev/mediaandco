@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="window_background">#ED1C24</color>
-
-    <color name="my_primary">#ED1C24</color>
-    <color name="my_primary_dark">#CC0000</color>
-    <color name="my_primary_light">#B3E5FC</color>
-    <color name="my_accent">#ED1C24</color>
-    <color name="my_primary_text">#ffffff</color>
-    <color name="my_secondary_text">#ffffff</color>
-    <color name="my_icons">#FFFFFF</color>
-    <color name="my_divider">#B6B6B6</color>
+    <color name="primary">#ED1C24</color>
+    <color name="primary_dark">#CC0000</color>
+    <color name="primary_light">#B3E5FC</color>
+    <color name="accent">#ED1C24</color>
+    <color name="primary_text">#ffffff</color>
+    <color name="secondary_text">#ffffff</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="my_divider">#F0F0F0 </color>
 </resources>
