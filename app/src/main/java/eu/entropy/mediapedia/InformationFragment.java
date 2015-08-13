@@ -5,6 +5,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.graphics.Palette;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,25 +44,28 @@ public class InformationFragment extends Fragment {
         textMutedLight = (TextView) companiesListView.findViewById(R.id.textMutedLight);
         textMutedDark = (TextView) companiesListView.findViewById(R.id.textMutedDark);
 
-        Picasso.with(getActivity()).load(R.drawable.tv_tf1).fit().centerCrop().into(imageView,
-                new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+        Picasso.with(getActivity())
+                .load(R.drawable.company_groupe_tf1)
+                .fit().centerCrop()
+                .into(imageView,
+                    new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
 
-                        Palette.generateAsync(bitmap, new Palette.PaletteAsyncListener() {
-                            @Override
-                            public void onGenerated(Palette palette) {
-                                doPalette(palette);
-                            }
-                        });
-                    }
+                            Palette.generateAsync(bitmap, new Palette.PaletteAsyncListener() {
+                                @Override
+                                public void onGenerated(Palette palette) {
+                                    doPalette(palette);
+                                }
+                            });
+                        }
 
-                    @Override
-                    public void onError() {
-                    }
-                });
-
+                        @Override
+                        public void onError() {
+                            Log.e("yeah", "e");
+                        }
+                    });
 
         return companiesListView;
     }
