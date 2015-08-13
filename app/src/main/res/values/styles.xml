@@ -16,6 +16,8 @@
         <item name="tabTextAppearance">@style/MyCustomTabText</item>
         <item name="tabIndicatorColor">@color/primary_text</item>
         <item name="tabSelectedTextColor">@color/primary_text</item>
+
+        <item name="android:colorControlHighlight">#f65</item>
     </style>
 
     <!--
