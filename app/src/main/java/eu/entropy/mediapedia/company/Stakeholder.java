@@ -6,7 +6,7 @@ import android.os.Parcelable;
 /**
  * Stakeholder is a company who has a stake.
  */
-public class Stakeholder implements Parcelable {
+public class Stakeholder implements Parcelable, Comparable<Stakeholder> {
 
     private Company company;
     
@@ -37,6 +37,11 @@ public class Stakeholder implements Parcelable {
 
     public int getLogoDrawableId() {
         return company.getLogoDrawableId();
+    }
+
+    @Override
+    public int compareTo(Stakeholder stakeholder) {
+        return Double.compare(stakeholder.stake, stake);
     }
 
     @Override

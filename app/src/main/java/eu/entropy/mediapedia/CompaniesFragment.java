@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import eu.entropy.mediapedia.company.Stakeholder;
@@ -35,6 +36,7 @@ public class CompaniesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         companies = getArguments().getParcelableArrayList(ARG_PAGE);
+        Collections.sort(companies);
     }
 
     @Override
