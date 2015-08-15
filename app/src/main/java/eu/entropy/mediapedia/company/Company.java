@@ -11,6 +11,7 @@ public class Company implements Parcelable {
     private String name;
     private String logo;
     private int logoDrawableId;
+    private String revenue;
     private Map<String, Double> owners;
     private Map<String, Double>  assets;
 
@@ -46,6 +47,10 @@ public class Company implements Parcelable {
         this.logoDrawableId = logoDrawableId;
     }
 
+    public String getRevenue() {
+        return revenue;
+    }
+
     public boolean hasInformation() {
         return 0 != owners.size() + assets.size();
     }
@@ -63,6 +68,7 @@ public class Company implements Parcelable {
         dest.writeInt(logoDrawableId);
         dest.writeMap(owners);
         dest.writeMap(assets);
+        dest.writeString(revenue);
     }
 
     // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
@@ -84,5 +90,6 @@ public class Company implements Parcelable {
         logoDrawableId = in.readInt();
         owners = in.readHashMap(Double.class.getClassLoader());
         assets = in.readHashMap(Double.class.getClassLoader());
+        revenue = in.readString();
     }
 }

@@ -1,117 +1,70 @@
 package eu.entropy.mediapedia;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.graphics.Palette;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-public class InformationFragment extends Fragment {
+import eu.entropy.mediapedia.company.Company;
 
-    public static InformationFragment newInstance() {
+public class InformationFragment extends Fragment {
+    public static final String ARG_PAGE = "company";
+
+    public static InformationFragment newInstance(Company company) {
+        Bundle args = new Bundle();
+        args.putParcelable(ARG_PAGE, company);
+
         InformationFragment fragment = new InformationFragment();
+        fragment.setArguments(args);
 
         return fragment;
     }
 
-    ImageView imageView;
+    private Company company;
 
-    TextView textVibrant;
-    TextView textVibrantLight;
-    TextView textVibrantDark;
-    TextView textMuted;
-    TextView textMutedLight;
-    TextView textMutedDark;
+    private ImageView imageView;
+    private TextView revenueView;
+    private TextView unitView;
+    private TextView ownersView;
+    private TextView assetsView;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        company = getArguments().getParcelable(ARG_PAGE);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View companiesListView = inflater.inflate(R.layout.fragment_information_view, container, false);
         imageView = (ImageView) companiesListView.findViewById(R.id.image);
-        textVibrant = (TextView) companiesListView.findViewById(R.id.textVibrant);
-        textVibrantLight = (TextView) companiesListView.findViewById(R.id.textVibrantLight);
-        textVibrantDark = (TextView) companiesListView.findViewById(R.id.textVibrantDark);
-        textMuted = (TextView) companiesListView.findViewById(R.id.textMuted);
-        textMutedLight = (TextView) companiesListView.findViewById(R.id.textMutedLight);
-        textMutedDark = (TextView) companiesListView.findViewById(R.id.textMutedDark);
-
         Picasso.with(getActivity())
-                .load(R.drawable.company_groupe_tf1)
-                .fit().centerCrop()
-                .into(imageView,
-                    new Callback() {
-                        @Override
-                        public void onSuccess() {
-                            Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+                .load(company.getLogoDrawableId())
+                .centerInside()
+                .fit()
+                .into(imageView);
 
-                            Palette.generateAsync(bitmap, new Palette.PaletteAsyncListener() {
-                                @Override
-                                public void onGenerated(Palette palette) {
-                                    doPalette(palette);
-                                }
-                            });
-                        }
+        revenueView = (TextView) companiesListView.findViewById(R.id.revenue);
+        revenueView.setText(company.getRevenue());
 
-                        @Override
-                        public void onError() {
-                            Log.e("yeah", "e");
-                        }
-                    });
+        ownersView = (TextView) companiesListView.findViewById(R.id.revenue);
+        ownersView.setText(company.getRevenue());
+
+        unitView = (TextView) companiesListView.findViewById(R.id.unit);
+        unitView.setText("billions revenue");
+
+        ownersView = (TextView) companiesListView.findViewById(R.id.owners);
+        ownersView.setText(Integer.toString(company.getOwners().size()));
+
+        assetsView = (TextView) companiesListView.findViewById(R.id.assets);
+        assetsView.setText(Integer.toString(company.getAssets().size()));
 
         return companiesListView;
-    }
-
-    public void doPalette(Palette palette) {
-        {
-            Palette.Swatch vibrant = palette.getVibrantSwatch();
-            if (vibrant != null) {
-                textVibrant.setBackgroundColor(vibrant.getRgb());
-                textVibrant.setTextColor(vibrant.getBodyTextColor());
-             }
-        }
-        {
-            Palette.Swatch vibrantDark = palette.getDarkVibrantSwatch();
-            if (vibrantDark != null) {
-                textVibrantDark.setBackgroundColor(vibrantDark.getRgb());
-                textVibrantDark.setTextColor(vibrantDark.getBodyTextColor());
-            }
-        }
-        {
-            Palette.Swatch vibrantLight = palette.getLightVibrantSwatch();
-            if (vibrantLight != null) {
-                textVibrantLight.setBackgroundColor(vibrantLight.getRgb());
-                textVibrantLight.setTextColor(vibrantLight.getBodyTextColor());
-            }
-        }
-        {
-            Palette.Swatch muted = palette.getMutedSwatch();
-            if (muted != null) {
-                textMuted.setBackgroundColor(muted.getRgb());
-                textMuted.setTextColor(muted.getBodyTextColor());
-            }
-        }
-        {
-            Palette.Swatch mutedDark = palette.getDarkMutedSwatch();
-            if (mutedDark != null) {
-                textMutedDark.setBackgroundColor(mutedDark.getRgb());
-                textMutedDark.setTextColor(mutedDark.getBodyTextColor());
-            }
-        }
-        {
-            Palette.Swatch lightMuted = palette.getLightMutedSwatch();
-            if (lightMuted != null) {
-                textMutedLight.setBackgroundColor(lightMuted.getRgb());
-                textMutedLight.setTextColor(lightMuted.getBodyTextColor());
-            }
-        }
     }
 }

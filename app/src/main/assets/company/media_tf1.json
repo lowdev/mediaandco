@@ -4,5 +4,6 @@
   "logo" : "tv_tf1",
   "owners" :  {
     "groupe_tf1.json" : 100
-  }
+  },
+  "revenue" : "10"
 }
