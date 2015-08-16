@@ -1,10 +1,7 @@
 package eu.entropy.mediapedia;
 
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +13,9 @@ import android.webkit.WebView;
 import android.widget.ProgressBar;
 
 import com.google.gson.GsonBuilder;
+
 import eu.entropy.mediapedia.company.Company;
+import eu.entropy.mediapedia.company.CompanyRepository;
 import eu.entropy.mediapedia.networkgraph.visjs.VisjsModel;
 import eu.entropy.mediapedia.networkgraph.visjs.VisjsModelConverter;
 
@@ -89,12 +88,25 @@ public class NetworkGraphFragment extends Fragment {
     }
 
     class VisjsDto {
+        private CompanyRepository companyRepository;
+
         private String edges;
         private String nodes;
 
         public VisjsDto(String edges, String nodes) {
+            companyRepository = new CompanyRepository();
             this.edges = edges;
             this.nodes = nodes;
+        }
+
+        @JavascriptInterface
+        public void init(String companyId, String[] nodeIds) {
+            Company company = companyRepository.findById(companyId);
+            VisjsModel visjsModel = visjsModelConverter.toVisjsModel(company);
+            visjsModel.removeNodes(nodeIds);
+
+            this.nodes = new GsonBuilder().create().toJson(visjsModel.getNodes());
+            this.edges = new GsonBuilder().create().toJson(visjsModel.getEdges());
         }
 
         @JavascriptInterface

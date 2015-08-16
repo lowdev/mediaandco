@@ -8,6 +8,7 @@ import com.google.common.collect.Lists;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import eu.entropy.mediapedia.company.Company;
 import eu.entropy.mediapedia.company.CompanyRepository;
@@ -27,17 +28,17 @@ public class VisjsModelConverter {
 
         List<Node> companyNode = FluentIterable
                 .from(Arrays.asList(company))
-                .transform(new ToNode("companyGroup", 2))
+                .transform(new ToNode(UUID.randomUUID().toString(), 2))
                 .toList();
 
         List<Node> assetsNodes = FluentIterable
                 .from(assets)
-                .transform(new ToNode("assetsGroup", 1))
+                .transform(new ToNode(UUID.randomUUID().toString(), 1))
                 .toList();
 
         List<Node> ownersNodes = FluentIterable
                 .from(owners)
-                .transform(new ToNode("ownersGroup", 3))
+                .transform(new ToNode(UUID.randomUUID().toString(), 3))
                 .toList();
 
         List<Edge> assetsEdges = FluentIterable
@@ -70,7 +71,7 @@ public class VisjsModelConverter {
                     .withId(company.getId())
                     .withLabel(company.getName().replace(" ", "\n"))
                     .withGroup(group)
-                    .withLevel(level)
+                    //.withLevel(level)
                     .build();
         }
     }

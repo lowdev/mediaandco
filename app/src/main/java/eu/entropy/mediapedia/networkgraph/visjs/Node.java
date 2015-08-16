@@ -4,13 +4,17 @@ public class Node {
     private String id;
     private String label;
     private String group;
-    private int level;
+    private Integer level;
 
     private Node(Builder builder) {
         id = builder.id;
         label = builder.label;
         group = builder.group;
         level = builder.level;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public static Builder builder() {
@@ -21,7 +25,7 @@ public class Node {
         private String id;
         private String label;
         private String group;
-        private int level;
+        private Integer level;
 
         private Builder() {}
 
@@ -40,7 +44,7 @@ public class Node {
             return this;
         }
 
-        public Builder withLevel(int level) {
+        public Builder withLevel(Integer level) {
             this.level = level;
             return this;
         }
