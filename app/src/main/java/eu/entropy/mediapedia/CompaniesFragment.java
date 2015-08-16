@@ -55,6 +55,7 @@ public class CompaniesFragment extends Fragment {
                 Intent intent = new Intent(getActivity().getApplicationContext(), CompanyActivity.class);
                 intent.putExtra("company", stakeholder.getCompany());
                 getActivity().startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
             }
         });
         recyclerView.setAdapter(companyAdapter);

@@ -68,7 +68,7 @@ public class VisjsModelConverter {
         public Node apply(Company company) {
             return Node.builder()
                     .withId(company.getId())
-                    .withLabel(company.getName())
+                    .withLabel(company.getName().replace(" ", "\n"))
                     .withGroup(group)
                     .withLevel(level)
                     .build();

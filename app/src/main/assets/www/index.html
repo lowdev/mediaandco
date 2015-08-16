@@ -19,8 +19,8 @@
 		height:100%;
 	}
 
-	  transform: translate3d(0,0,0);
-	  -webkit-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+	-webkit-transform: translate3d(0,0,0);
   </style>
 </head>
 <body>
@@ -28,13 +28,14 @@
 <div id="mynetwork"></div>
 
 <script type="text/javascript">
+	
 	// create an array with nodes
-	var nodes = new vis.DataSet([
+	/*var nodes = new vis.DataSet([
 		{id: 0, label: 'invisible', level :0},
-		{id: 1, label: 'salarie                             ', level :1},
-		{id: 2, label: 'first eagle investment mamnagement  ', level :1},
-		{id: 3, label: 'Artisan partners limited partnership', level :1},
-		{id: 4, label: 'Bouygues                            ', level :1},
+		{id: 1, label: 'salarie', level :1},
+		{id: 2, label: 'first \neagle \ninvestment \nmamnagement  ', level :1},
+		{id: 3, label: 'Artisan \npartners \nlimited \npartnership', level :1},
+		{id: 4, label: 'Bouygues', level :1},
 		{id: 5, label: 'Node 5', level :2},
 		{id: 6, label: 'Node 6', level :3},
 		{id: 7, label: 'Node 7', level :3},
@@ -55,9 +56,10 @@
 		{from: 7, to: 5, arrows:'from'},
 		{from: 8, to: 5, arrows:'from'}
 	]);
-
-	//var nodes = new vis.DataSet(JSON.parse(visjsDto.getNodes()));
-	//var edges = new vis.DataSet(JSON.parse(visjsDto.getEdges()));
+	*/
+	
+	var nodes = new vis.DataSet(JSON.parse(visjsDto.getNodes()));
+	var edges = new vis.DataSet(JSON.parse(visjsDto.getEdges()));
 	
 	var container = document.getElementById('mynetwork');
 	var data = {
@@ -76,9 +78,15 @@
             hierarchical:{
                 direction: "UD"
             }
+        },
+		interaction: {
+          navigationButtons: false
         }
     };
 	var network = new vis.Network(container, data, options);
+	 network.on('select', function(params) {
+        document.getElementById('selection').innerHTML = 'Selection: ' + params.nodes;
+      });
 </script>
 
 </body>
