@@ -1,0 +1,9 @@
+{
+  "id" : "paper_le_monde.json",
+  "name" : "Le monde",
+  "logo" : "paper_le_monde",
+  "owners" :  {
+    "groupe_le_monde.json" : 100
+  },
+  "revenue" : "361"
+}

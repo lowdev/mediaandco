@@ -22,6 +22,8 @@ import eu.entropy.mediapedia.utils.AppContext;
 public class CompanyRepository {
 
     public static final String MEDIA = "media";
+    public static final String TV = "tv";
+    public static final String PAPER = "paper";
     public static final String FOLDER = "company";
 
     private AssetManager assetManager;
@@ -34,15 +36,27 @@ public class CompanyRepository {
         this.packageName = AppContext.getPackageName();
     }
 
-    public List<Company> findAllMedia() {
+    private List<Company> findAllByType(String type) {
         List<String> mediaJsonFiles = new ArrayList<>();
         for (String mediaJsonFile : Arrays.asList(getAssetsByFolder(FOLDER))) {
-            if (mediaJsonFile.startsWith(MEDIA)) {
+            if (mediaJsonFile.startsWith(type)) {
                 mediaJsonFiles.add(mediaJsonFile);
             }
         }
 
         return findByIds(mediaJsonFiles);
+    }
+
+    public List<Company> findAllMedia() {
+        return findAllByType(MEDIA);
+    }
+
+    public List<Company> findAllTv() {
+        return findAllByType(TV);
+    }
+
+    public List<Company> findAllPaper() {
+        return findAllByType(PAPER);
     }
 
     public Company findById(String companyId) {
