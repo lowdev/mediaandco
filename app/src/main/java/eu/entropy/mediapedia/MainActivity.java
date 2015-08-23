@@ -1,10 +1,7 @@
 package eu.entropy.mediapedia;
 
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -30,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle drawerToggle;
 
     private CompanyRepository companyRepository;
+    private MediaFragment mediaFragment;
+    private List<Company> companies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,17 +39,24 @@ public class MainActivity extends AppCompatActivity {
 
         companyRepository = new CompanyRepository();
 
+        this.mediaFragment = MediaFragment.newInstance(companyRepository.findAllTv());
+        getSupportFragmentManager().beginTransaction().replace(
+                R.id.flContent, this.mediaFragment).commit();
+
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = new ActionBarDrawerToggle(
-                this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
+                this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close) {
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                updateCompanies();
+            }
+        };
+
         mDrawer.setDrawerListener(drawerToggle);
 
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
         setupDrawerContent(nvDrawer);
 
-        getSupportFragmentManager().beginTransaction().replace(
-                R.id.flContent,
-                MediaFragment.newInstance(companyRepository.findAllTv())).commit();
         setTitle("Television");
     }
 
@@ -76,13 +82,6 @@ public class MainActivity extends AppCompatActivity {
         drawerToggle.syncState();
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        // Pass any configuration change to the drawer toggles
-        drawerToggle.onConfigurationChanged(newConfig);
-    }
-
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -95,33 +94,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void selectDrawerItem(MenuItem menuItem) {
-
-        List<Company> companies = new ArrayList<>();
         switch(menuItem.getItemId()) {
             case R.id.nav_television_fragment:
-                companies = companyRepository.findAllTv();
+                this.companies = companyRepository.findAllTv();
                 break;
             case R.id.nav_paper_fragment:
-                companies = companyRepository.findAllPaper();
+                this.companies = companyRepository.findAllPaper();
                 break;
             default:
-                companies = new ArrayList<>();
+                this.companies = new ArrayList<>();
         }
 
-        // Highlight the selected item, update the title, and close the drawer
         menuItem.setChecked(true);
         setTitle(menuItem.getTitle());
-        mDrawer.closeDrawers();
 
-        final Fragment fragment =  MediaFragment.newInstance(companies);
-        final FragmentManager fragmentManagerTrick = this.getSupportFragmentManager();
-        mDrawer.setDrawerListener(new DrawerLayout.SimpleDrawerListener() {
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                // Insert the fragment by replacing any existing fragment
-                fragmentManagerTrick.beginTransaction().replace(R.id.flContent, fragment).commit();
-            }
-        });
+        mDrawer.closeDrawers();
+    }
+
+    public void updateCompanies() {
+        mediaFragment.updateView(companies);
     }
 
     private void setupAppContext() {

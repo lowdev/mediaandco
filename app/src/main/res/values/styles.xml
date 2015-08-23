@@ -17,7 +17,7 @@
         <item name="tabIndicatorColor">@color/primary_text</item>
         <item name="tabSelectedTextColor">@color/primary_text</item>
 
-        <item name="android:colorControlHighlight">#f65</item>
+        <item name="android:colorControlHighlight">@color/colorControlHighlight</item>
 
         <item name="android:listDivider">@color/my_divider</item>
     </style>
@@ -60,5 +60,10 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
         <item name="android:background">@color/my_divider</item>
+    </style>
+
+    <style name="navText">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">15sp</item>
     </style>
 </resources>

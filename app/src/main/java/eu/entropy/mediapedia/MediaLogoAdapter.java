@@ -1,9 +1,12 @@
 package eu.entropy.mediapedia;
 
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import java.util.List;
@@ -13,10 +16,15 @@ import eu.entropy.mediapedia.utils.OnRecyclerViewItemClickListener;
 
 public class MediaLogoAdapter extends RecyclerView.Adapter<MediaLogoAdapter.ViewHolder> implements View.OnClickListener {
 
+    private int lastPosition;
     private List<Company> companies;
     private OnRecyclerViewItemClickListener<Company> itemClickListener;
 
     public MediaLogoAdapter(List<Company> companies) {
+        this.companies = companies;
+    }
+
+    public void update(List<Company> companies) {
         this.companies = companies;
     }
 

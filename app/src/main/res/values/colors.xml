@@ -10,6 +10,7 @@
     <color name="secondary_text">#ffffff</color>
     <color name="icons">#FFFFFF</color>
     <color name="my_divider">#F0F0F0</color>
+    <color name="colorControlHighlight">#f65</color>
 
     <color name="nav_menu">#000000</color>
 </resources>

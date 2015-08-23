@@ -38,7 +38,8 @@
         android:background="@android:color/white"
         app:menu="@menu/drawer_view"
         app:headerLayout="@layout/nav_header"
-        app:itemTextColor="@color/nav_menu"
-        app:itemIconTint="@color/material_blue_grey_800"
+        app:itemTextColor="@color/nav_color_text"
+        app:itemIconTint="@color/nav_color_text"
+        app:theme="@style/navText"
         />
 </android.support.v4.widget.DrawerLayout>
