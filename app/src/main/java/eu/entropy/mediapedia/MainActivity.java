@@ -37,9 +37,9 @@ public class MainActivity extends AppCompatActivity {
         setupToolbar();
         setupAppContext();
 
-        companyRepository = new CompanyRepository();
-
-        this.mediaFragment = MediaFragment.newInstance(companyRepository.findAllTv());
+        this.companyRepository = new CompanyRepository();
+        this.companies = companyRepository.findAllTv();
+        this.mediaFragment = MediaFragment.newInstance(this.companies);
         getSupportFragmentManager().beginTransaction().replace(
                 R.id.flContent, this.mediaFragment).commit();
 

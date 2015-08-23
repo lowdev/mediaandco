@@ -57,7 +57,7 @@ public class InformationFragment extends Fragment {
         ownersView.setText(company.getRevenue());
 
         unitView = (TextView) companiesListView.findViewById(R.id.unit);
-        unitView.setText("billions revenue");
+        unitView.setText(company.getUnit());
 
         ownersView = (TextView) companiesListView.findViewById(R.id.owners);
         ownersView.setText(Integer.toString(company.getOwners().size()));

@@ -12,6 +12,7 @@ public class Company implements Parcelable {
     private String logo;
     private int logoDrawableId;
     private String revenue;
+    private String unit;
     private Map<String, Double> owners;
     private Map<String, Double>  assets;
 
@@ -47,6 +48,10 @@ public class Company implements Parcelable {
         this.logoDrawableId = logoDrawableId;
     }
 
+    public String getUnit() {
+        return unit;
+    }
+
     public String getRevenue() {
         return revenue;
     }
@@ -69,6 +74,7 @@ public class Company implements Parcelable {
         dest.writeMap(owners);
         dest.writeMap(assets);
         dest.writeString(revenue);
+        dest.writeString(unit);
     }
 
     // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
@@ -91,5 +97,6 @@ public class Company implements Parcelable {
         owners = in.readHashMap(Double.class.getClassLoader());
         assets = in.readHashMap(Double.class.getClassLoader());
         revenue = in.readString();
+        unit = in.readString();
     }
 }

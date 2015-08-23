@@ -5,5 +5,6 @@
   "owners" :  {
     "groupe_tf1.json" : 100
   },
-  "revenue" : "10"
+  "revenue" : "10",
+  "unit" : "millions"
 }

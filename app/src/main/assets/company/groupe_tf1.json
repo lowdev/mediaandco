@@ -17,5 +17,6 @@
     "eurosport_france.json" : 100,
     "eurosport_2_france.json" : 100
   },
-  "revenue" : "2,470"
+  "revenue" : "2,470",
+  "unit" : "billion"
 }

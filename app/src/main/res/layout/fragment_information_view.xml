@@ -3,10 +3,9 @@
     android:id="@+id/GridLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:columnCount="3"
+    android:columnCount="4"
     android:useDefaultMargins="true"
-    android:padding="20px"
-    >
+    android:padding="20px">
 
         <ImageView
             android:layout_row="0"
@@ -35,13 +34,22 @@
             android:layout_row="0"
             android:layout_column="2"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
+            android:layout_gravity="right"
             android:id="@+id/unit"
             android:textSize="12dp"
-            android:text="billion revenue"
+            android:text="billion"
             android:maxLines="2"
             android:singleLine="false"
-            />
+            android:layout_marginRight="0dp" />
+        <TextView
+            android:layout_row="0"
+            android:layout_column="3"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:textSize="12dp"
+            android:text="revenue"
+            android:maxLines="2"
+            android:singleLine="false" />
 
         <TextView
             android:layout_row="1"
@@ -58,6 +66,7 @@
         <TextView
             android:layout_row="1"
             android:layout_column="2"
+            android:layout_columnSpan="2"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:textSize="12dp"
@@ -78,6 +87,7 @@
         <TextView
             android:layout_row="2"
             android:layout_column="2"
+            android:layout_columnSpan="2"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:textSize="12dp"
@@ -86,7 +96,7 @@
 
         <View
             android:layout_row="2"
-            android:layout_columnSpan="3"
+            android:layout_columnSpan="4"
             style="@style/Divider"
             />
 </GridLayout>
