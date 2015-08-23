@@ -10,8 +10,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import eu.entropy.mediapedia.company.Company;
@@ -58,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
         setupDrawerContent(nvDrawer);
 
         setTitle("Television");
+
+        setupSpinner();
     }
 
     @Override
@@ -119,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
         AppContext.build(getAssets(), getResources(), getPackageName());
     }
 
-    private void setupToolbar(){
+    private void setupToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
@@ -130,5 +135,13 @@ public class MainActivity extends AppCompatActivity {
             ab.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
             ab.setDisplayHomeAsUpEnabled(true);
         }
+    }
+
+    private void setupSpinner() {
+        Spinner spinner = (Spinner) findViewById(R.id.countrySpinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.countries_array, R.layout.spinner_item);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        spinner.setAdapter(adapter);
     }
 }
