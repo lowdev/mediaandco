@@ -35,10 +35,6 @@ public class Stakeholder implements Parcelable, Comparable<Stakeholder> {
         return company.hasInformation();
     }
 
-    public int getLogoDrawableId() {
-        return company.getLogoDrawableId();
-    }
-
     @Override
     public int compareTo(Stakeholder stakeholder) {
         return Double.compare(stakeholder.stake, stake);
@@ -55,7 +51,6 @@ public class Stakeholder implements Parcelable, Comparable<Stakeholder> {
         dest.writeDouble(stake);
     }               
 
-    // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
     public static final Parcelable.Creator<Stakeholder> CREATOR = new Parcelable.Creator<Stakeholder>() {
         public Stakeholder createFromParcel(Parcel in) {
             return new Stakeholder(in);
@@ -66,7 +61,6 @@ public class Stakeholder implements Parcelable, Comparable<Stakeholder> {
         }
     };
 
-    // example constructor that takes a Parcel and gives you an object populated with it's values
     private Stakeholder(Parcel in) {
         company = in.readParcelable(Company.class.getClassLoader());
         stake = in.readDouble();

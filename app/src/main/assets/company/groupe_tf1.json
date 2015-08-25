@@ -1,7 +1,7 @@
 {
   "id" : "groupe_tf1.json",
   "name" : "Groupe TF1",
-  "logo" : "company_groupe_tf1",
+  "logo" : "https://upload.wikimedia.org/wikipedia/fr/5/5a/Groupe_TF1.png",
   "owners" :  {
     "bouygues.json" : 40,
     "salaries.json" : 20,
@@ -9,7 +9,7 @@
     "first_eagle_investment_management.json" : 10
   },
   "assets" : {
-    "tv_tf1.json" : 100,
+    "tv/france/tf1.json" : 100,
     "hd1.json" : 100,
     "lci.json" : 100,
     "nt1.json" : 100,

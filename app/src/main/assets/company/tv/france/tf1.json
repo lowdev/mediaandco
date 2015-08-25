@@ -1,0 +1,10 @@
+{
+  "id" : "tv/france/tf1.json",
+  "name" : "TF1",
+  "logo" : "https://upload.wikimedia.org/wikipedia/commons/d/dc/TF1_logo_2013.png",
+  "owners" :  {
+    "groupe_tf1.json" : 100
+  },
+  "revenue" : "10",
+  "unit" : "millions"
+}

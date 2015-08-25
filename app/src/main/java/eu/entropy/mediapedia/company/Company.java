@@ -10,14 +10,12 @@ public class Company implements Parcelable {
     private String id;
     private String name;
     private String logo;
-    private int logoDrawableId;
     private String revenue;
     private String unit;
     private Map<String, Double> owners;
     private Map<String, Double>  assets;
 
     public Company() {
-        logo = "";
         owners = new HashMap<>();
         assets = new HashMap<>();
     }
@@ -32,20 +30,12 @@ public class Company implements Parcelable {
         return logo;
     }
 
-    public int getLogoDrawableId() {
-        return logoDrawableId;
-    }
-
     public Map<String, Double> getOwners() {
         return owners;
     }
 
     public Map<String, Double> getAssets() {
         return assets;
-    }
-
-    public void setLogoDrawableId(int logoDrawableId) {
-        this.logoDrawableId = logoDrawableId;
     }
 
     public String getUnit() {
@@ -70,7 +60,6 @@ public class Company implements Parcelable {
         dest.writeString(id);
         dest.writeString(name);
         dest.writeString(logo);
-        dest.writeInt(logoDrawableId);
         dest.writeMap(owners);
         dest.writeMap(assets);
         dest.writeString(revenue);
@@ -91,9 +80,8 @@ public class Company implements Parcelable {
     // example constructor that takes a Parcel and gives you an object populated with it's values
     protected Company(Parcel in) {
         id = in.readString();
-        name = in.readString();;
+        name = in.readString();
         logo = in.readString();
-        logoDrawableId = in.readInt();
         owners = in.readHashMap(Double.class.getClassLoader());
         assets = in.readHashMap(Double.class.getClassLoader());
         revenue = in.readString();

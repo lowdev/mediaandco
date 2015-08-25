@@ -1,6 +1,10 @@
 package eu.entropy.mediapedia;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -10,11 +14,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import eu.entropy.mediapedia.company.Company;
@@ -23,12 +28,15 @@ import eu.entropy.mediapedia.utils.AppContext;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String COUNTRY_MEDIA = "mediaCountry";
+
     private DrawerLayout mDrawer;
     private NavigationView nvDrawer;
     private Toolbar toolbar;
 
     private ActionBarDrawerToggle drawerToggle;
 
+    private SharedPreferences preferences;
     private CompanyRepository companyRepository;
     private MediaFragment mediaFragment;
     private List<Company> companies;
@@ -40,8 +48,9 @@ public class MainActivity extends AppCompatActivity {
         setupToolbar();
         setupAppContext();
 
+        this.preferences = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
         this.companyRepository = new CompanyRepository();
-        this.companies = companyRepository.findAllTv();
+        this.companies = companyRepository.findAllTv(getCountryMedia());
         this.mediaFragment = MediaFragment.newInstance(this.companies);
         getSupportFragmentManager().beginTransaction().replace(
                 R.id.flContent, this.mediaFragment).commit();
@@ -101,10 +110,10 @@ public class MainActivity extends AppCompatActivity {
     public void selectDrawerItem(MenuItem menuItem) {
         switch(menuItem.getItemId()) {
             case R.id.nav_television_fragment:
-                this.companies = companyRepository.findAllTv();
+                this.companies = companyRepository.findAllTv(getCountryMedia());
                 break;
             case R.id.nav_paper_fragment:
-                this.companies = companyRepository.findAllPaper();
+                this.companies = companyRepository.findAllPaper(getCountryMedia());
                 break;
             default:
                 this.companies = new ArrayList<>();
@@ -143,5 +152,36 @@ public class MainActivity extends AppCompatActivity {
                 R.array.countries_array, R.layout.spinner_item);
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String text = ((TextView) view).getText().toString();
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString(COUNTRY_MEDIA, text.toLowerCase());
+                editor.commit();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spinner.setSelection(getIndex(spinner, getCountryMedia()));
+    }
+
+    private int getIndex(Spinner spinner, String countryMedia){
+        for (int i = 0; i < spinner.getCount(); i++){
+            String spinnerValue = (String) spinner.getItemAtPosition(i);
+            if (spinnerValue.toLowerCase().equals(countryMedia)){
+                return i;
+            }
+        }
+        return 0;
+    }
+
+
+    @NonNull
+    private String getCountryMedia() {
+        return preferences.getString(COUNTRY_MEDIA, "france");
     }
 }

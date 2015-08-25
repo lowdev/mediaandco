@@ -21,8 +21,8 @@ import eu.entropy.mediapedia.utils.AppContext;
 
 public class CompanyRepository {
 
-    public static final String MEDIA = "media";
     public static final String TV = "tv";
+    public static final String FRANCE = "france";
     public static final String PAPER = "paper";
     public static final String FOLDER = "company";
 
@@ -38,43 +38,31 @@ public class CompanyRepository {
 
     private List<Company> findAllByType(String type) {
         List<String> mediaJsonFiles = new ArrayList<>();
-        for (String mediaJsonFile : Arrays.asList(getAssetsByFolder(FOLDER))) {
-            if (mediaJsonFile.startsWith(type)) {
-                mediaJsonFiles.add(mediaJsonFile);
-            }
+        for (String mediaJsonFile : Arrays.asList(getAssetsByFolder(FOLDER + "/" + type))) {
+                mediaJsonFiles.add(type + "/" + mediaJsonFile);
         }
 
         return findByIds(mediaJsonFiles);
     }
 
-    public List<Company> findAllMedia() {
-        return findAllByType(MEDIA);
+    public List<Company> findAllTv(String country) {
+        return findAllByType(TV + '/' + country);
     }
 
-    public List<Company> findAllTv() {
-        return findAllByType(TV);
-    }
-
-    public List<Company> findAllPaper() {
-        return findAllByType(PAPER);
+    public List<Company> findAllPaper(String country) {
+        return findAllByType(PAPER + '/' + country);
     }
 
     public Company findById(String companyId) {
         InputStream in = createInputStream(FOLDER + "/" + companyId);
 
-        Company company = null;
+        Company company;
         try {
             company = new GsonBuilder().create().fromJson(createBufferedReader(in), Company.class);
         } catch (JsonSyntaxException e) {
             Log.e("mediapedia", "Can't read " + companyId, e);
             throw e;
         }
-
-        int logoDrawableId = resources.getIdentifier(company.getLogo(), "drawable", packageName);
-        if (logoDrawableId == 0) {
-            logoDrawableId = R.drawable.android_logo;
-        }
-        company.setLogoDrawableId(logoDrawableId);
 
         return company;
     }

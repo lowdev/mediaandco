@@ -45,7 +45,7 @@ public class InformationFragment extends Fragment {
         View companiesListView = inflater.inflate(R.layout.fragment_information_view, container, false);
         imageView = (ImageView) companiesListView.findViewById(R.id.image);
         Picasso.with(getActivity())
-                .load(company.getLogoDrawableId())
+                .load(company.getLogo())
                 .centerInside()
                 .fit()
                 .into(imageView);

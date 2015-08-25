@@ -16,7 +16,7 @@
             android:layout_height="101dp"
             android:layout_gravity="center"
             android:adjustViewBounds="true"
-            android:src="@drawable/tv_tf1"
+            android:src="@drawable/android_logo"
             />
 
         <TextView
