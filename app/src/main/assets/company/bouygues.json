@@ -1,7 +1,7 @@
 {
   "id" : "bouygues.json",
   "name" : "Bouygues",
-  "logo" : "https://upload.wikimedia.org/wikipedia/fr/4/4a/Logo_de_Bouygues.svg",
+  "logo" : "https://upload.wikimedia.org/wikipedia/fr/thumb/4/4a/Logo_de_Bouygues.svg/320px-Logo_de_Bouygues.svg.png",
   "owners" :  {
     "groupe_scdm.json" : 100
   },

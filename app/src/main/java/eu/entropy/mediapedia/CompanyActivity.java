@@ -1,9 +1,7 @@
 package eu.entropy.mediapedia;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import eu.entropy.mediapedia.company.Company;
-import eu.entropy.mediapedia.company.StakeholderRepository;
 
 public class CompanyActivity extends AppCompatActivity {
 
@@ -34,7 +31,7 @@ public class CompanyActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         this.menu = menu;
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main, menu);
+        inflater.inflate(R.menu.company_menu, menu);
         return true;
     }
 

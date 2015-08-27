@@ -11,7 +11,7 @@
   "assets" : {
     "tv/france/tf1.json" : 100,
     "hd1.json" : 100,
-    "lci.json" : 100,
+    "tv/france/lci.json" : 100,
     "nt1.json" : 100,
     "tmc.json" : 100,
     "eurosport_france.json" : 100,

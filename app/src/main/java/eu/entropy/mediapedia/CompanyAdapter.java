@@ -1,7 +1,6 @@
 package eu.entropy.mediapedia;
 
 import android.content.Context;
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,11 +39,11 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
         Stakeholder company = companies.get(position);
         holder.companyName.setText(company.getName());
         Picasso.with(holder.context)
-                .load(company.getLogo())
-                .error(R.drawable.android_logo)
-                .centerInside()
-                .fit()
-                .into(holder.companyLogo);
+            .load(company.getLogo())
+            .error(R.drawable.android_logo)
+            .centerInside()
+            .fit()
+            .into(holder.companyLogo);
         holder.stake.setText(company.getStake() + " stake");
 
         if (!company.hasInformation()) {

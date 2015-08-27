@@ -1,7 +1,7 @@
 {
   "id" : "paper/france/le_monde.json",
   "name" : "Le monde",
-  "logo" : "paper_le_monde",
+  "logo" : "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Le_Monde.svg/320px-Le_Monde.svg.png",
   "owners" :  {
     "groupe_le_monde.json" : 100
   },
