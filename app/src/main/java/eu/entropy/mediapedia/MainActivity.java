@@ -2,7 +2,6 @@ package eu.entropy.mediapedia;
 
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -28,6 +27,7 @@ import java.util.List;
 
 import eu.entropy.mediapedia.company.Company;
 import eu.entropy.mediapedia.company.CompanyRepository;
+import eu.entropy.mediapedia.company.MediaType;
 import eu.entropy.mediapedia.utils.AppContext;
 
 public class MainActivity extends AppCompatActivity {
@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private CompanyRepository companyRepository;
     private MediaFragment mediaFragment;
     private List<Company> companies;
+    private MediaType mediaType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         this.preferences = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
         this.companyRepository = new CompanyRepository();
         this.companies = companyRepository.findAllTv(getCountryMedia());
+        this.mediaType = MediaType.TV;
         this.mediaFragment = MediaFragment.newInstance(this.companies);
         getSupportFragmentManager().beginTransaction().replace(
                 R.id.flContent, this.mediaFragment).commit();
@@ -90,8 +92,25 @@ public class MainActivity extends AppCompatActivity {
                 (SearchView) menu.findItem(R.id.menu_search).getActionView();
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                search(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
 
         return true;
+    }
+
+    private void search(String query) {
+        this.companies = companyRepository.findAllByTypeAndQuery(this.mediaType, getCountryMedia(), query);
+        updateCompanies();
     }
 
     @Override
@@ -130,9 +149,11 @@ public class MainActivity extends AppCompatActivity {
     public void selectDrawerItem(MenuItem menuItem) {
         switch(menuItem.getItemId()) {
             case R.id.nav_television_fragment:
+                this.mediaType = MediaType.TV;
                 this.companies = companyRepository.findAllTv(getCountryMedia());
                 break;
             case R.id.nav_paper_fragment:
+                this.mediaType = MediaType.RADIO;
                 this.companies = companyRepository.findAllPaper(getCountryMedia());
                 break;
             default:

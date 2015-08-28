@@ -1,9 +1,11 @@
 package eu.entropy.mediapedia.company;
 
 import android.content.res.AssetManager;
-import android.content.res.Resources;
 import android.util.Log;
 
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
+import com.google.common.collect.FluentIterable;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 
@@ -16,41 +18,65 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import eu.entropy.mediapedia.R;
 import eu.entropy.mediapedia.utils.AppContext;
 
 public class CompanyRepository {
-
-    public static final String TV = "tv";
-    public static final String FRANCE = "france";
-    public static final String PAPER = "paper";
     public static final String FOLDER = "company";
 
     private AssetManager assetManager;
-    private Resources resources;
-    private String packageName;
 
     public CompanyRepository() {
         this.assetManager = AppContext.getAssetManager();
-        this.resources = AppContext.getResources();
-        this.packageName = AppContext.getPackageName();
-    }
-
-    private List<Company> findAllByType(String type) {
-        List<String> mediaJsonFiles = new ArrayList<>();
-        for (String mediaJsonFile : Arrays.asList(getAssetsByFolder(FOLDER + "/" + type))) {
-                mediaJsonFiles.add(type + "/" + mediaJsonFile);
-        }
-
-        return findByIds(mediaJsonFiles);
     }
 
     public List<Company> findAllTv(String country) {
-        return findAllByType(TV + '/' + country);
+        return findAllByType(MediaType.TV, country);
     }
 
     public List<Company> findAllPaper(String country) {
-        return findAllByType(PAPER + '/' + country);
+        return findAllByType(MediaType.PAPER, country);
+    }
+
+    public  List<Company> findAllByTypeAndQuery(MediaType type, String country, String query) {
+        return FluentIterable
+                .from(findFileNamesByType(type, country))
+                .filter(new ByQuery(query))
+                .transform(new ToCompany())
+                .toList();
+    }
+
+    private List<Company> findAllByType(MediaType type, String country) {
+        return findByIds(findFileNamesByType(type, country));
+    }
+
+    private List<String> findFileNamesByType(MediaType type, String country) {
+        List<String> mediaJsonFiles = new ArrayList<>();
+        String folderName = type.getFolderName() + '/' + country;
+        for (String mediaJsonFile : Arrays.asList(getAssetsByFolder(FOLDER + "/" + folderName))) {
+            mediaJsonFiles.add(folderName + "/" + mediaJsonFile);
+        }
+
+        return mediaJsonFiles;
+    }
+
+    private class ByQuery implements Predicate<String> {
+        private String query;
+
+        public ByQuery(String query) {
+            this.query = query;
+        }
+
+        @Override
+        public boolean apply(String companyId) {
+            return companyId.substring(companyId.lastIndexOf('/')).contains(query);
+        }
+    }
+
+    private class ToCompany implements Function<String, Company> {
+        @Override
+        public Company apply(String companyId) {
+            return findById(companyId);
+        }
     }
 
     public Company findById(String companyId) {
