@@ -26,7 +26,6 @@
 
         <activity
             android:name=".CompanyActivity"
-            android:launchMode="singleTop"
             android:label="@string/title_activity_media"
             android:parentActivityName=".MainActivity">
         </activity>
