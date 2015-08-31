@@ -1,0 +1,16 @@
+{
+  "id" : "bouygues.json",
+  "name" : "Bouygues",
+  "logo" : "https://upload.wikimedia.org/wikipedia/fr/thumb/4/4a/Logo_de_Bouygues.svg/320px-Logo_de_Bouygues.svg.png",
+  "owners" :  {
+    "groupe_scdm.json" : 100
+  },
+  "assets" : {
+    "groupe_tf1.json" : 100,
+    "bouygues_construction.json" : 100,
+    "bouygues_immobilier.json" : 100,
+    "colas.json" : 100,
+    "bouygues_telecom.json" : 100,
+    "alstom.json" : 50
+  }
+}
