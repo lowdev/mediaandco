@@ -3,6 +3,7 @@ package eu.entropy.mediapedia;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBar;
@@ -32,7 +33,7 @@ public class MediaFragment extends Fragment {
 
     public static MediaFragment newInstance(List<Company> companies) {
         Bundle args = new Bundle();
-        args.putParcelableArrayList(ARG_PAGE, (ArrayList<Company>) companies);
+        args.putParcelableArrayList(ARG_PAGE, new ArrayList<Parcelable>(companies));
         MediaFragment fragment = new MediaFragment();
         fragment.setArguments(args);
 

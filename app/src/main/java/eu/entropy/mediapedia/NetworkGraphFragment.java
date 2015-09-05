@@ -16,8 +16,12 @@ import com.google.gson.GsonBuilder;
 
 import eu.entropy.mediapedia.company.Company;
 import eu.entropy.mediapedia.company.CompanyRepository;
+import eu.entropy.mediapedia.company.apigee.ApigeeCompanyResult;
 import eu.entropy.mediapedia.networkgraph.visjs.VisjsModel;
 import eu.entropy.mediapedia.networkgraph.visjs.VisjsModelConverter;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class NetworkGraphFragment extends Fragment {
     public static final String ARG_PAGE = "company";
@@ -100,13 +104,23 @@ public class NetworkGraphFragment extends Fragment {
         }
 
         @JavascriptInterface
-        public void init(String companyId, String[] nodeIds) {
-            Company company = companyRepository.findById(companyId);
-            VisjsModel visjsModel = visjsModelConverter.toVisjsModel(company);
-            visjsModel.removeNodes(nodeIds);
+        public void init(String companyId, final String[] nodeIds) {
+            Callback<ApigeeCompanyResult> callback = new Callback<ApigeeCompanyResult>() {
+                @Override
+                public void success(ApigeeCompanyResult apigeeCompanyResult, Response response) {
+                    VisjsModel visjsModel = visjsModelConverter.toVisjsModel(company);
+                    visjsModel.removeNodes(nodeIds);
 
-            this.nodes = new GsonBuilder().create().toJson(visjsModel.getNodes());
-            this.edges = new GsonBuilder().create().toJson(visjsModel.getEdges());
+                    setNodes(new GsonBuilder().create().toJson(visjsModel.getNodes()));
+                    setEdges(new GsonBuilder().create().toJson(visjsModel.getEdges()));
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+
+                }
+            };
+            companyRepository.findById(companyId, callback);
         }
 
         @JavascriptInterface
@@ -117,6 +131,14 @@ public class NetworkGraphFragment extends Fragment {
         @JavascriptInterface
         public String getNodes() {
             return nodes;
+        }
+
+        private void setEdges(String edges) {
+            this.edges = edges;
+        }
+
+        private void setNodes(String nodes) {
+            this.nodes = nodes;
         }
     }
 }

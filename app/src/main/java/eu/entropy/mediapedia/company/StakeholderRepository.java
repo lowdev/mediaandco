@@ -8,12 +8,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import eu.entropy.mediapedia.company.apigee.ApigeeCompanyResult;
+import retrofit.Callback;
+
 public class StakeholderRepository {
 
     private CompanyRepository companyRepository;
 
     public StakeholderRepository() {
         companyRepository = new CompanyRepository();
+    }
+
+    public void findById(String id, double stake, Callback<ApigeeCompanyResult> callback) {
+        companyRepository.findById(id, callback);
     }
 
     public Stakeholder findById(String id, double stake) {

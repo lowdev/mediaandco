@@ -13,11 +13,16 @@ public class Company implements Parcelable {
     private String revenue;
     private String unit;
     private Map<String, Double> owners;
-    private Map<String, Double>  assets;
+    private Map<String, Double> assets;
 
-    public Company() {
-        owners = new HashMap<>();
-        assets = new HashMap<>();
+    public Company(Builder builder) {
+        this.id = builder.id;
+        this.name = builder.name;
+        this.logo = builder.logo;
+        this.revenue = builder.revenue;
+        this.unit = builder.unit;
+        this.owners = builder.owners;
+        this.assets = builder.assets;
     }
 
     public String getId() {  return id; }
@@ -49,7 +54,7 @@ public class Company implements Parcelable {
     public boolean hasInformation() {
         return 0 != owners.size() + assets.size();
     }
-    
+
     @Override
     public int describeContents() {
         return 0;
@@ -86,5 +91,58 @@ public class Company implements Parcelable {
         assets = in.readHashMap(Double.class.getClassLoader());
         revenue = in.readString();
         unit = in.readString();
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private String id;
+        private String name;
+        private String logo;
+        private String revenue;
+        private String unit;
+        private Map<String, Double> owners = new HashMap<>();
+        private Map<String, Double> assets = new HashMap<>();
+
+        public Builder id(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder logo(String logo) {
+            this.logo = logo;
+            return this;
+        }
+
+        public Builder revenue(String revenue) {
+            this.revenue = revenue;
+            return this;
+        }
+
+        public Builder unit(String unit) {
+            this.unit = unit;
+            return this;
+        }
+
+        public Builder assets(Map<String, Double> assets) {
+            this.assets = assets;
+            return this;
+        }
+
+        public Builder owners(Map<String, Double> owners) {
+            this.owners = owners;
+            return this;
+        }
+
+        public Company build() {
+            return new Company(this);
+        }
     }
 }

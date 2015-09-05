@@ -4,6 +4,7 @@ import android.content.res.AssetManager;
 import android.util.Log;
 
 import com.google.common.base.Function;
+import com.google.common.base.Joiner;
 import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
 import com.google.gson.GsonBuilder;
@@ -18,65 +19,47 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import eu.entropy.mediapedia.company.apigee.ApigeeCompanyResult;
 import eu.entropy.mediapedia.utils.AppContext;
+import retrofit.Callback;
+import retrofit.RestAdapter;
 
 public class CompanyRepository {
     public static final String FOLDER = "company";
+    public static final String SELECT = "select * where ";
 
     private AssetManager assetManager;
+    private CompanyApigeeService service;
 
     public CompanyRepository() {
         this.assetManager = AppContext.getAssetManager();
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setLogLevel(RestAdapter.LogLevel.FULL)
+                .setEndpoint("https://api.usergrid.com/lowentropydev/sandbox")
+                .build();
+        service = restAdapter.create(CompanyApigeeService.class);
     }
 
-    public List<Company> findAllTv(String country) {
-        return findAllByType(MediaType.TV, country);
+    public void findAll(CompanySpecification companySpecification, Callback<ApigeeCompanyResult> callback) {
+        service.findAll(companySpecification.getClause(), callback);
     }
 
-    public List<Company> findAllPaper(String country) {
-        return findAllByType(MediaType.PAPER, country);
+    public void findById(String companyId, Callback<ApigeeCompanyResult> callback) {
+        service.findById(companyId, callback);
     }
 
-    public  List<Company> findAllByTypeAndQuery(MediaType type, String country, String query) {
+    public void findByIds(Iterable<String> ids,  Callback<ApigeeCompanyResult> callback) {
+        service.findAll(Joiner
+                .on(" and ")
+                .join(ids), callback);
+    }
+
+    public List<Company> findAll(CompanySpecification companySpecification) {
         return FluentIterable
-                .from(findFileNamesByType(type, country))
-                .filter(new ByQuery(query))
+                .from(findFileNamesByType(companySpecification.getMediaType(), companySpecification.getCountry()))
+                .filter(new ByQuery(companySpecification.getQuery()))
                 .transform(new ToCompany())
                 .toList();
-    }
-
-    private List<Company> findAllByType(MediaType type, String country) {
-        return findByIds(findFileNamesByType(type, country));
-    }
-
-    private List<String> findFileNamesByType(MediaType type, String country) {
-        List<String> mediaJsonFiles = new ArrayList<>();
-        String folderName = type.getFolderName() + '/' + country;
-        for (String mediaJsonFile : Arrays.asList(getAssetsByFolder(FOLDER + "/" + folderName))) {
-            mediaJsonFiles.add(folderName + "/" + mediaJsonFile);
-        }
-
-        return mediaJsonFiles;
-    }
-
-    private class ByQuery implements Predicate<String> {
-        private String query;
-
-        public ByQuery(String query) {
-            this.query = query;
-        }
-
-        @Override
-        public boolean apply(String companyId) {
-            return companyId.substring(companyId.lastIndexOf('/')).contains(query);
-        }
-    }
-
-    private class ToCompany implements Function<String, Company> {
-        @Override
-        public Company apply(String companyId) {
-            return findById(companyId);
-        }
     }
 
     public Company findById(String companyId) {
@@ -100,6 +83,40 @@ public class CompanyRepository {
         }
 
         return companies;
+    }
+
+    private List<String> findFileNamesByType(MediaType type, String country) {
+        List<String> mediaJsonFiles = new ArrayList<>();
+        String folderName = type.getFolderName() + '/' + country;
+        for (String mediaJsonFile : Arrays.asList(getAssetsByFolder(FOLDER + "/" + folderName))) {
+            mediaJsonFiles.add(folderName + "/" + mediaJsonFile);
+        }
+
+        return mediaJsonFiles;
+    }
+
+    private class ByQuery implements Predicate<String> {
+        private String query;
+
+        public ByQuery(String query) {
+            this.query = query;
+        }
+
+        @Override
+        public boolean apply(String companyId) {
+            if (companyId.isEmpty()) {
+                return true;
+            }
+
+            return companyId.substring(companyId.lastIndexOf('/')).contains(query);
+        }
+    }
+
+    private class ToCompany implements Function<String, Company> {
+        @Override
+        public Company apply(String companyId) {
+            return findById(companyId);
+        }
     }
 
     private String[] getAssetsByFolder(String folder) {
