@@ -1,0 +1,16 @@
+{
+  "name" : "bouygues",
+  "corporateName" : "Bouygues",
+  "logo" : "https://upload.wikimedia.org/wikipedia/fr/thumb/4/4a/Logo_de_Bouygues.svg/320px-Logo_de_Bouygues.svg.png",
+  "owners" :  {
+    "groupe_scdm" : 100
+  },
+  "assets" : {
+    "groupe_tf1" : 100,
+    "bouygues_construction" : 100,
+    "bouygues_immobilier" : 100,
+    "colas" : 100,
+    "bouygues_telecom" : 100,
+    "alstom" : 50
+  }
+}

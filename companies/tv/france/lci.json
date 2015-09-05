@@ -1,0 +1,10 @@
+{
+  "name" : "lci",
+  "corporateName" : "LCI",
+  "country" : "france",
+  "mediaType" : "tv",
+  "logo" : "https://upload.wikimedia.org/wikipedia/fr/8/85/LCI.png",
+  "owners" :  {
+    "groupe_tf1" : 100
+  }
+}

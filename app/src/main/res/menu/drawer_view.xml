@@ -7,7 +7,7 @@
             android:icon="@drawable/ic_nav_tv"
             android:title="Television" />
         <item
-            android:id="@+id/nav_second_fragment"
+            android:id="@+id/nav_radio_fragment"
             android:icon="@drawable/ic_nav_radio"
             android:title="Radio" />
         <item

@@ -29,17 +29,11 @@ import eu.entropy.mediapedia.company.Company;
 import eu.entropy.mediapedia.company.CompanyRepository;
 import eu.entropy.mediapedia.company.CompanySpecification;
 import eu.entropy.mediapedia.company.MediaType;
-import eu.entropy.mediapedia.company.apigee.ApigeeCompanyResult;
-import eu.entropy.mediapedia.company.apigee.CompanyConverterService;
 import eu.entropy.mediapedia.utils.AppContext;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String COUNTRY_MEDIA = "mediaCountry";
-
-    private CompanyConverterService companyConverterService;
 
     private DrawerLayout mDrawer;
     private NavigationView nvDrawer;
@@ -60,14 +54,16 @@ public class MainActivity extends AppCompatActivity {
         setupToolbar();
         setupAppContext();
 
-        this.companyConverterService = new CompanyConverterService();
         this.preferences = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
         this.companyRepository = new CompanyRepository();
-        this.mediaType = MediaType.TV;
-        companyRepository.findAll(CompanySpecification.builder()
+        this.companies = companyRepository.findAll(CompanySpecification.builder()
                 .country(getCountryMedia())
                 .mediaType(MediaType.TV)
-                .build(), new InitCallback());
+                .build());
+        this.mediaType = MediaType.TV;
+        this.mediaFragment = MediaFragment.newInstance(this.companies);
+        getSupportFragmentManager().beginTransaction().replace(
+                R.id.flContent, this.mediaFragment).commit();
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = new ActionBarDrawerToggle(
@@ -162,24 +158,34 @@ public class MainActivity extends AppCompatActivity {
         switch(menuItem.getItemId()) {
             case R.id.nav_television_fragment:
                 this.mediaType = MediaType.TV;
-                companyRepository.findAll(CompanySpecification.builder()
+                this.companies = companyRepository.findAll(CompanySpecification.builder()
                         .mediaType(MediaType.TV)
                         .country(getCountryMedia())
-                        .build(), new UpdateCallback());
+                        .build());
                 break;
             case R.id.nav_paper_fragment:
                 this.mediaType = MediaType.PAPER;
-                companyRepository.findAll(CompanySpecification.builder()
+                this.companies = companyRepository.findAll(CompanySpecification.builder()
                         .mediaType(MediaType.PAPER)
                         .country(getCountryMedia())
-                        .build(), new UpdateCallback());
+                        .build());
+                break;
+            case R.id.nav_radio_fragment:
+                this.mediaType = MediaType.RADIO;
+                this.companies = companyRepository.findAll(CompanySpecification.builder()
+                        .mediaType(MediaType.RADIO)
+                        .country(getCountryMedia())
+                        .build());
                 break;
             default:
+                this.mediaType = MediaType.NONE;
                 this.companies = new ArrayList<>();
-
-            menuItem.setChecked(true);
-            setTitle(menuItem.getTitle());
         }
+
+        menuItem.setChecked(true);
+        setTitle(menuItem.getTitle());
+
+        mDrawer.closeDrawers();
     }
 
     public void updateCompanies() {
@@ -239,45 +245,5 @@ public class MainActivity extends AppCompatActivity {
     @NonNull
     private String getCountryMedia() {
         return preferences.getString(COUNTRY_MEDIA, "france");
-    }
-
-    private class InitCallback implements retrofit.Callback<ApigeeCompanyResult> {
-        @Override
-        public void success(ApigeeCompanyResult apigeeCompanyResult, Response response) {
-            init(apigeeCompanyResult);
-        }
-
-        @Override
-        public void failure(RetrofitError error) {
-
-        }
-    }
-
-    private void init(ApigeeCompanyResult apigeeCompanyResult) {
-        this.companies = companyConverterService.fromApigeeCompanyResult(apigeeCompanyResult);
-        this.mediaFragment = MediaFragment.newInstance(this.companies);
-        getSupportFragmentManager().beginTransaction().replace(
-                R.id.flContent, this.mediaFragment).commit();
-    }
-
-    private class UpdateCallback implements retrofit.Callback<ApigeeCompanyResult> {
-        @Override
-        public void success(ApigeeCompanyResult apigeeCompanyResult, Response response) {
-            update(apigeeCompanyResult);
-        }
-
-        @Override
-        public void failure(RetrofitError error) {
-
-        }
-    }
-
-    private void update(ApigeeCompanyResult apigeeCompanyResult) {
-        this.companies = companyConverterService.fromApigeeCompanyResult(apigeeCompanyResult);
-        this.mediaFragment = MediaFragment.newInstance(this.companies);
-        getSupportFragmentManager().beginTransaction().replace(
-                R.id.flContent, this.mediaFragment).commit();
-
-        mDrawer.closeDrawers();
     }
 }

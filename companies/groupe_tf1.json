@@ -1,0 +1,22 @@
+{
+  "name" : "groupe_tf1",
+  "corporateName" : "Groupe TF1",
+  "logo" : "https://upload.wikimedia.org/wikipedia/fr/5/5a/Groupe_TF1.png",
+  "owners" :  {
+    "bouygues" : 40,
+    "salaries" : 20,
+    "artisan_partners_limited_partnership" : 10,
+    "first_eagle_investment_management" : 10
+  },
+  "assets" : {
+    "tf1" : 100,
+    "hd1" : 100,
+    "lci" : 100,
+    "nt1" : 100,
+    "tmc" : 100,
+    "eurosport_france" : 100,
+    "eurosport_2_france" : 100
+  },
+  "revenue" : "2,470",
+  "unit" : "billion"
+}

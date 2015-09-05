@@ -9,8 +9,8 @@ import retrofit.http.Query;
 public interface CompanyApigeeService {
 
     @GET("/companies/{id}")
-    void findById(@Path("id") String id, Callback<ApigeeCompanyResult> apigeeCompanyResult);
+    ApigeeCompanyResult findById(@Path("id") String id);
 
     @GET("/companies")
-    void findAll(@Query("ql") String query, Callback<ApigeeCompanyResult> apigeeCompanyResult);
+    ApigeeCompanyResult findAll(@Query("ql") String query);
 }

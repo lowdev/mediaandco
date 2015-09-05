@@ -1,7 +1,0 @@
-{
-  "id" : "groupe_scdm.json",
-  "name" : "Groupe SCDM",
-  "assets" : {
-    "bouygues.json" : 100
-  }
-}

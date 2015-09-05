@@ -1,0 +1,7 @@
+{
+  "name" : "groupe_scdm.json",
+  "corporateName" : "Groupe SCDM",
+  "assets" : {
+    "bouygues" : 100
+  }
+}

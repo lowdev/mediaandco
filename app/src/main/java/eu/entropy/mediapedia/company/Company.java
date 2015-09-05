@@ -15,6 +15,11 @@ public class Company implements Parcelable {
     private Map<String, Double> owners;
     private Map<String, Double> assets;
 
+    public Company() {
+        owners = new HashMap<>();
+        assets = new HashMap<>();
+    }
+
     public Company(Builder builder) {
         this.id = builder.id;
         this.name = builder.name;
@@ -145,4 +150,6 @@ public class Company implements Parcelable {
             return new Company(this);
         }
     }
+
+    public static Company NOT_FOUND = builder().name("Not found").build();
 }

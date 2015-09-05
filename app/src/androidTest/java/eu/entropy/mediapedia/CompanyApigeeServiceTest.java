@@ -16,17 +16,5 @@ public class CompanyApigeeServiceTest {
                 .build();
 
         CompanyApigeeService service = restAdapter.create(CompanyApigeeService.class);
-
-       service.findAll("select * where name='le_monde'", new Callback<ApigeeCompanyResult>() {
-           @Override
-           public void success(ApigeeCompanyResult apigeeCompanyResult, Response response) {
-               System.out.print(apigeeCompanyResult.getAction());
-           }
-
-           @Override
-           public void failure(RetrofitError error) {
-
-           }
-       });
     }
 }

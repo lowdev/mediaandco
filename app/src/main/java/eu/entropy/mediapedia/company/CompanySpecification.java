@@ -1,6 +1,8 @@
 package eu.entropy.mediapedia.company;
 
+import com.google.common.base.Function;
 import com.google.common.base.Joiner;
+import com.google.common.collect.FluentIterable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +16,13 @@ public class CompanySpecification {
     private String country;
     private MediaType mediaType;
     private String query;
+    private List<String> ids;
 
     private CompanySpecification(Builder builder) {
         this.country = builder.country;
         this.mediaType = builder.mediaType;
         this.query = builder.query;
+        this.ids = builder.ids;
     }
 
     public String getCountry() {
@@ -42,7 +46,13 @@ public class CompanySpecification {
             conditions.add(String.format("mediaType='%s'", mediaType.getFolderName()));
         }
         if (null != query) {
-            conditions.add(String.format("contains='%s'", query));
+            conditions.add(String.format("name='%s*' or name='*%s'", query, query));
+        }
+        if (!ids.isEmpty()) {
+            conditions.addAll(FluentIterable
+                    .from(conditions)
+                    .transform(new ToCondition())
+                    .toList());
         }
 
         return Joiner.on(" and ").join(conditions);
@@ -52,6 +62,7 @@ public class CompanySpecification {
         private String country;
         private MediaType mediaType = MediaType.NONE;
         private String query;
+        private List<String> ids = new ArrayList<>();
 
         public Builder country(String country) {
             this.country = country;
@@ -68,12 +79,20 @@ public class CompanySpecification {
             return this;
         }
 
-        public CompanySpecification build() {
-            if (country.isEmpty() || mediaType.equals(MediaType.NONE)) {
-                throw new RuntimeException("Can't build the specification.");
-            }
+        public Builder ids(List<String> ids) {
+            this.ids = ids;
+            return this;
+        }
 
+        public CompanySpecification build() {
             return new CompanySpecification(this);
+        }
+    }
+
+    private static class ToCondition implements Function<String, String> {
+        @Override
+        public String apply(String input) {
+            return String.format("name='%s'", input);
         }
     }
 }
