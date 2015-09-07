@@ -1,7 +1,11 @@
 {
-  "name" : "groupe_scdm.json",
+  "name" : "groupe_scdm",
   "corporateName" : "Groupe SCDM",
   "assets" : {
     "bouygues" : 100
+  },
+  "owners" : {
+	"martin_bouygues" : 50,
+	"olivier_bouygues" : 50
   }
 }

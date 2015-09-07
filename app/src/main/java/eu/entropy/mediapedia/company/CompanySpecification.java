@@ -50,7 +50,7 @@ public class CompanySpecification {
         }
         if (!ids.isEmpty()) {
             conditions.addAll(FluentIterable
-                    .from(conditions)
+                    .from(ids)
                     .transform(new ToCondition())
                     .toList());
         }

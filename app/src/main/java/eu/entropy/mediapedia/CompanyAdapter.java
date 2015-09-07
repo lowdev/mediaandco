@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.common.base.Strings;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
 
 import java.util.List;
 
@@ -38,12 +40,21 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
     public void onBindViewHolder(CompanyAdapter.ViewHolder holder, int position) {
         Stakeholder company = companies.get(position);
         holder.companyName.setText(company.getName());
-        Picasso.with(holder.context)
-            .load(company.getLogo())
-            .error(R.drawable.android_logo)
+        String logo = company.getLogo();
+
+        RequestCreator creator;
+        if (Strings.isNullOrEmpty(logo)) {
+            creator = Picasso.with(holder.context)
+                    .load(R.drawable.no_image);
+        } else {
+            creator = Picasso.with(holder.context)
+                    .load(logo);
+        }
+        creator.error(R.drawable.no_image)
             .centerInside()
             .fit()
             .into(holder.companyLogo);
+
         holder.stake.setText(company.getStake() + " stake");
 
         if (!company.hasInformation()) {

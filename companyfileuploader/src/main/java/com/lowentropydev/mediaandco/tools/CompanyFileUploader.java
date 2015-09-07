@@ -20,13 +20,7 @@ import retrofit.client.Response;
 public class CompanyFileUploader {
 
     public static void main(String... args) throws IOException {
-        String ORGNAME = "your-org";
-        String APPNAME = "your-app";
-
-        ApigeeClient apigeeClient = new ApigeeClient(ORGNAME,APPNAME,null);
-        ApigeeDataClient client = apigeeClient.getDataClient();
-
-        /*RestAdapter restAdapter = new RestAdapter.Builder()
+        RestAdapter restAdapter = new RestAdapter.Builder()
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .setEndpoint("https://api.usergrid.com/lowentropydev/sandbox")
                 .build();
@@ -43,8 +37,8 @@ public class CompanyFileUploader {
             }
         };
         //new File("./companies/nt1.json").toPath())
-        service.upload("{\"name\":\"titi\"}", callback);
-        try (final Stream<Path> pathStream = Files.walk(Paths.get("./companies"), FileVisitOption.FOLLOW_LINKS)) {
+        service.upload("{\"name\":\"titi\", \"type\":\"companie\"}", callback);
+        /*try (final Stream<Path> pathStream = Files.walk(Paths.get("./companies"), FileVisitOption.FOLLOW_LINKS)) {
             pathStream.forEach(new Consumer<Path>() {
                 @Override
                 public void accept(Path path) {

@@ -42,7 +42,7 @@ public class MediaLogoAdapter extends RecyclerView.Adapter<MediaLogoAdapter.View
         Company company = companies.get(position);
         Picasso.with(holder.context)
                 .load(company.getLogo())
-                .error(R.drawable.android_logo)
+                .error(R.drawable.no_image)
                 .into(holder.image);
     }
 

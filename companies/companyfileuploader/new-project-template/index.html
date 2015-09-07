@@ -10,32 +10,7 @@
 		<output id="list"></output>
 	
 		<script>
-		  function handleFileSelect(evt) {
-			var files = evt.target.files; // FileList object
-
-			var reader = new FileReader();
-			reader.onload = function(e) {
-			  var text = reader.result;
-			  alert(text);
-			}
-
-			// files is a FileList of File objects. List some properties.
-			var output = [];
-			for (var i = 0, f; f = files[i]; i++) {
-				reader.readAsText(f);
-				output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
-						  f.size, ' bytes, last modified: ',
-						  f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
-						  '</li>');
-			}
-			document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
-		  }
-
-		  document.getElementById('files').addEventListener('change', handleFileSelect, false);
-		</script>
-        <script>
-
-        /*
+			/*
             1. Set your account details in the app
 
             - Enter your orgName below — it’s the username you picked when you signed up at apigee.com
@@ -45,6 +20,58 @@
                 orgName:'lowentropydev',
                 appName:'sandbox'
             });
+		
+			function handleFileSelect(evt) {
+				var files = evt.target.files; // FileList object
+
+				// files is a FileList of File objects. List some properties.
+				var output = [];
+				var results = [];
+				function readFile(index) {
+					if( index >= files.length ) {
+						document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+						
+						/*for (var key in results) {
+							document.getElementById(key).innerHTML = results["result_" + key + ".json"];
+						}*/
+						return;
+					}
+				
+					var f = files[index];
+					output.push('<li><span id="result_', escape(f.name),'">Fail</span><strong> ', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
+							  f.size, ' bytes, last modified: ',
+							  f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
+							  '</li>');
+					var reader = new FileReader();
+					reader.onload = function(e) {
+						var jsonCompany = JSON.parse(reader.result);
+						// I know it's ugly
+						jsonCompany.type = "companie"
+					  
+						var options = {
+							title:'the old man and the sea'
+						};
+						options.type = "companie"
+					  
+						client.createEntity(jsonCompany, function (error, response) { 
+							if (error) { // Error - the book was not saved properly
+								//alert(response.error);
+							} else { // Success - the book was created properly
+								var name = response.entities["0"].name;
+								results[name] = "Success";
+							}
+						});
+						readFile(index+1)
+					}
+					reader.readAsText(f);
+				}
+				
+				readFile(0);
+			}
+
+			document.getElementById('files').addEventListener('change', handleFileSelect, false);
+
+        
 
             
         /*
@@ -56,10 +83,7 @@
             - Keep the type as “book”.
             - Enter the title of your favorite book below, instead of “the old man and the sea”.    */
 
-            var options = {
-                type:'book',
-                title:'the old man and the sea'
-            };
+            
 
 
         /*
@@ -70,20 +94,7 @@
             - This app will NOT work in Internet Explorer due to their lack of CORS support.
             - Please use Firefox, Chrome or Safari, etc. instead.      */
 
-            client.createEntity(options, function (error, response) { 
-                if (error) { // Error - the book was not saved properly
-                    alert("Could not create the book. Did you enter your orgName (username) correctly on line 18 of index.html?");
-                } else { // Success - the book was created properly
-                    
-                    // The saved object is returned in the “response” variable,
-                    // defined on line 46. The code below outputs it on the page!
-                    document.getElementsByTagName('body')[0].innerHTML
-                        +=  "Success! Here is the object we stored; "
-                        +   "notice the timestamps and unique id we created for you:"
-                        +   "<br/><br/>"
-                        +   JSON.stringify(response.get());
-                }
-            });
+            
 
         /*
             4. Congrats, you’re done!
