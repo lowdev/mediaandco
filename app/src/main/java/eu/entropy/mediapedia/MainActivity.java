@@ -27,6 +27,7 @@ import java.util.List;
 
 import eu.entropy.mediapedia.company.Company;
 import eu.entropy.mediapedia.company.CompanyRepository;
+import eu.entropy.mediapedia.company.CompanyRepositoryFactory;
 import eu.entropy.mediapedia.company.CompanySpecification;
 import eu.entropy.mediapedia.company.MediaType;
 import eu.entropy.mediapedia.utils.AppContext;
@@ -42,10 +43,10 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle drawerToggle;
 
     private SharedPreferences preferences;
-    private CompanyRepository companyRepository;
     private MediaFragment mediaFragment;
     private List<Company> companies;
-    private MediaType mediaType;
+
+    private CompanyRepository companyRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +56,13 @@ public class MainActivity extends AppCompatActivity {
         setupAppContext();
 
         this.preferences = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-        this.companyRepository = new CompanyRepository();
+        this.companyRepository = CompanyRepositoryFactory.get();
+
+        //this.companyRepository = new CompanyRepository();
         this.companies = companyRepository.findAll(CompanySpecification.builder()
                 .country(getCountryMedia())
                 .mediaType(MediaType.TV)
                 .build());
-        this.mediaType = MediaType.TV;
         this.mediaFragment = MediaFragment.newInstance(this.companies);
         getSupportFragmentManager().beginTransaction().replace(
                 R.id.flContent, this.mediaFragment).commit();
@@ -157,28 +159,24 @@ public class MainActivity extends AppCompatActivity {
     public void selectDrawerItem(MenuItem menuItem) {
         switch(menuItem.getItemId()) {
             case R.id.nav_television_fragment:
-                this.mediaType = MediaType.TV;
                 this.companies = companyRepository.findAll(CompanySpecification.builder()
                         .mediaType(MediaType.TV)
                         .country(getCountryMedia())
                         .build());
                 break;
             case R.id.nav_paper_fragment:
-                this.mediaType = MediaType.PAPER;
                 this.companies = companyRepository.findAll(CompanySpecification.builder()
                         .mediaType(MediaType.PAPER)
                         .country(getCountryMedia())
                         .build());
                 break;
             case R.id.nav_radio_fragment:
-                this.mediaType = MediaType.RADIO;
                 this.companies = companyRepository.findAll(CompanySpecification.builder()
                         .mediaType(MediaType.RADIO)
                         .country(getCountryMedia())
                         .build());
                 break;
             default:
-                this.mediaType = MediaType.NONE;
                 this.companies = new ArrayList<>();
         }
 

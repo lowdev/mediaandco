@@ -2,10 +2,12 @@ package eu.entropy.mediapedia.company;
 
 import android.util.Log;
 
-import com.google.common.collect.Lists;
-
+import com.google.common.base.Function;
+import com.google.common.collect.FluentIterable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -20,6 +22,7 @@ public class CompanyRepository {
     private CompanyApigeeService service;
     private CompanyConverterService companyConverterService;
     private ExecutorService executorService;
+    private Map<String, List<Company>> companyCache;
 
     public CompanyRepository() {
         RestAdapter restAdapter = new RestAdapter.Builder()
@@ -29,11 +32,17 @@ public class CompanyRepository {
         service = restAdapter.create(CompanyApigeeService.class);
         companyConverterService = new CompanyConverterService();
         executorService = Executors.newFixedThreadPool(2);
+        companyCache = new HashMap<>();
     }
 
     public List<Company> findAll(final CompanySpecification companySpecification) {
-        if (companySpecification.getClause().isEmpty()) {
+        String clause = companySpecification.getClause();
+        if (clause.isEmpty()) {
             return new ArrayList<>();
+        }
+
+        if (null != companyCache.get(clause)) {
+            return companyCache.get(clause);
         }
 
         Callable<ApigeeCompanyResult> callable = new Callable<ApigeeCompanyResult>() {
@@ -47,7 +56,9 @@ public class CompanyRepository {
         executorService.execute(futureTask);
 
         try {
-            return companyConverterService.fromApigeeCompanyResult(futureTask.get());
+            List<Company> companies = companyConverterService.fromApigeeCompanyResult(futureTask.get());
+            companyCache.put(clause, companies);
+            return companies;
         } catch (InterruptedException e) {
             Log.e("mediaandco", "Connection issue", e);
         } catch (ExecutionException e) {
@@ -57,6 +68,10 @@ public class CompanyRepository {
     }
 
     public Company findById(final String companyId) {
+        if (null != companyCache.get(companyId)) {
+            return companyCache.get(companyId).get(0);
+        }
+
         Callable<ApigeeCompanyResult> callable = new Callable<ApigeeCompanyResult>() {
             @Override
             public ApigeeCompanyResult call() throws Exception {
@@ -68,7 +83,12 @@ public class CompanyRepository {
         executorService.execute(futureTask);
 
         try {
-            return companyConverterService.fromApigeeCompanyResult(futureTask.get()).get(0);
+            Company company = companyConverterService.fromApigeeCompanyResult(futureTask.get()).get(0);
+            List<Company> companies = new ArrayList<>();
+            companies.add(company);
+            companyCache.put(companyId, companies);
+
+            return company;
         } catch (InterruptedException e) {
             Log.e("mediaandco", "Connection issue", e);
         } catch (ExecutionException e) {
@@ -78,6 +98,16 @@ public class CompanyRepository {
     }
 
     public List<Company> findByIds(Iterable<String> ids) {
-        return findAll(CompanySpecification.builder().ids(Lists.newArrayList(ids)).build());
+        return FluentIterable
+                .from(ids)
+                .transform(new ToCompany())
+                .toList();
+    }
+
+    private class ToCompany implements Function<String, Company> {
+        @Override
+        public Company apply(String input) {
+            return findById(input);
+        }
     }
 }

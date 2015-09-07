@@ -16,6 +16,7 @@ import com.google.gson.GsonBuilder;
 
 import eu.entropy.mediapedia.company.Company;
 import eu.entropy.mediapedia.company.CompanyRepository;
+import eu.entropy.mediapedia.company.CompanyRepositoryFactory;
 import eu.entropy.mediapedia.networkgraph.visjs.VisjsModel;
 import eu.entropy.mediapedia.networkgraph.visjs.VisjsModelConverter;
 
@@ -94,7 +95,7 @@ public class NetworkGraphFragment extends Fragment {
         private String nodes;
 
         public VisjsDto(String edges, String nodes) {
-            companyRepository = new CompanyRepository();
+            this.companyRepository = CompanyRepositoryFactory.get();
             this.edges = edges;
             this.nodes = nodes;
         }

@@ -2,7 +2,6 @@ package eu.entropy.mediapedia.networkgraph.visjs;
 
 import com.google.common.base.Function;
 import com.google.common.collect.FluentIterable;
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
@@ -12,14 +11,14 @@ import java.util.UUID;
 
 import eu.entropy.mediapedia.company.Company;
 import eu.entropy.mediapedia.company.CompanyRepository;
-import eu.entropy.mediapedia.company.StakeholderRepository;
+import eu.entropy.mediapedia.company.CompanyRepositoryFactory;
 
 public class VisjsModelConverter {
 
     private CompanyRepository companyRepository;
 
     public VisjsModelConverter() {
-        companyRepository = new CompanyRepository();
+        this.companyRepository = CompanyRepositoryFactory.get();
     }
 
     public VisjsModel toVisjsModel(Company company) {
