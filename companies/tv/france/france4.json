@@ -1,0 +1,10 @@
+{
+  "name" : "france4",
+  "corporateName" : "France 4",
+  "country" : "france",
+  "mediaType" : "tv",
+  "logo" : "https://upload.wikimedia.org/wikipedia/fr/thumb/e/ea/France_4_2014.png/155px-France_4_2014.png",
+  "owners" :  {
+    "france_television" : 100
+  }
+}

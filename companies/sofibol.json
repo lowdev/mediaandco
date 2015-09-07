@@ -1,0 +1,12 @@
+{
+  "name" : "sofibol",
+  "corporateName" : "Sofibol",
+  "logo" : "https://upload.wikimedia.org/wikipedia/fr/thumb/4/4f/Logo-Bollore.svg/320px-Logo-Bollore.svg.png",
+  "assets" :  {
+    "bollore_group" : 14.52
+  },
+  "owners" : {
+	"vincent_bollore" : 50,
+	"cyrille_bollore" : 50
+  }
+}

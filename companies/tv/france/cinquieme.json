@@ -1,0 +1,10 @@
+{
+  "name" : "cinquieme",
+  "corporateName" : "Cinquième",
+  "country" : "france",
+  "mediaType" : "tv",
+  "logo" : "https://upload.wikimedia.org/wikipedia/fr/thumb/3/3a/La_Cinqu%C3%A8me_1999.svg/240px-La_Cinqu%C3%A8me_1999.svg.png",
+  "owners" :  {
+    "france_television" : 100
+  }
+}

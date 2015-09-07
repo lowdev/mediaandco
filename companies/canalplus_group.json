@@ -1,0 +1,11 @@
+{
+  "name" : "canalplus_group",
+  "corporateName" : "Canal+ Group",
+  "logo" : "https://upload.wikimedia.org/wikipedia/fr/thumb/3/37/Groupe_Canal%2B.svg/320px-Groupe_Canal%2B.svg.png",
+  "assets" :  {
+    "canalplus" : 100
+  },
+  "owners" :  {
+    "vivendi" : 100
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name" : "france5",
+  "corporateName" : "France 5",
+  "country" : "france",
+  "mediaType" : "tv",
+  "logo" : "https://upload.wikimedia.org/wikipedia/fr/thumb/4/41/France_5_logo_antenne_%282008%29.png/154px-France_5_logo_antenne_%282008%29.png",
+  "owners" :  {
+    "france_television" : 100
+  }
+}

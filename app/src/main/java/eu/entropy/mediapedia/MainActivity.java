@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         this.preferences = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
         this.companyRepository = CompanyRepositoryFactory.get();
 
-        //this.companyRepository = new CompanyRepository();
         this.companies = companyRepository.findAll(CompanySpecification.builder()
                 .country(getCountryMedia())
                 .mediaType(MediaType.TV)

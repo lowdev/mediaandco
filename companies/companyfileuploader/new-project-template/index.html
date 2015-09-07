@@ -38,30 +38,41 @@
 					}
 				
 					var f = files[index];
-					output.push('<li><span id="result_', escape(f.name),'">Fail</span><strong> ', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
+					output.push('<li><span id="result_', escape(f.name),'"></span><strong> ', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
 							  f.size, ' bytes, last modified: ',
 							  f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
 							  '</li>');
 					var reader = new FileReader();
 					reader.onload = function(e) {
-						var jsonCompany = JSON.parse(reader.result);
+						var jsonCompany;
+						try{
+							jsonCompany = JSON.parse(reader.result);
+						}catch(e){
+							alert(reader.result + "malformed : " + e); //error in the above string(in this case,yes)!
+						}
+						
 						// I know it's ugly
 						jsonCompany.type = "companie"
-					  
+						
 						var options = {
-							title:'the old man and the sea'
-						};
-						options.type = "companie"
-					  
-						client.createEntity(jsonCompany, function (error, response) { 
-							if (error) { // Error - the book was not saved properly
-								//alert(response.error);
-							} else { // Success - the book was created properly
-								var name = response.entities["0"].name;
-								results[name] = "Success";
+							client:client,
+							data:{'type':jsonCompany.type,
+							'name':jsonCompany.name
 							}
+						};
+						
+						var entity = new Apigee.Entity(options);
+						entity.destroy(function (error, result) {
+							client.createEntity(jsonCompany, function (error, response) { 
+								if (error) { // Error - the book was not saved properly
+									//alert(response.error);
+								} else { // Success - the book was created properly
+									var name = response.entities["0"].name;
+									results[name] = "Success";
+								}
+							})
 						});
-						readFile(index+1)
+						readFile(index+1);
 					}
 					reader.readAsText(f);
 				}

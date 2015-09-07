@@ -1,0 +1,12 @@
+{
+  "name" : "amundi",
+  "corporateName" : "Amundi",
+  "logo" : "https://upload.wikimedia.org/wikipedia/fr/a/aa/Logo_d%27Amundi.png",
+  "assets" :  {
+    "vivendi" : 2.38
+  },
+  "owners" : {
+	"credit_agricole" : 80,
+	"societe_general" : 20
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "name" : "france_television",
+  "corporateName" : "France télévision",
+  "logo" : "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/France_t%C3%A9l%C3%A9visions_2012_logo.svg/320px-France_t%C3%A9l%C3%A9visions_2012_logo.svg.png",
+  "revenue" : "2,96",
+  "unit" : "bimillions",
+  "owners" :  {
+    "gouvernement_francais" : 100
+  },
+  "assets" : {
+    "france2" : 100,
+	"france3" : 100,
+	"france4" : 100,
+	"france5" : "100",
+	"cinquieme" : "100",
+	"franceO" : "100"
+  }
+}

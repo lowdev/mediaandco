@@ -1,0 +1,10 @@
+{
+  "name" : "canalplus",
+  "corporateName" : "Canal+",
+  "country" : "france",
+  "mediaType" : "tv",
+  "logo" : "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Canal%2B.svg/320px-Canal%2B.svg.png",
+  "owners" :  {
+    "canalplus_group" : 100
+  }
+}

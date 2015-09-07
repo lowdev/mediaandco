@@ -1,0 +1,11 @@
+{
+  "name" : "bollore_group",
+  "corporateName" : "Bollore Group",
+  "logo" : "https://upload.wikimedia.org/wikipedia/fr/thumb/4/4f/Logo-Bollore.svg/320px-Logo-Bollore.svg.png",
+  "assets" :  {
+    "vivendi" : 14.52
+  },
+  "owners" : {
+	"sofibol" : 100
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name" : "france3",
+  "corporateName" : "France 3",
+  "country" : "france",
+  "mediaType" : "tv",
+  "logo" : "https://upload.wikimedia.org/wikipedia/fr/thumb/3/31/France_3_logo_antenne_%282008%29.png/154px-France_3_logo_antenne_%282008%29.png",
+  "owners" :  {
+    "france_television" : 100
+  }
+}

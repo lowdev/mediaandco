@@ -1,0 +1,8 @@
+{
+  "name" : "credit_agricole",
+  "corporateName" : "Credit Agricole",
+  "logo" : "https://upload.wikimedia.org/wikipedia/fr/thumb/a/a6/Cr%C3%A9dit_Agricole.svg/320px-Cr%C3%A9dit_Agricole.svg.png",
+  "assets" :  {
+    "amundi" : 80
+  }
+}

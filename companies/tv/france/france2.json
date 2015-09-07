@@ -3,5 +3,8 @@
   "corporateName" : "France 2",
   "country" : "france",
   "mediaType" : "tv",
-  "logo" : "https://upload.wikimedia.org/wikipedia/fr/e/e8/France_2_logo_antenne_%282008%29.png"
+  "logo" : "https://upload.wikimedia.org/wikipedia/fr/e/e8/France_2_logo_antenne_%282008%29.png",
+  "owners" :  {
+    "france_television" : 100
+  }
 }
