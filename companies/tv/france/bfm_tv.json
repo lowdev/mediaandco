@@ -1,0 +1,10 @@
+{
+  "name" : "bfm_tv",
+  "corporateName" : "Bfm TV",
+  "country" : "france",
+  "mediaType" : "tv",
+  "logo" : "https://upload.wikimedia.org/wikipedia/fr/thumb/f/f8/BFM_TV.svg/320px-BFM_TV.svg.png",
+  "owners" :  {
+    "next_radio_tv" : 100
+  }
+}

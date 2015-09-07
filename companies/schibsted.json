@@ -1,0 +1,8 @@
+{
+  "name" : "schibsted",
+  "corporateName" : "Schibsted",
+  "logo" : "https://upload.wikimedia.org/wikipedia/fr/thumb/0/09/Schibsted.svg/178px-Schibsted.svg.png",
+  "assets" :  {
+    "20_minutes_france" : 50
+  }
+}

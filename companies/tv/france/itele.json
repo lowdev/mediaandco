@@ -1,0 +1,10 @@
+{
+  "name" : "itele",
+  "corporateName" : "i>télé",
+  "country" : "france",
+  "mediaType" : "tv",
+  "logo" : "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Logo_I-T%C3%A9l%C3%A9_2013.png/208px-Logo_I-T%C3%A9l%C3%A9_2013.png",
+  "owners" :  {
+    "canalplus_group" : 100
+  }
+}

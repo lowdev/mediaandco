@@ -1,0 +1,13 @@
+{
+  "name" : "groupe_le_monde",
+  "corporateName" : "Groupe le monde",
+  "logo" : "https://upload.wikimedia.org/wikipedia/fr/2/2b/Le_monde_%28groupe%29_logo.jpeg",
+  "assets" :  {
+    "le_monde" : 100
+  },
+  "owners" :  {
+    "xavier_niel" : 33,
+	"pierre_berge" : 33,
+	"mathieu_pigasse" : 33
+  }
+}

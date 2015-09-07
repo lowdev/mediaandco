@@ -4,8 +4,7 @@
   "country" : "france",
   "mediaType" : "paper",
   "logo" : "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Le_Monde.svg/320px-Le_Monde.svg.png",
-  "owners" :  {
+  "owners" : {
     "groupe_le_monde" : 100
-  },
-  "revenue" : "361"
+  }
 }

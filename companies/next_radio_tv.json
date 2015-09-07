@@ -1,0 +1,11 @@
+{
+  "name" : "next_radio_tv",
+  "corporateName" : "NextRadioTV",
+  "country" : "france",
+  "mediaType" : "tv",
+  "logo" : "https://upload.wikimedia.org/wikipedia/fr/3/39/Nextradiotv.png",
+  "owners" :  {
+    "alain_weill" : 37.7,
+	"principaute_de_monaco" : 3.3
+  }
+}

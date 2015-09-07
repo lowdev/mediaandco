@@ -1,0 +1,11 @@
+{
+  "name" : "20_minutes_france",
+  "corporateName" : "20 minutes France",
+  "country" : "france",
+  "mediaType" : "paper",
+  "logo" : "https://upload.wikimedia.org/wikipedia/fr/thumb/3/33/Logo_20_Minutes.svg/220px-Logo_20_Minutes.svg.png",
+  "owners" : {
+    "schibsted" : 50,
+	"groupe_sipa_ouest_france" : 50
+  }
+}

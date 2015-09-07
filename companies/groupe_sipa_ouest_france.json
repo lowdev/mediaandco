@@ -1,0 +1,8 @@
+{
+  "name" : "groupe_sipa_ouest_france",
+  "corporateName" : "Groupe Sipa-Ouest France",
+  "logo" : "https://upload.wikimedia.org/wikipedia/fr/thumb/d/d1/Ouest-France_logo.svg/320px-Ouest-France_logo.svg.png",
+  "assets" : {
+    "20_minutes_france" : 50
+  }
+}
