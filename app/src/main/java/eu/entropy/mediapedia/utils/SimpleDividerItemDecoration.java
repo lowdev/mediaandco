@@ -1,6 +1,5 @@
 package eu.entropy.mediapedia.utils;
 
-import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;

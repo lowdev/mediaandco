@@ -1,4 +1,4 @@
-package eu.entropy.mediapedia;
+package eu.entropy.mediapedia.companyactivity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +12,7 @@ import com.google.common.base.Strings;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 
+import eu.entropy.mediapedia.R;
 import eu.entropy.mediapedia.company.Company;
 
 public class InformationFragment extends Fragment {

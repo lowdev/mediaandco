@@ -1,4 +1,4 @@
-package eu.entropy.mediapedia;
+package eu.entropy.mediapedia.companyactivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +13,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import eu.entropy.mediapedia.CompanyAdapter;
+import eu.entropy.mediapedia.R;
 import eu.entropy.mediapedia.company.Stakeholder;
-import eu.entropy.mediapedia.utils.DividerItemDecoration;
 import eu.entropy.mediapedia.utils.OnRecyclerViewItemClickListener;
 import eu.entropy.mediapedia.utils.SimpleDividerItemDecoration;
 

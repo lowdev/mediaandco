@@ -1,4 +1,4 @@
-package eu.entropy.mediapedia;
+package eu.entropy.mediapedia.companyactivity;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import eu.entropy.mediapedia.R;
 import eu.entropy.mediapedia.company.Company;
 
 public class CompanyActivity extends AppCompatActivity {

@@ -5,14 +5,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.GravityCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -23,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eu.entropy.mediapedia.company.Company;
+import eu.entropy.mediapedia.companyactivity.CompanyActivity;
 import eu.entropy.mediapedia.utils.OnRecyclerViewItemClickListener;
 
 public class MediaFragment extends Fragment {

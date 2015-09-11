@@ -1,4 +1,4 @@
-package eu.entropy.mediapedia;
+package eu.entropy.mediapedia.companyactivity;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

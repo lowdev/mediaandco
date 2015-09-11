@@ -1,4 +1,4 @@
-package eu.entropy.mediapedia;
+package eu.entropy.mediapedia.companyactivity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 
 import com.google.gson.GsonBuilder;
 
+import eu.entropy.mediapedia.R;
 import eu.entropy.mediapedia.company.Company;
 import eu.entropy.mediapedia.company.CompanyRepository;
 import eu.entropy.mediapedia.company.CompanyRepositoryFactory;
