@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ public class MediaFragment extends Fragment {
 
     private final static String ARG_PAGE = "mediaCompanies";
 
+    ProgressBar progressBar;
     private RecyclerView recyclerView;
     private List<Company> companies;
 
@@ -63,6 +65,8 @@ public class MediaFragment extends Fragment {
         });
         recyclerView.setAdapter(mediaLogoAdapter);
 
+        progressBar = (ProgressBar)  view.findViewById(R.id.progressBar);
+
         return view;
     }
 
@@ -95,5 +99,10 @@ public class MediaFragment extends Fragment {
         MediaLogoAdapter mediaLogoAdapter = (MediaLogoAdapter) recyclerView.getAdapter();
         mediaLogoAdapter.update(companies);
         mediaLogoAdapter.notifyDataSetChanged();
+    }
+
+    public void waitCompanies() {
+        progressBar.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
     }
 }
