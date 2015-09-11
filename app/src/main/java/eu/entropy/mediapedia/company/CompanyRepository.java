@@ -16,6 +16,7 @@ import java.util.concurrent.FutureTask;
 
 import eu.entropy.mediapedia.company.apigee.ApigeeCompanyResult;
 import eu.entropy.mediapedia.company.apigee.CompanyConverterService;
+import retrofit.Callback;
 import retrofit.RestAdapter;
 
 public class CompanyRepository {
@@ -48,7 +49,7 @@ public class CompanyRepository {
         Callable<ApigeeCompanyResult> callable = new Callable<ApigeeCompanyResult>() {
             @Override
             public ApigeeCompanyResult call() throws Exception {
-                return service.findAll(companySpecification.getClause());
+                return service.findAll(50, companySpecification.getClause());
             }
         };
 

@@ -12,5 +12,9 @@ public interface CompanyApigeeService {
     ApigeeCompanyResult findById(@Path("id") String id);
 
     @GET("/companies")
-    ApigeeCompanyResult findAll(@Query("ql") String query);
+    ApigeeCompanyResult findAll(@Query("limit") int limit, @Query("ql") String query);
+
+    @GET("/companies")
+    void findAll(@Query("limit") int limit, @Query("ql") String query,
+                 Callback<ApigeeCompanyResult> result);
 }

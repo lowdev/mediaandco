@@ -1,11 +1,10 @@
 package eu.entropy.mediapedia;
 
-import eu.entropy.mediapedia.company.CompanyApigeeService;
 import eu.entropy.mediapedia.company.apigee.ApigeeCompanyResult;
-import retrofit.Callback;
 import retrofit.RestAdapter;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
+import retrofit.http.GET;
+import retrofit.http.Path;
+import retrofit.http.Query;
 
 public class CompanyApigeeServiceTest {
 
@@ -15,6 +14,17 @@ public class CompanyApigeeServiceTest {
                 .setEndpoint("https://api.usergrid.com/lowentropydev/sandbox")
                 .build();
 
-        CompanyApigeeService service = restAdapter.create(CompanyApigeeService.class);
+        CompanyApigeeService2 service = restAdapter.create(CompanyApigeeService2.class);
+        ApigeeCompanyResult result = service.findAll(1, "mediatype='tv'");
+        result.getEntities();
+    }
+
+    public interface CompanyApigeeService2 {
+
+        @GET("/companies/{id}")
+        ApigeeCompanyResult findById(@Path("id") String id);
+
+        @GET("/companies")
+        ApigeeCompanyResult findAll(@Query("limit") int limit, @Query("ql") String query);
     }
 }
