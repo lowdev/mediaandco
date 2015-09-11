@@ -1,0 +1,8 @@
+{
+  "name" : "bertelsmann",
+  "corporateName" : "Bertelsmann",
+  "logo" : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Logo_Bertelsmann.png/320px-Logo_Bertelsmann.png",
+  "assets" :  {
+    "rtl_group" : 75.1
+  }
+}

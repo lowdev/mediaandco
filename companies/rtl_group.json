@@ -1,0 +1,11 @@
+{
+  "name" : "rtl_group",
+  "corporateName" : "RTL Group",
+  "logo" : "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/RTL_Group.svg/320px-RTL_Group.svg.png",
+  "assets" :  {
+    "groupe_m6" : 48.4
+  },
+  "owners" : {
+	"bertelsmann" : 75.1
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name" : "groupe_m6",
+  "corporateName" : "Groupe M6",
+  "logo" : "https://upload.wikimedia.org/wikipedia/fr/3/35/Groupe_M6_logo_2009.png",
+  "assets" :  {
+    "m6" : 100
+  },
+  "owners" : {
+	"rtl_group" : 48.4,
+	"cpn" : 7.27
+  }
+}

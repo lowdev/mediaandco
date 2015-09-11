@@ -1,0 +1,10 @@
+{
+  "name" : "m6",
+  "corporateName" : "M6",
+  "country" : "france",
+  "mediaType" : "tv",
+  "logo" : "https://upload.wikimedia.org/wikipedia/fr/thumb/2/22/M6_2009.svg/310px-M6_2009.svg.png",
+  "owners" :  {
+    "groupe_m6" : 100
+  }
+}

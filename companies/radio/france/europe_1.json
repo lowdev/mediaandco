@@ -1,0 +1,10 @@
+{
+  "name" : "europe_1",
+  "corporateName" : "Europe 1",
+  "country" : "france",
+  "mediaType" : "radio",
+  "logo" : "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Europe_1_logo_%282010%29.svg/320px-Europe_1_logo_%282010%29.svg.png",
+  "owners" : {
+    "lagardere_sca" : 100
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name" : "lagardere_sca",
+  "corporateName" : "Lagardère SCA",
+  "logo" : "https://upload.wikimedia.org/wikipedia/fr/thumb/6/6c/Lagard%C3%A8re_logo.svg/226px-Lagard%C3%A8re_logo.svg.png",
+  "assets" : {
+    "europe_1" : 100
+  }
+}
