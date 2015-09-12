@@ -1,5 +1,6 @@
 package eu.entropy.mediapedia.companyactivity;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 
 import java.util.Collections;
@@ -11,23 +12,25 @@ import eu.entropy.mediapedia.company.StakeholderRepository;
 
 public class StakeholderLoader extends AsyncTask<Map<String, Double>, Void, List<Stakeholder>> {
     private StakeholderRepository stakeholderRepository;
-    private CompaniesFragment companiesFragment;
+    private StakeholdersFragment stakeholdersFragment;
+    private Activity activity;
 
-    public static StakeholderLoader newInstance(CompaniesFragment companiesFragment) {
-        return new StakeholderLoader(companiesFragment);
+    public static StakeholderLoader newInstance(Activity activity, StakeholdersFragment stakeholdersFragment) {
+        return new StakeholderLoader(activity, stakeholdersFragment);
     }
 
-    private StakeholderLoader(CompaniesFragment companiesFragment) {
+    private StakeholderLoader(Activity activity, StakeholdersFragment stakeholdersFragment) {
         this.stakeholderRepository = new StakeholderRepository();
-        this.companiesFragment = companiesFragment;
+        this.stakeholdersFragment = stakeholdersFragment;
+        this.activity = activity;
     }
 
     @Override
     protected List<Stakeholder> doInBackground(Map<String, Double>... params) {
-        companiesFragment.getActivity().runOnUiThread(new Runnable() {
+        activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                companiesFragment.startWaiting();
+                stakeholdersFragment.startWaiting();
             }
         });
 
@@ -39,10 +42,10 @@ public class StakeholderLoader extends AsyncTask<Map<String, Double>, Void, List
 
     @Override
     protected void onPostExecute(final List<Stakeholder> result) {
-        companiesFragment.getActivity().runOnUiThread(new Runnable() {
+        activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                companiesFragment.updateView(result);
+                stakeholdersFragment.updateView(result);
             }
         });
     }

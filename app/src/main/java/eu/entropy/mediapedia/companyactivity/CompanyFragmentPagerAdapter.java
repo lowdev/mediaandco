@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 import eu.entropy.mediapedia.company.Company;
-import eu.entropy.mediapedia.company.Stakeholder;
 
 public class CompanyFragmentPagerAdapter extends FragmentStatePagerAdapter {
     public static final String TITLE_INFO = "Info";
@@ -28,13 +27,13 @@ public class CompanyFragmentPagerAdapter extends FragmentStatePagerAdapter {
 
         Map<String, Double> owners = company.getOwners();
         if(!owners.isEmpty()) {
-            titleToFragment.put(TITLE_OWNERS, CompaniesFragment.newInstance(owners));
+            titleToFragment.put(TITLE_OWNERS, StakeholdersFragment.newInstance(owners));
             tabTitles.add(TITLE_OWNERS);
         }
 
         Map<String, Double> assets = company.getAssets();
         if(!assets.isEmpty()) {
-            titleToFragment.put(TITLE_ASSETS, CompaniesFragment.newInstance(assets));
+            titleToFragment.put(TITLE_ASSETS, StakeholdersFragment.newInstance(assets));
             tabTitles.add(TITLE_ASSETS);
         }
     }

@@ -11,30 +11,27 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import eu.entropy.mediapedia.CompanyAdapter;
-import eu.entropy.mediapedia.MediaLogoAdapter;
+import eu.entropy.mediapedia.StakeholderAdapter;
 import eu.entropy.mediapedia.R;
-import eu.entropy.mediapedia.company.Company;
 import eu.entropy.mediapedia.company.Stakeholder;
 import eu.entropy.mediapedia.utils.OnRecyclerViewItemClickListener;
 import eu.entropy.mediapedia.utils.SimpleDividerItemDecoration;
 
-public class CompaniesFragment extends Fragment {
+public class StakeholdersFragment extends Fragment {
     public static final String ARG_PAGE = "stakeholders";
 
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
     private Map<String, Double> stakeholders;
 
-    public static CompaniesFragment newInstance(Map<String, Double> stakeholders) {
+    public static StakeholdersFragment newInstance(Map<String, Double> stakeholders) {
         Bundle args = new Bundle();
         args.putSerializable(ARG_PAGE, (HashMap<String, Double>) stakeholders);
-        CompaniesFragment fragment = new CompaniesFragment();
+        StakeholdersFragment fragment = new StakeholdersFragment();
         fragment.setArguments(args);
 
         return fragment;
@@ -54,8 +51,8 @@ public class CompaniesFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.stakeholders);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        CompanyAdapter companyAdapter = new CompanyAdapter(new ArrayList<Stakeholder>());
-        companyAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener<Stakeholder>() {
+        StakeholderAdapter stakeholderAdapter = new StakeholderAdapter(new ArrayList<Stakeholder>());
+        stakeholderAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener<Stakeholder>() {
             public void onItemClick(View view, Stakeholder stakeholder) {
                 if (!stakeholder.hasInformation()) {
                     return;
@@ -67,20 +64,20 @@ public class CompaniesFragment extends Fragment {
                 getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
             }
         });
-        recyclerView.setAdapter(companyAdapter);
+        recyclerView.setAdapter(stakeholderAdapter);
 
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(
                 getActivity().getResources().getDrawable(R.drawable.line_divider)));
 
-        StakeholderLoader.newInstance(this).execute(stakeholders);
+        StakeholderLoader.newInstance(getActivity(), this).execute(stakeholders);
 
         return view;
     }
 
     public void updateView(final List<Stakeholder> stakeholders) {
-        CompanyAdapter companyAdapter = (CompanyAdapter) recyclerView.getAdapter();
-        companyAdapter.update(stakeholders);
-        companyAdapter.notifyDataSetChanged();
+        StakeholderAdapter stakeholderAdapter = (StakeholderAdapter) recyclerView.getAdapter();
+        stakeholderAdapter.update(stakeholders);
+        stakeholderAdapter.notifyDataSetChanged();
 
         endWaiting();
     }

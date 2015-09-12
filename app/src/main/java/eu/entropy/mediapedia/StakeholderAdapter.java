@@ -17,12 +17,12 @@ import java.util.List;
 import eu.entropy.mediapedia.company.Stakeholder;
 import eu.entropy.mediapedia.utils.OnRecyclerViewItemClickListener;
 
-public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHolder> implements View.OnClickListener {
+public class StakeholderAdapter extends RecyclerView.Adapter<StakeholderAdapter.ViewHolder> implements View.OnClickListener {
 
     private List<Stakeholder> stakeholders;
     private OnRecyclerViewItemClickListener<Stakeholder> itemClickListener;
 
-    public CompanyAdapter(List<Stakeholder> stakeholders) {
+    public StakeholderAdapter(List<Stakeholder> stakeholders) {
         this.stakeholders = stakeholders;
         this.itemClickListener = new OnRecyclerViewItemClickListener<Stakeholder>() {
             @Override public void onItemClick(View view, Stakeholder company) {}
@@ -37,10 +37,10 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(CompanyAdapter.ViewHolder holder, int position) {
-        Stakeholder company = stakeholders.get(position);
-        holder.companyName.setText(company.getName());
-        String logo = company.getLogo();
+    public void onBindViewHolder(StakeholderAdapter.ViewHolder holder, int position) {
+        Stakeholder stakeholder = stakeholders.get(position);
+        holder.companyName.setText(stakeholder.getName());
+        String logo = stakeholder.getLogo();
 
         RequestCreator creator;
         if (Strings.isNullOrEmpty(logo)) {
@@ -55,9 +55,9 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
             .fit()
             .into(holder.companyLogo);
 
-        holder.stake.setText(company.getStake() + " stake");
+        holder.stake.setText(stakeholder.getStake() + " stake");
 
-        if (!company.hasInformation()) {
+        if (!stakeholder.hasInformation()) {
             holder.arrowImage.setVisibility(View.INVISIBLE);
         }
     }
