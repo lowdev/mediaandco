@@ -1,0 +1,13 @@
+{
+  "name" : "bnp_paribas",
+  "corporateName" : "Bnp paribas",
+  "logo" : "https://upload.wikimedia.org/wikipedia/fr/thumb/e/ed/Logo_BNP_Paribas.svg/320px-Logo_BNP_Paribas.svg.png",
+  "owners" : {
+	"european_institutional_investor" : 44.6,
+	"institutional_investor" : 31.5,
+	"sfpi_fpim" : 10.3,
+	"salaries" : 5.2,
+	"axa" : 5.2,
+	"grand_duche_de_luxembourg" : "1"
+  }
+}

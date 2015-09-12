@@ -1,0 +1,10 @@
+{
+  "name" : "groupe_frere_bourgeois",
+  "corporateName" : "Frère bourgeois",
+  "assets" :  {
+    "cpn" : 70
+  },
+  "owners" : {
+	"albert_frere" : 100
+  }
+}

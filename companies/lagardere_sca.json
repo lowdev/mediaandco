@@ -4,5 +4,13 @@
   "logo" : "https://upload.wikimedia.org/wikipedia/fr/thumb/6/6c/Lagard%C3%A8re_logo.svg/226px-Lagard%C3%A8re_logo.svg.png",
   "assets" : {
     "europe_1" : 100
+  },
+  "owners" : {
+	"qatar_investment_authority" : 12.8,
+	"lagardère_capital_management" : 8.18,
+	"treasury_shares" : 2.27,
+	"dnca_finance_sa" : 2.23,
+	"dimensional_fund_advisors_lp" : 2.10,
+	"schroder_investment_management_ltd" : 2.00
   }
 }

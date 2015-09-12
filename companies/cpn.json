@@ -1,0 +1,22 @@
+{
+  "name" : "cpn",
+  "corporateName" : "CPN",
+  "logo" : "https://fr.wikipedia.org/wiki/Compagnie_nationale_%C3%A0_portefeuille#/media/File:CNP-Logo.jpg",
+  "assets" :  {
+    "groupe_m6" : 7.27,
+	"total" : 0.9,
+	"transcor_astra_group" : 88,
+	"banca_leonardo" : 19.3,
+	"affichage_holding" : 25.3,
+	"distriplus" : 50,
+	"cheval_blanc_finance" : 50,
+	"fidentia" : 50,
+	"groupe_flo" : 24,
+	"international_duty_free" : 100,
+	"trasys" : 42
+  },
+  "owners" : {
+	"groupe_frere_bourgeois" : 70,
+	"bnp_paribas" : 30
+  }
+}
