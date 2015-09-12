@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +26,9 @@ public class MediaFragment extends Fragment {
 
     private final static String ARG_PAGE = "mediaCompanies";
 
-    ProgressBar progressBar;
+    private ProgressBar progressBar;
     private RecyclerView recyclerView;
+    private TextView noResultTextView;
     private List<Company> companies;
 
     public static MediaFragment newInstance(List<Company> companies) {
@@ -62,8 +64,35 @@ public class MediaFragment extends Fragment {
         recyclerView.setAdapter(mediaLogoAdapter);
 
         progressBar = (ProgressBar)  view.findViewById(R.id.progressBar);
+        noResultTextView = (TextView) view.findViewById(R.id.noResultId);
 
         return view;
+    }
+
+    public void updateView(final List<Company> companies) {
+        this.companies = companies;
+
+        if(companies.isEmpty()) {
+            noResultTextView.setVisibility(View.VISIBLE);
+        } else {
+            recyclerView.setVisibility(View.VISIBLE);
+            MediaLogoAdapter mediaLogoAdapter = (MediaLogoAdapter) recyclerView.getAdapter();
+            mediaLogoAdapter.update(companies);
+            mediaLogoAdapter.notifyDataSetChanged();
+        }
+
+        progressBar.setVisibility(View.GONE);
+    }
+
+    public void startWaiting() {
+        // Useful one time at the beginning.
+        if (progressBar == null) {
+            return;
+        }
+
+        progressBar.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
+        noResultTextView.setVisibility(View.GONE);
     }
 
     public void updateViewWithAnim(final List<Company> companies) {
@@ -87,18 +116,5 @@ public class MediaFragment extends Fragment {
                 updateView(companies);
             }
         }, anim.getDuration());
-    }
-
-    public void updateView(final List<Company> companies) {
-        this.companies = companies;
-
-        MediaLogoAdapter mediaLogoAdapter = (MediaLogoAdapter) recyclerView.getAdapter();
-        mediaLogoAdapter.update(companies);
-        mediaLogoAdapter.notifyDataSetChanged();
-    }
-
-    public void waitCompanies() {
-        progressBar.setVisibility(View.VISIBLE);
-        recyclerView.setVisibility(View.GONE);
     }
 }

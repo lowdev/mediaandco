@@ -23,12 +23,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import eu.entropy.mediapedia.company.Company;
-import eu.entropy.mediapedia.company.CompanyRepository;
-import eu.entropy.mediapedia.company.CompanyRepositoryFactory;
-import eu.entropy.mediapedia.company.CompanySpecification;
 import eu.entropy.mediapedia.company.MediaType;
 import eu.entropy.mediapedia.utils.AppContext;
 
@@ -43,10 +39,9 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle drawerToggle;
 
     private SharedPreferences preferences;
-    private MediaFragment mediaFragment;
-    private List<Company> companies;
+    private MediaType mediaType;
 
-    private CompanyRepository companyRepository;
+    private MediaFragment mediaFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,25 +50,17 @@ public class MainActivity extends AppCompatActivity {
         setupToolbar();
         setupAppContext();
 
+        this.mediaType = MediaType.TV;
         this.preferences = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-        this.companyRepository = CompanyRepositoryFactory.get();
-
-        this.companies = companyRepository.findAll(CompanySpecification.builder()
-                .country(getCountryMedia())
-                .mediaType(MediaType.TV)
-                .build());
-        this.mediaFragment = MediaFragment.newInstance(this.companies);
+        this.mediaFragment = MediaFragment.newInstance(new ArrayList<Company>());
         getSupportFragmentManager().beginTransaction().replace(
                 R.id.flContent, this.mediaFragment).commit();
 
+        loadCompany(MediaType.TV, null);
+
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = new ActionBarDrawerToggle(
-                this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close) {
-            public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-                updateCompanies();
-            }
-        };
+                this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
 
         mDrawer.setDrawerListener(drawerToggle);
 
@@ -83,6 +70,11 @@ public class MainActivity extends AppCompatActivity {
         setTitle("Television");
 
         setupSpinner();
+    }
+
+    private void loadCompany(MediaType mediaType, String query) {
+        CompanyLoader.newInstance(this, this.mediaFragment).execute(
+                getCountryMedia(), mediaType.name(), query);
     }
 
     @Override
@@ -100,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                search(query);
+                loadCompany(MediaType.NONE, query);
                 return true;
             }
 
@@ -111,15 +103,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         return true;
-    }
-
-    private void search(String query) {
-        this.companies = companyRepository.findAll(CompanySpecification.builder()
-                .country(getCountryMedia())
-                .mediaType(MediaType.TV)
-                .query(query)
-                .build());
-        updateCompanies();
     }
 
     @Override
@@ -158,35 +141,24 @@ public class MainActivity extends AppCompatActivity {
     public void selectDrawerItem(MenuItem menuItem) {
         switch(menuItem.getItemId()) {
             case R.id.nav_television_fragment:
-                this.companies = companyRepository.findAll(CompanySpecification.builder()
-                        .mediaType(MediaType.TV)
-                        .country(getCountryMedia())
-                        .build());
+                mediaType = MediaType.TV;
                 break;
             case R.id.nav_paper_fragment:
-                this.companies = companyRepository.findAll(CompanySpecification.builder()
-                        .mediaType(MediaType.PAPER)
-                        .country(getCountryMedia())
-                        .build());
+                mediaType = MediaType.PAPER;
                 break;
             case R.id.nav_radio_fragment:
-                this.companies = companyRepository.findAll(CompanySpecification.builder()
-                        .mediaType(MediaType.RADIO)
-                        .country(getCountryMedia())
-                        .build());
+                mediaType = MediaType.RADIO;
                 break;
             default:
-                this.companies = new ArrayList<>();
+                mediaType = MediaType.NONE;
         }
+
+        loadCompany(mediaType, null);
 
         menuItem.setChecked(true);
         setTitle(menuItem.getTitle());
 
         mDrawer.closeDrawers();
-    }
-
-    public void updateCompanies() {
-        mediaFragment.updateView(companies);
     }
 
     private void setupAppContext() {
@@ -219,6 +191,8 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString(COUNTRY_MEDIA, text.toLowerCase());
                 editor.commit();
+
+                loadCompany(mediaType, null);
             }
 
             @Override

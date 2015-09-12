@@ -25,18 +25,6 @@ public class CompanySpecification {
         this.ids = builder.ids;
     }
 
-    public String getCountry() {
-        return country;
-    }
-
-    public MediaType getMediaType() {
-        return mediaType;
-    }
-
-    public String getQuery() {
-        return query;
-    }
-
     public String getClause() {
         List<String> conditions = new ArrayList<>();
         if (null != country) {

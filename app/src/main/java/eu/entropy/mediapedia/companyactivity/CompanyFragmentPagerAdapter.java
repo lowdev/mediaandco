@@ -20,18 +20,19 @@ public class CompanyFragmentPagerAdapter extends FragmentStatePagerAdapter {
     private List<String> tabTitles = new ArrayList<>(3);
     private Map<String, Fragment> titleToFragment = new HashMap<>();
 
-    public CompanyFragmentPagerAdapter(FragmentManager fm, Company company, List<Stakeholder> owners,
-                                       List<Stakeholder> assets) {
+    public CompanyFragmentPagerAdapter(FragmentManager fm, Company company) {
         super(fm);
 
         titleToFragment.put(TITLE_INFO, InformationFragment.newInstance(company));
         tabTitles.add(TITLE_INFO);
 
+        Map<String, Double> owners = company.getOwners();
         if(!owners.isEmpty()) {
             titleToFragment.put(TITLE_OWNERS, CompaniesFragment.newInstance(owners));
             tabTitles.add(TITLE_OWNERS);
         }
 
+        Map<String, Double> assets = company.getAssets();
         if(!assets.isEmpty()) {
             titleToFragment.put(TITLE_ASSETS, CompaniesFragment.newInstance(assets));
             tabTitles.add(TITLE_ASSETS);

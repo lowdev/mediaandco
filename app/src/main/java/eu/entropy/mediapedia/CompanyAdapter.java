@@ -19,11 +19,11 @@ import eu.entropy.mediapedia.utils.OnRecyclerViewItemClickListener;
 
 public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHolder> implements View.OnClickListener {
 
-    private List<Stakeholder> companies;
+    private List<Stakeholder> stakeholders;
     private OnRecyclerViewItemClickListener<Stakeholder> itemClickListener;
 
-    public CompanyAdapter(List<Stakeholder> companies) {
-        this.companies = companies;
+    public CompanyAdapter(List<Stakeholder> stakeholders) {
+        this.stakeholders = stakeholders;
         this.itemClickListener = new OnRecyclerViewItemClickListener<Stakeholder>() {
             @Override public void onItemClick(View view, Stakeholder company) {}
         };
@@ -38,7 +38,7 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(CompanyAdapter.ViewHolder holder, int position) {
-        Stakeholder company = companies.get(position);
+        Stakeholder company = stakeholders.get(position);
         holder.companyName.setText(company.getName());
         String logo = company.getLogo();
 
@@ -64,7 +64,7 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return companies.size();
+        return stakeholders.size();
     }
 
     @Override
@@ -75,6 +75,10 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
 
     public void setOnItemClickListener(OnRecyclerViewItemClickListener<Stakeholder> listener) {
         this.itemClickListener = listener;
+    }
+
+    public void update(List<Stakeholder> stakeholders) {
+        this.stakeholders = stakeholders;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -97,7 +101,7 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
         @Override
         public void onClick(View v) {
             if (itemClickListener != null) {
-                Stakeholder company = companies.get(getPosition());
+                Stakeholder company = stakeholders.get(getPosition());
                 itemClickListener.onItemClick(v, company);
             }
         }
