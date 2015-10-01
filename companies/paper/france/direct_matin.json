@@ -1,0 +1,11 @@
+{
+  "name" : "direct_matin",
+  "corporateName" : "Direct matin",
+  "country" : "france",
+  "mediaType" : "paper",
+  "logo" : "https://upload.wikimedia.org/wikipedia/fr/a/ac/Logo_direct_matin.png",
+  "owners" : {
+	"bollore_group" : 70,
+    "groupe_le_monde" : 30
+  }
+}

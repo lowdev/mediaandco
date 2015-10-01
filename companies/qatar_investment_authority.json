@@ -1,0 +1,14 @@
+{
+  "name" : "qatar_investment_authority",
+  "corporateName" : "Qatar Investment Authority",
+  "logo" : "https://upload.wikimedia.org/wikipedia/en/f/f4/Qatar-investment-authority-logo.jpg",
+  "assets" : {
+    "lagardere_sca" : 12.8
+  },
+  "revenue" : {
+	"value" : "170",
+	"unit" : "bimillion",
+	"currency" : "$",
+	"year" : "2013"
+  }
+}

@@ -7,6 +7,10 @@
   "owners" :  {
     "groupe_tf1" : 100
   },
-  "revenue" : "10",
-  "unit" : "millions"
+  "revenue" : {
+	"value" : "10",
+	"unit" : "millions",
+	"currency" : "€",
+	"year" : "2013"
+  }
 }

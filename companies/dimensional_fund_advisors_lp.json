@@ -1,0 +1,8 @@
+{
+  "name" : "dimensional_fund_advisors_lp",
+  "corporateName" : "Dimensional Fund Advisors LP",
+  "logo" : "https://upload.wikimedia.org/wikipedia/en/b/b1/DFA_Universal_Color_logo_2010_outlines.png",
+  "assets" : {
+    "lagardere_sca" : 2.10
+  }
+}

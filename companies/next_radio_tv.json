@@ -5,5 +5,9 @@
   "owners" :  {
     "alain_weill" : 37.7,
 	"principaute_de_monaco" : 3.3
+  },
+  "assets" : {
+	"rmc" : 99.9,
+	"bfm_tv" : 100
   }
 }

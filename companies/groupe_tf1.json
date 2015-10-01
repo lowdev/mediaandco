@@ -17,6 +17,10 @@
     "eurosport_france" : 100,
     "eurosport_2_france" : 100
   },
-  "revenue" : "2,470",
-  "unit" : "billion"
+  "revenue" : {
+	"value" : "2.622",
+	"unit" : "billion",
+	"currency" : "€",
+	"year" : "2010"
+  }
 }

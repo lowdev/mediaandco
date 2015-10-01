@@ -3,9 +3,16 @@
   "corporateName" : "Bollore Group",
   "logo" : "https://upload.wikimedia.org/wikipedia/fr/thumb/4/4f/Logo-Bollore.svg/320px-Logo-Bollore.svg.png",
   "assets" :  {
-    "vivendi" : 14.52
+    "vivendi" : 14.52,
+	"direct_matin" : 70
   },
   "owners" : {
 	"sofibol" : 100
+  },
+  "revenue" : {
+	"value" : "10.8",
+	"unit" : "billion",
+	"currency" : "€",
+	"year" : "2013"
   }
 }

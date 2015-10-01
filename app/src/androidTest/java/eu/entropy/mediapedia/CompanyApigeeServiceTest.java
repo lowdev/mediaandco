@@ -15,7 +15,8 @@ public class CompanyApigeeServiceTest {
                 .build();
 
         CompanyApigeeService2 service = restAdapter.create(CompanyApigeeService2.class);
-        ApigeeCompanyResult result = service.findAll(1, "mediatype='tv'");
+        //ApigeeCompanyResult result = service.findAll(1, "mediatype='tv'");
+        ApigeeCompanyResult result = service.findById("france2");
         result.getEntities();
     }
 

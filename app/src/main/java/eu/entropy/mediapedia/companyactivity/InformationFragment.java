@@ -14,6 +14,7 @@ import com.squareup.picasso.RequestCreator;
 
 import eu.entropy.mediapedia.R;
 import eu.entropy.mediapedia.company.Company;
+import eu.entropy.mediapedia.company.Revenue;
 
 public class InformationFragment extends Fragment {
     public static final String ARG_PAGE = "company";
@@ -31,10 +32,12 @@ public class InformationFragment extends Fragment {
     private Company company;
 
     private ImageView imageView;
-    private TextView revenueView;
-    private TextView unitView;
     private TextView ownersView;
     private TextView assetsView;
+    private TextView valueView;
+    private TextView unitView;
+    private TextView currencyView;
+    private TextView yearView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,8 +48,8 @@ public class InformationFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View companiesListView = inflater.inflate(R.layout.fragment_information_view, container, false);
-        imageView = (ImageView) companiesListView.findViewById(R.id.image);
+        View informationView = inflater.inflate(R.layout.fragment_information_view, container, false);
+        imageView = (ImageView) informationView.findViewById(R.id.image);
 
         String logo = company.getLogo();
 
@@ -63,22 +66,28 @@ public class InformationFragment extends Fragment {
                 .fit()
                 .into(imageView);
 
-        String revenue = company.getRevenue();
-        if (!Strings.isNullOrEmpty(revenue)) {
-            companiesListView.findViewById(R.id.revenueLabel).setVisibility(View.VISIBLE);
-            revenueView = (TextView) companiesListView.findViewById(R.id.revenue);
-            revenueView.setText(revenue);
+        Revenue revenue = company.getRevenue();
+        if (null != revenue) {
+            informationView.findViewById(R.id.revenue).setVisibility(View.VISIBLE);
+            valueView = (TextView) informationView.findViewById(R.id.value);
+            valueView.setText(revenue.getValue());
 
-            unitView = (TextView) companiesListView.findViewById(R.id.unit);
-            unitView.setText(company.getUnit());
+            unitView = (TextView) informationView.findViewById(R.id.unit);
+            unitView.setText(revenue.getUnit());
+
+            currencyView = (TextView) informationView.findViewById(R.id.currency);
+            currencyView.setText(revenue.getCurrency());
+
+            yearView = (TextView) informationView.findViewById(R.id.year);
+            yearView.setText(String.format("(%s)", revenue.getYear()));
         }
 
-        ownersView = (TextView) companiesListView.findViewById(R.id.owners);
+        ownersView = (TextView) informationView.findViewById(R.id.owners);
         ownersView.setText(Integer.toString(company.getOwners().size()));
 
-        assetsView = (TextView) companiesListView.findViewById(R.id.assets);
+        assetsView = (TextView) informationView.findViewById(R.id.assets);
         assetsView.setText(Integer.toString(company.getAssets().size()));
 
-        return companiesListView;
+        return informationView;
     }
 }

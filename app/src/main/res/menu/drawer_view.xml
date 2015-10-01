@@ -16,6 +16,7 @@
             android:title="Newspaper" />
     </group>
 
+    <!--
     <group android:id="@+id/nav_other_group">
         <item
             android:id="@+id/nav_settings_fragment"
@@ -24,4 +25,5 @@
             android:id="@+id/nav_help_fragment"
             android:title="Help and Feedback" />
     </group>
+    -->
 </menu>

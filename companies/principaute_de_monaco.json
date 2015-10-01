@@ -3,6 +3,7 @@
   "corporateName" : "Principauté de Monaco",
   "logo" : "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Flag_of_Monaco.svg/300px-Flag_of_Monaco.svg.png",
   "assets" :  {
-    "next_radio_tv" : 3.3
+    "next_radio_tv" : 3.3,
+	"rmc" : 0.1
   }
 }

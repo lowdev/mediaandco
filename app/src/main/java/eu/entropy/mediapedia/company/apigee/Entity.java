@@ -30,9 +30,7 @@ public class Entity {
     @Expose
     private Map<String, Double>  assets;
     @Expose
-    private String revenue;
-    @Expose
-    private String unit;
+    private ApigeeRevenue revenue;
 
     /**
      *
@@ -237,7 +235,7 @@ public class Entity {
      * @return
      * The revenue
      */
-    public String getRevenue() {
+    public ApigeeRevenue getRevenue() {
         return revenue;
     }
 
@@ -246,16 +244,8 @@ public class Entity {
      * @param revenue
      * The revenue
      */
-    public void setRevenue(String revenue) {
+    public void setRevenue(ApigeeRevenue revenue) {
         this.revenue = revenue;
-    }
-
-    public String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
     }
 
     public String getMediaType() {

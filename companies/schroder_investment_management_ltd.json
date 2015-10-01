@@ -1,0 +1,14 @@
+{
+  "name" : "schroder_investment_management_ltd",
+  "corporateName" : "Schroder Investment Management LTD",
+  "logo" : "https://upload.wikimedia.org/wikipedia/en/thumb/d/d5/Schroders.svg/168px-Schroders.svg.png",
+  "assets" : {
+    "lagardere_sca" : 2.00
+  },
+  "revenue" : {
+	"value" : "1,914.7",
+	"unit" : "million",
+	"currency" : "£",
+	"year" : "2014"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name" : "metro",
+  "corporateName" : "Metro",
+  "country" : "france",
+  "mediaType" : "paper",
+  "logo" : "https://upload.wikimedia.org/wikipedia/fr/thumb/d/db/Logo_Metro.svg/187px-Logo_Metro.svg.png",
+  "owners" : {
+    "groupe_tf1" : 100
+  }
+}

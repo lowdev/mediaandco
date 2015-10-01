@@ -3,12 +3,12 @@ package eu.entropy.mediapedia.company.apigee;
 import com.google.common.base.Function;
 import com.google.common.collect.FluentIterable;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import eu.entropy.mediapedia.company.Company;
+import eu.entropy.mediapedia.company.Revenue;
 
 public class CompanyConverterService {
     public List<Company> fromApigeeCompanyResult(ApigeeCompanyResult apigeeCompanyResult) {
@@ -31,14 +31,21 @@ public class CompanyConverterService {
                 owners = new HashMap<>();
             }
 
+            Revenue revenue = Revenue.NONE;
+            ApigeeRevenue apigeeRevenue = entity.getRevenue();
+            if (null != apigeeRevenue) {
+                revenue = Revenue.builder()
+                        .value(apigeeRevenue.getValue()).unit(apigeeRevenue.getUnit())
+                        .currency(apigeeRevenue.getCurrency()).year(apigeeRevenue.getYear()).build();
+            }
+
             return Company.builder()
                     .id(entity.getName())
                     .logo(entity.getLogo())
                     .name(entity.getCorporateName())
                     .assets(assets)
                     .owners(owners)
-                    .revenue(entity.getRevenue())
-                    .unit(entity.getUnit())
+                    .revenue(revenue)
                     .build();
         }
     }

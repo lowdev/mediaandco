@@ -1,0 +1,11 @@
+{
+  "name" : "liberation",
+  "corporateName" : "Libération",
+  "country" : "france",
+  "mediaType" : "paper",
+  "logo" : "https://upload.wikimedia.org/wikipedia/en/thumb/e/e7/Logo_liberation.svg/320px-Logo_liberation.svg.png",
+  "owners" : {
+    "patrick_drahi" : 42.5,
+	"bruno_ledoux" : 42.5
+  }
+}

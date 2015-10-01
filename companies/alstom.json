@@ -1,5 +1,11 @@
 {
   "name" : "alstom",
   "corporateName" : "Alstom",
-  "logo" : "https://upload.wikimedia.org/wikipedia/fr/thumb/5/5f/Alstom.svg/192px-Alstom.svg.png"
+  "logo" : "https://upload.wikimedia.org/wikipedia/fr/thumb/5/5f/Alstom.svg/192px-Alstom.svg.png",
+  "revenue" : {
+	"value" : "21",
+	"unit" : "billion",
+	"currency" : "€",
+	"year" : "2011"
+  }
 }

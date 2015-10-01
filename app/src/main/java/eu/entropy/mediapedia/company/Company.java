@@ -10,10 +10,9 @@ public class Company implements Parcelable {
     private String id;
     private String name;
     private String logo;
-    private String revenue;
-    private String unit;
     private Map<String, Double> owners;
     private Map<String, Double> assets;
+    private Revenue revenue;
 
     public Company() {
         owners = new HashMap<>();
@@ -24,10 +23,33 @@ public class Company implements Parcelable {
         this.id = builder.id;
         this.name = builder.name;
         this.logo = builder.logo;
-        this.revenue = builder.revenue;
-        this.unit = builder.unit;
         this.owners = builder.owners;
         this.assets = builder.assets;
+        this.revenue = builder.revenue;
+    }
+
+    protected Company(Parcel in) {
+        id = in.readString();
+        name = in.readString();
+        logo = in.readString();
+        owners = in.readHashMap(Double.class.getClassLoader());
+        assets = in.readHashMap(Double.class.getClassLoader());
+        revenue = in.readParcelable(Revenue.class.getClassLoader());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(name);
+        dest.writeString(logo);
+        dest.writeMap(owners);
+        dest.writeMap(assets);
+        dest.writeParcelable(revenue, flags);
     }
 
     public String getId() {  return id; }
@@ -48,32 +70,12 @@ public class Company implements Parcelable {
         return assets;
     }
 
-    public String getUnit() {
-        return unit;
-    }
-
-    public String getRevenue() {
+    public Revenue getRevenue() {
         return revenue;
     }
 
     public boolean hasInformation() {
         return 0 != owners.size() + assets.size();
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(name);
-        dest.writeString(logo);
-        dest.writeMap(owners);
-        dest.writeMap(assets);
-        dest.writeString(revenue);
-        dest.writeString(unit);
     }
 
     // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
@@ -87,17 +89,6 @@ public class Company implements Parcelable {
         }
     };
 
-    // example constructor that takes a Parcel and gives you an object populated with it's values
-    protected Company(Parcel in) {
-        id = in.readString();
-        name = in.readString();
-        logo = in.readString();
-        owners = in.readHashMap(Double.class.getClassLoader());
-        assets = in.readHashMap(Double.class.getClassLoader());
-        revenue = in.readString();
-        unit = in.readString();
-    }
-
     public static Builder builder() {
         return new Builder();
     }
@@ -106,10 +97,9 @@ public class Company implements Parcelable {
         private String id;
         private String name;
         private String logo;
-        private String revenue;
-        private String unit;
         private Map<String, Double> owners = new HashMap<>();
         private Map<String, Double> assets = new HashMap<>();
+        private Revenue revenue;
 
         public Builder id(String id) {
             this.id = id;
@@ -126,16 +116,6 @@ public class Company implements Parcelable {
             return this;
         }
 
-        public Builder revenue(String revenue) {
-            this.revenue = revenue;
-            return this;
-        }
-
-        public Builder unit(String unit) {
-            this.unit = unit;
-            return this;
-        }
-
         public Builder assets(Map<String, Double> assets) {
             this.assets = assets;
             return this;
@@ -143,6 +123,11 @@ public class Company implements Parcelable {
 
         public Builder owners(Map<String, Double> owners) {
             this.owners = owners;
+            return this;
+        }
+
+        public Builder revenue(Revenue revenue) {
+            this.revenue = revenue;
             return this;
         }
 

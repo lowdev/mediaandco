@@ -10,5 +10,11 @@
 	"salaries" : 3.52,
 	"caisse_des_depots" : 3.46,
 	"amundi" : 2.38
+  },
+  "revenue" : {
+	"value" : "10.089",
+	"unit" : "billion",
+	"currency" : "€",
+	"year" : "2014"
   }
 }

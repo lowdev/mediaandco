@@ -12,5 +12,11 @@
     "colas" : 100,
     "bouygues_telecom" : 100,
     "alstom" : 50
+  },
+  "revenue" : {
+	"value" : "33.138",
+	"unit" : "billion",
+	"currency" : "€",
+	"year" : "2014"
   }
 }

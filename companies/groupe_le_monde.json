@@ -3,7 +3,8 @@
   "corporateName" : "Groupe le monde",
   "logo" : "https://upload.wikimedia.org/wikipedia/fr/2/2b/Le_monde_%28groupe%29_logo.jpeg",
   "assets" :  {
-    "le_monde" : 100
+    "le_monde" : 100,
+	"direct_matin" : 30
   },
   "owners" :  {
     "xavier_niel" : 33,

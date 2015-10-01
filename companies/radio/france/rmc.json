@@ -1,0 +1,11 @@
+{
+  "name" : "rmc",
+  "corporateName" : "RMC",
+  "country" : "france",
+  "mediaType" : "radio",
+  "logo" : "https://upload.wikimedia.org/wikipedia/fr/7/7e/Logo_RMC_2002.png",
+  "owners" : {
+    "next_radio_tv" : 99.9,
+	"principaute_de_monaco" : 0.1
+  }
+}

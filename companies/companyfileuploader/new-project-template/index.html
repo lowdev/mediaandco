@@ -9,6 +9,7 @@
     <body>
 		<input type="file" id="files" name="files[]" multiple />
 		<output id="list"></output>
+		<output id="counter"></output>
 	
 		<script>
 			/*
@@ -73,6 +74,7 @@
 								}
 							})
 						});
+						document.getElementById('list').innerHTML = "<span>" + index + "</span>";
 						readFile(index+1);
 					}
 					reader.readAsText(f, "UTF-8");
