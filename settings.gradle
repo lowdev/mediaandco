@@ -1,1 +1,1 @@
-include ':app', ':companyfileuploader'
+include ':app'

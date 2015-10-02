@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.common.base.Strings;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
@@ -49,6 +51,10 @@ public class InformationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View informationView = inflater.inflate(R.layout.fragment_information_view, container, false);
+        AdView mAdView = (AdView) informationView.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
         imageView = (ImageView) informationView.findViewById(R.id.image);
 
         String logo = company.getLogo();

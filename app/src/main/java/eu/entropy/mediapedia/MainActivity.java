@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(
                 R.id.flContent, this.mediaFragment).commit();
 
-        loadCompany(MediaType.TV, null);
+        loadMedia(MediaType.TV, null);
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = new ActionBarDrawerToggle(
@@ -72,9 +72,13 @@ public class MainActivity extends AppCompatActivity {
         setupSpinner();
     }
 
-    private void loadCompany(MediaType mediaType, String query) {
-        CompanyLoader.newInstance(this, this.mediaFragment).execute(
+    private void loadMedia(MediaType mediaType, String query) {
+        MediaLoader.newInstance(this, this.mediaFragment).execute(
                 getCountryMedia(), mediaType.name(), query);
+    }
+
+    private void loadCompany(String query) {
+        CompanyLoader.newInstance(this, this.mediaFragment).execute(query);
     }
 
     @Override
@@ -92,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                loadCompany(MediaType.NONE, query);
+                loadCompany(query);
                 return true;
             }
 
@@ -153,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                 mediaType = MediaType.NONE;
         }
 
-        loadCompany(mediaType, null);
+        loadMedia(mediaType, null);
 
         menuItem.setChecked(true);
         setTitle(menuItem.getTitle());
@@ -192,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
                 editor.putString(COUNTRY_MEDIA, text.toLowerCase());
                 editor.commit();
 
-                loadCompany(mediaType, null);
+                loadMedia(mediaType, null);
             }
 
             @Override
