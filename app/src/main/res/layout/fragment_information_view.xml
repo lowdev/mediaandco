@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="owners"
+            android:text="@string/owners"
             android:id="@+id/textView3"
             android:layout_row="0"
             android:layout_column="2" />
@@ -63,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="assets"
+            android:text="@string/assets"
             android:id="@+id/textView4"
             android:layout_row="1"
             android:layout_column="2" />
@@ -118,7 +118,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="revenue"
+            android:text="@string/revenue"
             android:layout_margin="1.5dp"
             android:id="@+id/revenueLabel"
             android:layout_row="0"

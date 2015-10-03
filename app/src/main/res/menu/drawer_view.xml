@@ -5,15 +5,15 @@
             android:id="@+id/nav_television_fragment"
             android:checked="true"
             android:icon="@drawable/ic_nav_tv"
-            android:title="Television" />
+            android:title="@string/television" />
         <item
             android:id="@+id/nav_radio_fragment"
             android:icon="@drawable/ic_nav_radio"
-            android:title="Radio" />
+            android:title="@string/radio" />
         <item
             android:id="@+id/nav_paper_fragment"
             android:icon="@drawable/ic_nav_newspaper"
-            android:title="Newspaper" />
+            android:title="@string/newspaper" />
     </group>
 
     <!--
